@@ -11,7 +11,7 @@ WooCommerce BuddyPress Integration xProfile Checkout Manager
 
 == Description ==
 
-This is the WooCommerce BuddyPress Integration xProfile Checkout Extension. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WC4BP plugin installed for the extension to work. <a href="http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" target="_blank">Get WC4BP now!</a>
+This is the WooCommerce BuddyPress Integration xProfile Checkout extension. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WC4BP plugin installed for the extension to work. <a href="http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" target="_blank">Get WC4BP now!</a>
 
 What the plugin does:
 Add your BuddyPress Member Profile Fields into the WooCommerce Checkout.
@@ -23,7 +23,7 @@ BuddyPress xProfile Fields Checkout Integration Options:
  - Add to order emails
  - Display field value on the order edit page
 
-With this Plugin you need no other WooCommerce Checkout Manager. Use the BuddyPress User Field with many different field types to create individual checkout forms.
+With this plugin you need no other WooCommerce Checkout manager. Use the BuddyPress User Field with many different field types to create individual checkout forms.
 
 BuddyPress Default Field Types:
 
@@ -56,7 +56,7 @@ See Buddypress Xprofile Custom Fields Type: https://wordpress.org/plugins/buddyp
 
 All code is neat, clean and well documented (inline as well as in the documentation).
 
-See the Documentation https://themekraft.zendesk.com/hc/en-us/categories/200005301-WooCommerce-BuddyPress-Integration
+See the documentation https://themekraft.zendesk.com/hc/en-us/categories/200005301-WooCommerce-BuddyPress-Integration
 
 If you still get stuck somewhere, our support gets you back on the right track.
 You can find all help buttons in your WC4BP Settings Panel in your WP Dashboard!
@@ -69,7 +69,7 @@ If you still miss something, let us know!
 
 == Installation ==
 
-You can download and install WC4BP xProfile using the built in WordPress plugin installer. If you download WC4BP xProfile manually,
+You can download and install WC4BP xProfile using the build in WordPress plugin installer. If you download WC4BP xProfile manually,
 make sure it is uploaded to "/wp-content/plugins/wc4bp-xprofile/".
 
 Activate WC4BP xProfile in the "Plugins" admin panel using the "Activate" link.
