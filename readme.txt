@@ -1,4 +1,4 @@
-=== WooCommerce BuddyPress Integration xProfile Checkout Manager ===
+=== WC4BP Checkout Manager ===
 Contributors: svenl77
 Tags: buddypress, woocommerce, user, members, profiles, checkout, xprodile, ecommerce
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
@@ -84,6 +84,12 @@ When is it the right choice for you?
 If you run BuddyPress and WooCommerce together ynd want to adjust the WooCommerce Checkout
 
 == Screenshots ==
+
+1. **Manage BuddyPress xProfile Fields** - Add BuddyPress xProfile user fields to the WooCommerce checkout
+
+2. **Manage WooCommerce Customer Fields** - Remove WooCommerce fields from the checkout
+
+3. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
 

@@ -85,7 +85,6 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 
                 <?php if($group->name == 'Billing Address' || $group->name == 'Shipping Address') { ?>
                     <h3><?php echo $group->name ?> WooCommerce fields are already in the checkout and get synced with BuddyPress.</h3>
-                    <p>If you want to manage your WooCommerce Checkout fields, use a plugin like <a target="_blank" href="https://wordpress.org/plugins/woocommerce-checkout-manager/">WooCommerce Checkout Manager</a></p>
                 <?php } ?>
 
                 <fieldset id="<?php echo $group->id; ?>" class="field-group">
