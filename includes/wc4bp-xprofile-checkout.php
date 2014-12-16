@@ -150,7 +150,7 @@ function wc4bp_custom_checkout_field_display_admin_order_meta($order){
 /**
  * Add the field to order emails
  **/
-add_filter('woocommerce_email_order_meta_keys', 'wc4bp_custom_checkout_field_order_meta_keys');
+add_filter('woocommerce_email_order_meta_keys', 'wc4bp_checkout_field_order_meta_keys');
 
 function wc4bp_checkout_field_order_meta_keys( $keys ) {
 
