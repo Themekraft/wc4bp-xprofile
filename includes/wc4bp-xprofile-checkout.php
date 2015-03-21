@@ -7,8 +7,10 @@ add_action( 'woocommerce_after_order_notes', 'wc4bp_custom_checkout_field' );
 
 function wc4bp_custom_checkout_field( $checkout ) {
     global $field;
-    $bf_xprofile_options = get_option('bf_xprofile_options');
 
+    $bf_xprofile_options    = get_option('bf_xprofile_options');
+    $shipping               = bp_get_option( 'wc4bp_shipping_address_ids' );
+    $billing                = bp_get_option( 'wc4bp_billing_address_ids'  );
 
     foreach( $bf_xprofile_options as $group_id => $fields){
         echo '<div class="standard-form" id="wc4bp_custom_checkout_field">';
@@ -16,6 +18,9 @@ function wc4bp_custom_checkout_field( $checkout ) {
         $display_group_name = true;
 
         foreach($fields as $field_id => $field){
+
+            if( array_search( $field['field_id'], $billing ) || array_search( $field['field_id'], $shipping) )
+                continue;
 
             if( isset($field['checkout']) ){
                 if( $display_group_name ){
@@ -31,6 +36,7 @@ function wc4bp_custom_checkout_field( $checkout ) {
 
             }
 
+
         }
         echo '</div>';
     }
@@ -44,18 +50,23 @@ add_action('woocommerce_checkout_process', 'wc4bp_custom_checkout_field_process'
 
 function wc4bp_custom_checkout_field_process() {
 
-    $bf_xprofile_options = get_option('bf_xprofile_options');
+    $bf_xprofile_options    = get_option('bf_xprofile_options');
+    $shipping               = bp_get_option( 'wc4bp_shipping_address_ids' );
+    $billing                = bp_get_option( 'wc4bp_billing_address_ids'  );
 
     foreach( $bf_xprofile_options as $group_id => $fields){
 
         foreach($fields as $field_id => $field){
 
-            if( isset($field['checkout']) ){
+            if( array_search( $field['field_id'], $billing ) || array_search( $field['field_id'], $shipping) )
+                continue;
 
-                $field_slug = sanitize_title('field_'.$field_id);
+            if (isset($field['checkout'])) {
 
-                if( $field['field_is_required'] && ! $_POST[$field_slug] )
-                    wc_add_notice( __( 'Please enter something into this new shiny field.' ), 'error' );
+                $field_slug = sanitize_title('field_' . $field_id);
+
+                if ($field['field_is_required'] && !$_POST[$field_slug])
+                    wc_add_notice(__('Please enter something into this new shiny field.'), 'error');
 
             }
 
@@ -184,16 +195,22 @@ function wc4bp_custom_override_checkout_fields( $fields ) {
 
     $bf_xprofile_options = get_option('bf_xprofile_options');
 
+    $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
+    $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
+
     foreach( $bf_xprofile_options as $group_id => $bf_fields){
 
-        foreach($bf_fields as $field_id => $field){
+        foreach($bf_fields as $bf_field_id => $bf_field){
 
-            if( isset($field['hide']) ){
-                $group_name = explode(' ', $field['group_name']);
-                $field_name = str_replace(" ", "_", $field['field_name']);
+            if( isset($bf_field['hide']) ){
 
-                $group_name  = sanitize_title($group_name[0]);
+                if( array_search( $bf_field_id, $billing ) )
+                    $group_name = 'billing';
 
+                if( array_search( $bf_field_id, $shipping) )
+                    $group_name = 'shipping';
+
+                $field_name = str_replace(" ", "_", $bf_field['field_name']);
                 $field_name = sanitize_title($group_name.'_'.$field_name);
 
                 unset($fields[$group_name][$field_name]);

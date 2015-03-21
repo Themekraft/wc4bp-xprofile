@@ -140,6 +140,8 @@ function buddyforms_xprofile_admin_field( $admin_field, $admin_group, $class = '
     global $field;
 
     $bf_xprofile_options = get_option('bf_xprofile_options');
+    $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
+    $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
     $field = $admin_field; ?>
 
@@ -155,17 +157,15 @@ function buddyforms_xprofile_admin_field( $admin_field, $admin_group, $class = '
                 <input type="hidden" value="<?php echo $field->is_required; ?>" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][field_is_required]">
                 <input type="hidden" value="<?php echo $field->description; ?>" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][description]">
 
-        <?php if($admin_group->name == 'Billing Address' || $admin_group->name == 'Shipping Address') { ?>
+                <?php if( array_search( $field->id, $billing ) || array_search( $field->id, $shipping) ) { ?>
+                    <p>WooCommerce default field - Automatically Synced with BuddyPress</p>
+                    Remove from Checkout: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['hide']) ? checked('hide',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['hide']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][hide]" value="hide">
+                <?php } else { ?>
+                    Add to Checkout: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['checkout']) ? checked('checkout',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['checkout']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][checkout]" value="checkout">
+                    Add to order emails: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['email']) ? checked('email',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['email']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][email]" value="email">
+                    Display field value on the order edit page: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['order_edit']) ? checked('order_edit',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['order_edit']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][order_edit]" value="order_edit">
+                <?php } ?>
 
-            <p>WooCommerce default field - Automatically Synced with BuddyPress</p>
-            Remove from Checkout: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['hide']) ? checked('hide',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['hide']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][hide]" value="hide">
-        <?php } else { ?>
-
-            Add to Checkout: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['checkout']) ? checked('checkout',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['checkout']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][checkout]" value="checkout">
-            Add to order emails: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['email']) ? checked('email',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['email']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][email]" value="email">
-            Display field value on the order edit page: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['order_edit']) ? checked('order_edit',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['order_edit']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][order_edit]" value="order_edit">
-
-        <?php } ?>
 
             <a target="_blank" href="?page=bp-profile-setup&group_id=<?php echo $admin_group->id; ?>&field_id=<?php echo $field->id; ?>&mode=edit_field">Edit this field</a>
             </p>
