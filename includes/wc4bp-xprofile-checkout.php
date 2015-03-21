@@ -66,7 +66,7 @@ function wc4bp_custom_checkout_field_process() {
                 $field_slug = sanitize_title('field_' . $field_id);
 
                 if ($field['field_is_required'] && !$_POST[$field_slug])
-                    wc_add_notice(__('Please enter something into this new shiny field.'), 'error');
+                    wc_add_notice('<b>' . $field['field_name'] . ' </b>' . __('is a required field.'), 'error');
 
             }
 
