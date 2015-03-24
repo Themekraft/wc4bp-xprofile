@@ -3,7 +3,7 @@ Contributors: svenl77
 Tags: buddypress, woocommerce, user, members, profiles, checkout, xprodile, ecommerce
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.0, BuddyPress 2.x
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,12 @@ If you run BuddyPress and WooCommerce together ynd want to adjust the WooCommerc
 3. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+
+= 1.0.2 =
+spelling correction
+changed the xProfile option logic in the admin
+changed the sync logic
+Add the correct error message for the required fields
 
 = 1.0.1 =
 hook into wrong hook name wc4bp_custom_checkout_field_order_meta_keys. changed now to the correct wc4bp_checkout_field_order_meta_keys

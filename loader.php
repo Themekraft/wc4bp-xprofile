@@ -31,7 +31,7 @@ class WC4BP_xProfile {
     /**
      * @var string
      */
-    public $version = '1.0.1';
+    public $version = '1.0.2';
 
     /**
      * Initiate the class
