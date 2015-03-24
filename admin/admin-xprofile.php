@@ -27,7 +27,16 @@ function wc4bp_screen_xprofile() { ?>
             <div id="post-body" class="metabox-holder columns-2">
 
                 <?php if(isset($_POST['bf_xprofile_options']))
-                    update_option('bf_xprofile_options',$_POST['bf_xprofile_options']); ?>
+                    update_option('bf_xprofile_options',$_POST['bf_xprofile_options']);
+
+                if(isset($_POST['wc4bp_sync_mail'])){
+                    update_option('wc4bp_sync_mail',$_POST['wc4bp_sync_mail']);
+                } else {
+                    delete_option('wc4bp_sync_mail');
+                }
+
+                $wc4bp_sync_mail = get_option('wc4bp_sync_mail');
+                ?>
 
                 <form method="post" action="?page=wc4bp-options-page-xprofile">
                 <h2>WooCommerce BuddyPress Integration Settings</h2>
@@ -45,7 +54,20 @@ function wc4bp_screen_xprofile() { ?>
                         <div class="inside">
                             <div class="submitbox" id="submitpost">
 
-                               <div style="padding: 10px;"><input type="submit" value="Save" class="button"></div>
+                                <div style="padding: 10px;"><input type="submit" value="Save" class="button"></div>
+                                <div class="clear"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="submitdiv" class="postbox ">
+                        <div class="handlediv" title="Click to toggle"><br></div><h3><span>Email Address Synchronisation</span></h3>
+                        <div class="inside">
+                            <div class="submitbox" id="submitpost">
+                                <div style="padding: 10px;">
+                                    <p>Sync BuddyPress signup email address with WooCommerce billing email address</p>
+                                    <input type="checkbox" id="wc4bp_sync_mail" name="wc4bp_sync_mail" <?php checked('on', $wc4bp_sync_mail) ?>></div>
                                 <div class="clear"></div>
                             </div>
 

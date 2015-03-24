@@ -222,4 +222,33 @@ function wc4bp_custom_override_checkout_fields( $fields ) {
 
     return $fields;
 }
+
+// update the WooCommerce fields before xprofile_sync_wp_profile is called
+add_action( 'xprofile_updated_profile', 'wc4bp_signup_wp_profile_sync'   , 30, 1 );
+add_action( 'bp_core_signup_user', 'wc4bp_signup_wp_profile_sync'        , 30, 1 );
+add_action( 'bp_core_activated_user', 'wc4bp_signup_wp_profile_sync'     , 30, 1 );
+
+function wc4bp_signup_wp_profile_sync( $user_id ) {
+
+    $wc4bp_sync_mail = get_option('wc4bp_sync_mail');
+
+    if(empty($user_id))
+        return;
+
+    // get the profile fields
+    $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
+    $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
+
+    foreach($shipping as $key => $field_id){
+        wc4bp_sync_addresses_from_profile($user_id, $field_id, $_POST['field_' . $field_id ] );
+    }
+    foreach($billing as $key => $field_id){
+            wc4bp_sync_addresses_from_profile($user_id, $field_id, $_POST['field_' . $field_id ] );
+    }
+
+    if(isset($wc4bp_sync_mail)){
+        wc4bp_sync_addresses_from_profile($user_id, $billing['email'], $_POST[ 'signup_email' ] );
+    }
+
+}
 ?>
