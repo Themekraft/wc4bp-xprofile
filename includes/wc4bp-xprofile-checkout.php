@@ -17,25 +17,26 @@ function wc4bp_custom_checkout_field( $checkout ) {
 
         $display_group_name = true;
 
-        foreach($fields as $field_id => $field){
+        foreach($fields as $field_id => $field_attr){
 
-            if( array_search( $field['field_id'], $billing ) || array_search( $field['field_id'], $shipping) )
+            if( array_search( $field_id, $billing ) || array_search( $field_id, $shipping) )
                 continue;
 
-            if( isset($field['checkout']) ){
+            if( isset($field_attr['checkout']) ){
                 if( $display_group_name ){
-                    echo '<h2>' . $field['group_name'] . '</h2>';
+                    echo '<h2>' . $field_attr['group_name'] . '</h2>';
                     $display_group_name = false;
                 }
 
                 $field = new BP_XProfile_Field( $field_id );
 
-                echo '<div><p class="form-row">';
-                $field->type_obj->edit_field_html();
-                echo '</p></div>';
+                if(!empty($field->id)){
+                    echo '<div><p class="form-row">';
+                    $field->type_obj->edit_field_html();
+                    echo '</p></div>';
+                }
 
             }
-
 
         }
         echo '</div>';
