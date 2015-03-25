@@ -3,7 +3,7 @@ Contributors: svenl77
 Tags: buddypress, woocommerce, user, members, profiles, checkout, xprodile, ecommerce
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.0, BuddyPress 2.x
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,11 +93,17 @@ If you run BuddyPress and WooCommerce together ynd want to adjust the WooCommerc
 
 == Changelog ==
 
+= 1.0.3 =
+add an option to sync the signup mail with WooCommerce billing
+move function from the base plugin to the extension
+Add a check to recognise deleted options
+
 = 1.0.2 =
-spelling correction
+Add a new feature to add WooCommerce Checkout Fields to the BuddyPress Register Page
 changed the xProfile option logic in the admin
 changed the sync logic
 Add the correct error message for the required fields
+spelling correction
 
 = 1.0.1 =
 hook into wrong hook name wc4bp_custom_checkout_field_order_meta_keys. changed now to the correct wc4bp_checkout_field_order_meta_keys
