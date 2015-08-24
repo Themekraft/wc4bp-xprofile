@@ -13,35 +13,106 @@ function wc4bp_custom_checkout_field( $checkout ) {
     $billing                = bp_get_option( 'wc4bp_billing_address_ids'  );
 
     foreach( $bf_xprofile_options as $group_id => $fields){
-        echo '<div class="standard-form" id="wc4bp_custom_checkout_field">';
 
+        $group_fields_included = 0;
         $display_group_name = true;
 
         foreach($fields as $field_id => $field_attr){
 
-            if( array_search( $field_id, $billing ) || array_search( $field_id, $shipping) )
+            if( ( ! empty( $billing ) && array_search( $field_id, $billing )) || ( ! empty( $shipping ) && array_search( $field_id, $shipping) ) )
                 continue;
 
             if( isset($field_attr['checkout']) ){
-                if( $display_group_name ){
-                    echo '<h2>' . $field_attr['group_name'] . '</h2>';
-                    $display_group_name = false;
-                }
-
                 $field = new BP_XProfile_Field( $field_id );
 
                 if(!empty($field->id)){
-                    echo '<div><p class="form-row">';
+                    if( $group_fields_included == 0 ) {
+                        echo '<div class="wc4bp_custom_checkout_fields_group" id="wc4bp_checkout_field_group_'.$group_id.'">';
+                    }
+                    if( $display_group_name ){
+                        echo '<h4>' . $field_attr['group_name'] . ' INFORMATION</h4>';
+                        $display_group_name = false;
+                    }
+                    $row_class = 'form-row';
+                    if ($field->is_required) {
+                        $row_class .= ' validate-required';
+                    }
+                    if ($field->type_obj instanceof Bxcft_Field_Type_Email) {
+                        $row_class .= ' validate-email';
+                    }
+                    if ($field->type_obj instanceof Bxcft_Field_Type_Web) {
+                        $row_class .= ' validate-url';
+                    }
+                    echo '<p class="'.$row_class.'">';
                     $field->type_obj->edit_field_html();
-                    echo '</p></div>';
+                    echo '</p>';
+                    $group_fields_included++;
                 }
 
             }
 
         }
-        echo '</div>';
+        if( $group_fields_included > 0 ) {
+            echo '</div>';
+        }
     }
 
+}
+
+/**
+ * Update the field for the checkout to include Woocommerce classes and pattern
+ */
+add_filter('bp_xprofile_field_edit_html_elements', 'wc4bp_woo_class_for_xprofile_checkout_fields');
+
+function wc4bp_woo_class_for_xprofile_checkout_fields($elements) {
+    if (is_checkout() && array_key_exists('type', $elements)) {
+        switch($elements['type']) {
+            case 'select':
+            case 'multiselect':
+            case 'multiple':
+                $class = 'select';
+                break;
+            case 'checkbox':
+                $class = 'input-checkbox';
+                break;
+            case 'radio':
+                $class = 'input-radio';
+                break;
+            case 'day':
+            case 'month':
+            case 'year':
+            case 'date':
+            case 'color':
+            case 'file':
+            case 'number':
+            case 'text':
+            case 'textbox':
+            case 'textarea':
+            case 'tel':
+            case 'phone':
+            case 'email':
+            case 'mail':
+            case 'url':
+            case 'web':
+            default:
+                $class = 'input-text';
+        }
+        if (array_key_exists('class', $elements) && ! empty($elements['class'])) {
+            $elements['class'] .= ' ' . $class;
+        } else {
+            $elements['class'] = $class;
+        }
+    }
+    return $elements;
+}
+
+/**
+ * Add Javascript to replace Buddypress (required) with Woocommerce required asterisk (*)
+ */
+add_action('woocommerce_after_checkout_form', 'wc4bp_woo_replace_required_for_xprofile_checkout_fields');
+
+function wc4bp_woo_replace_required_for_xprofile_checkout_fields() {
+    echo '<script>jQuery(document).ready(function($){$(".wc4bp_custom_checkout_fields_group label").each(function(i){$(this).html($(this).html().replace("(required)","<abbr class=\"required\" title=\"required\">*</abbr>"));});});</script>';
 }
 
 /**
