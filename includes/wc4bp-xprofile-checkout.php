@@ -311,14 +311,19 @@ function wc4bp_signup_wp_profile_sync( $user_id ) {
     $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
     $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
-    foreach($shipping as $key => $field_id){
-        wc4bp_sync_addresses_from_profile($user_id, $field_id, $_POST['field_' . $field_id ] );
-    }
-    foreach($billing as $key => $field_id){
+    if ( ! empty( $shipping ) ) {
+        foreach($shipping as $key => $field_id){
             wc4bp_sync_addresses_from_profile($user_id, $field_id, $_POST['field_' . $field_id ] );
+        }
     }
 
-    if(isset($wc4bp_sync_mail)){
+    if ( ! empty( $billing ) ) {
+        foreach($billing as $key => $field_id){
+                wc4bp_sync_addresses_from_profile($user_id, $field_id, $_POST['field_' . $field_id ] );
+        }
+    }
+
+    if( ! empty( $wc4bp_sync_mail ) && ! empty( $billing ) ) {
         wc4bp_sync_addresses_from_profile($user_id, $billing['email'], $_POST[ 'signup_email' ] );
     }
 
