@@ -1,5 +1,5 @@
 === WC4BP Checkout Manager ===
-Contributors: svenl77
+Contributors: svenl77, kishores
 Tags: buddypress, woocommerce, user, members, profiles, checkout, xprodile, ecommerce
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.3.1, BuddyPress 2.4
