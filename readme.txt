@@ -2,8 +2,8 @@
 Contributors: svenl77
 Tags: buddypress, woocommerce, user, members, profiles, checkout, xprodile, ecommerce
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
-Tested up to: WordPress 4.0, BuddyPress 2.x
-Stable tag: 1.0.3
+Tested up to: WordPress 4.3.1, BuddyPress 2.4
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,11 @@ If you run BuddyPress and WooCommerce together ynd want to adjust the WooCommerc
 3. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+
+= 1.1 =
+fixed the empty array issues props to Kishore
+Improved Integration with Woocommerce props to Garrett
+fixed all bugs reported by users.
 
 = 1.0.3 =
 add an option to sync the signup mail with WooCommerce billing
