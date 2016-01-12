@@ -2,8 +2,8 @@
 Contributors: svenl77
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
-Tested up to: WordPress 4.3.1, BuddyPress 2.4
-Stable tag: 1.1
+Tested up to: WordPress 4.4.1, BuddyPress 2.4
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,7 +66,6 @@ You can find all help buttons in your WC4BP Settings Panel in your WP Dashboard!
 If you still miss something, let us know!
 
 
-
 == Installation ==
 
 You can download and install WC4BP xProfile using the build in WordPress plugin installer. If you download WC4BP xProfile manually,
@@ -81,7 +80,7 @@ You need the <a href="http://themekraft.com/store/woocommerce-buddypress-integra
 
 When is it the right choice for you?
 
-If you run BuddyPress and WooCommerce together ynd want to adjust the WooCommerce Checkout
+If you run BuddyPress and WooCommerce together and want to adjust the WooCommerce Checkout
 
 == Screenshots ==
 
@@ -93,9 +92,14 @@ If you run BuddyPress and WooCommerce together ynd want to adjust the WooCommerc
 
 == Changelog ==
 
+= 1.1.1 =
+Add some checks to avoid notice with undefined index.
+clean up the code
+Change name to WC4BP -> BuddyPress xProfile Checkout Manager
+
 = 1.1 =
 fixed the empty array issues props to Kishore
-Improved Integration with Woocommerce props to Garrett
+Improved Integration with WooCommerce props to Garrett
 fixed all bugs reported by users.
 
 = 1.0.3 =
