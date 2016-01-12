@@ -9,6 +9,13 @@ function wc4bp_custom_checkout_field( $checkout ) {
     global $field;
 
     $bf_xprofile_options    = get_option('bf_xprofile_options');
+
+    if(!isset($bf_xprofile_options))
+      return;
+
+    if(!is_array($bf_xprofile_options))
+      return;
+
     $shipping               = bp_get_option( 'wc4bp_shipping_address_ids' );
     $billing                = bp_get_option( 'wc4bp_billing_address_ids'  );
 
@@ -123,8 +130,15 @@ add_action('woocommerce_checkout_process', 'wc4bp_custom_checkout_field_process'
 function wc4bp_custom_checkout_field_process() {
 
     $bf_xprofile_options    = get_option('bf_xprofile_options');
-    $shipping               = bp_get_option( 'wc4bp_shipping_address_ids' );
-    $billing                = bp_get_option( 'wc4bp_billing_address_ids'  );
+
+    if(!isset($bf_xprofile_options))
+      return;
+
+    if(!is_array($bf_xprofile_options))
+      return;
+
+    $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
+    $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
     foreach( $bf_xprofile_options as $group_id => $fields){
 
@@ -157,6 +171,12 @@ function wc4bp_custom_checkout_field_update_user_meta( $user_id ) {
 
     $bf_xprofile_options = get_option('bf_xprofile_options');
 
+    if(!isset($bf_xprofile_options))
+      return;
+
+    if(!is_array($bf_xprofile_options))
+      return;
+
     foreach( $bf_xprofile_options as $group_id => $fields){
 
         foreach($fields as $field_id => $field){
@@ -184,6 +204,12 @@ add_action( 'woocommerce_checkout_update_order_meta', 'wc4bp_custom_checkout_fie
 function wc4bp_custom_checkout_field_update_order_meta( $order_id ) {
 
     $bf_xprofile_options = get_option('bf_xprofile_options');
+
+    if(!isset($bf_xprofile_options))
+      return;
+
+    if(!is_array($bf_xprofile_options))
+      return;
 
     foreach( $bf_xprofile_options as $group_id => $fields){
 
@@ -213,6 +239,12 @@ function wc4bp_custom_checkout_field_display_admin_order_meta($order){
 
     $bf_xprofile_options = get_option('bf_xprofile_options');
 
+    if(!isset($bf_xprofile_options))
+      return;
+
+    if(!is_array($bf_xprofile_options))
+      return;
+
     foreach( $bf_xprofile_options as $group_id => $fields){
 
         foreach($fields as $field_id => $field){
@@ -236,9 +268,13 @@ function wc4bp_custom_checkout_field_display_admin_order_meta($order){
 add_filter('woocommerce_email_order_meta_keys', 'wc4bp_checkout_field_order_meta_keys');
 
 function wc4bp_checkout_field_order_meta_keys( $keys ) {
-
-
     $bf_xprofile_options = get_option('bf_xprofile_options');
+
+    if(!isset($bf_xprofile_options))
+      return $keys;
+
+    if(!is_array($bf_xprofile_options))
+      return $keys;
 
     foreach( $bf_xprofile_options as $group_id => $fields){
 
@@ -266,6 +302,12 @@ add_filter( 'woocommerce_checkout_fields' , 'wc4bp_custom_override_checkout_fiel
 function wc4bp_custom_override_checkout_fields( $fields ) {
 
     $bf_xprofile_options = get_option('bf_xprofile_options');
+
+    if(!isset($bf_xprofile_options))
+      return $fields;
+
+    if(!is_array($bf_xprofile_options))
+      return $fields;
 
     $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
     $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );

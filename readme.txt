@@ -1,6 +1,6 @@
-=== WC4BP Checkout Manager ===
-Contributors: svenl77, kishores
-Tags: buddypress, woocommerce, user, members, profiles, checkout, xprodile, ecommerce
+=== WC4BP -> Checkout Manager ===
+Contributors: svenl77
+Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.3.1, BuddyPress 2.4
 Stable tag: 1.1
@@ -47,7 +47,7 @@ BuddyPress Default Field Types:
 
 There are already great plugins to add more field types to BuddyPress
 
-See Buddypress Xprofile Custom Fields Type: https://wordpress.org/plugins/buddypress-xprofile-custom-fields-type/
+See BuddyPress xProfile Custom Fields Type: https://wordpress.org/plugins/buddypress-xprofile-custom-fields-type/
 
 
 == Documentation & Support ==
