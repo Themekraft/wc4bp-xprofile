@@ -73,7 +73,7 @@ function wc4bp_custom_checkout_field( $checkout ) {
 add_filter( 'wc4bp_custom_checkout_field_group_heading', 'wc4bp_custom_checkout_group_heading', 10, 2 );
 
 function wc4bp_custom_checkout_group_heading( $value, $group_name ) {
-    return $group_name . ' INFORMATION';
+    return sprintf( __( '%s INFORMATION' ), $group_name );
 }
 
 /**
