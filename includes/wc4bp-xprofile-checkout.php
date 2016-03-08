@@ -37,7 +37,8 @@ function wc4bp_custom_checkout_field( $checkout ) {
                         echo '<div class="wc4bp_custom_checkout_fields_group" id="wc4bp_checkout_field_group_'.$group_id.'">';
                     }
                     if( $display_group_name ){
-                        echo '<h4>' . $field_attr['group_name'] . ' INFORMATION</h4>';
+                        $group_name = $field_attr['group_name'];
+                        echo '<h4>' . apply_filters( 'wc4bp_custom_checkout_field_group_heading', $group_name, $group_name ) . '</h4>';
                         $display_group_name = false;
                     }
                     $row_class = 'form-row';
@@ -64,6 +65,15 @@ function wc4bp_custom_checkout_field( $checkout ) {
         }
     }
 
+}
+
+/**
+ * Filter heading text produced for each field group on the checkout page
+ */
+add_filter( 'wc4bp_custom_checkout_field_group_heading', 'wc4bp_custom_checkout_group_heading', 10, 2 );
+
+function wc4bp_custom_checkout_group_heading( $value, $group_name ) {
+    return $group_name . ' INFORMATION';
 }
 
 /**
