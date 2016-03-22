@@ -3,7 +3,7 @@ Contributors: svenl77
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.4.1, BuddyPress 2.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,12 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 3. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+
+= 1.1.2 =
+Huge thanks to tristanpenman for the his contributions:
+* Allow customisation of field group headings shown on WooCommerce checkout pages
+* Filter heading text produced for each field group on the checkout page
+* Allow for translation of default 'INFORMATION' text appended to field…
 
 = 1.1.1 =
 Add some checks to avoid notice with undefined index.
