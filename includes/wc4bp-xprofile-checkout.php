@@ -26,6 +26,10 @@ function wc4bp_custom_checkout_field( $checkout ) {
 
         foreach($fields as $field_id => $field_attr){
 
+            if ( ! apply_filters( 'wc4bp_custom_checkout_field_group_visibility', true, $group_id ) ) {
+                continue;
+            }
+
             if( ( ! empty( $billing ) && array_search( $field_id, $billing )) || ( ! empty( $shipping ) && array_search( $field_id, $shipping) ) )
                 continue;
 
