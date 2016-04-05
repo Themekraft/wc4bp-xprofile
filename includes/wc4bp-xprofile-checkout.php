@@ -170,11 +170,11 @@ function wc4bp_get_categories_for_products( $products ) {
 
     foreach ( $products as $product_id => $product ) {
         if ( $product instanceof WC_Product ) {
-            $terms = get_the_terms( $product->ID, 'product_cat' );
+            $terms = get_the_terms( $product->id, 'product_cat' );
             if ( ! empty( $terms ) ) {
                 foreach ( $terms as $term ) {
                     if ( $term instanceof WP_Term ) {
-                        $categories[ $term->ID ] = $term;
+                        $categories[ $term->term_id ] = $term;
                     }
                 }
             }
