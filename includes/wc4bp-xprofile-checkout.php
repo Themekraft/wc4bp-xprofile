@@ -114,7 +114,8 @@ function wc4bp_custom_checkout_field_group_visibility( $visible, $group_id ) {
 
     // Check whether the group requires at least one of a particular set of products is in the cart
     $products_for_visibility = apply_filters( 'wc4bp_wc_products_that_allow_group_visibility', false, $group_id );
-    if ( is_array( $products_for_visibility ) && count( $products_for_visibility ) > 0 ) {
+    $has_product_requirements = is_array( $products_for_visibility ) && count( $products_for_visibility ) > 0;
+    if ( $has_product_requirements ) {
         if ( ! isset( $products_in_cart ) ) {
             if ( ! isset( $cart ) ) {
                 $cart = WC()->cart->get_cart();
@@ -122,12 +123,15 @@ function wc4bp_custom_checkout_field_group_visibility( $visible, $group_id ) {
             $products_in_cart = wc4bp_get_all_products_in_cart( $cart );
         }
 
-        return count( array_intersect( array_keys( $products_in_cart ), $products_for_visibility ) ) > 0;
+        if ( count( array_intersect( array_keys( $products_in_cart ), $products_for_visibility ) ) > 0 ) {
+            return true;
+        }
     }
 
     // Check whether the group requires that at least one product of a particular set of categories is in the cart
     $categories_for_visibility = apply_filters( 'wc4bp_wc_categories_that_allow_group_visibility', false, $group_id );
-    if ( is_array( $categories_for_visibility ) && count( $categories_for_visibility ) > 0 ) {
+    $has_category_requirements = is_array( $categories_for_visibility ) && count( $categories_for_visibility ) > 0;
+    if ( $has_category_requirements ) {
         if ( ! isset( $product_categories_in_cart ) ) {
             if ( ! isset( $products_in_cart ) ) {
                 if ( ! isset( $cart ) ) {
@@ -138,10 +142,12 @@ function wc4bp_custom_checkout_field_group_visibility( $visible, $group_id ) {
             $product_categories_in_cart = wc4bp_get_categories_for_products( $products_in_cart );
         }
 
-        return count( array_intersect( array_keys( $product_categories_in_cart ), $categories_for_visibility ) ) > 0;
+        if ( count( array_intersect( array_keys( $product_categories_in_cart ), $categories_for_visibility ) ) > 0 ) {
+            return true;
+        }
     }
 
-    return true;
+    return ! $has_product_requirements && ! $has_category_requirements;
 }
 
 /**
