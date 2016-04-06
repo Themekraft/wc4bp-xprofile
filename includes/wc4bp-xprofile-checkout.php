@@ -26,6 +26,10 @@ function wc4bp_custom_checkout_field( $checkout ) {
 
         foreach($fields as $field_id => $field_attr){
 
+            if ( ! apply_filters( 'wc4bp_custom_checkout_field_group_visibility', true, $group_id ) ) {
+                continue;
+            }
+
             if( ( ! empty( $billing ) && array_search( $field_id, $billing )) || ( ! empty( $shipping ) && array_search( $field_id, $shipping) ) )
                 continue;
 
@@ -74,6 +78,116 @@ add_filter( 'wc4bp_custom_checkout_field_group_heading', 'wc4bp_custom_checkout_
 
 function wc4bp_custom_checkout_group_heading( $value, $group_name ) {
     return sprintf( __( '%s INFORMATION' ), $group_name );
+}
+
+/**
+ * Filter the potential visibility of each field group on the checkout page
+ */
+add_filter( 'wc4bp_custom_checkout_field_group_visibility', 'wc4bp_custom_checkout_field_group_visibility', 10, 2 );
+
+/**
+ * Default hook to determine visibility of Xprofile field groups on the checkout page
+ *
+ * Whether or not a group is visible can be altered based on two kinds of cart criteria:
+ *
+ * The first case is based on the individual products in the user's cart. If the user's cart contains at least one
+ * item from a set of products, then the Xprofile group will be made visible. By default, groups do not require any
+ * particular product to be present, but this can be changed via the 'wc4bp_wc_products_that_allow_group_visibility'
+ * filter.
+ *
+ * The second case is based on the *categories* of products in the cart. If the cart contains a product belonging to at
+ * least one of a particular set of categories, then the Xprofile group will be made visible. By default, groups do not
+ * require any particular category to be present. As with the product-only case above, this behaviour can be changed
+ * via a filter called 'wc4bp_wc_categories_that_allow_group_visibility'.
+ *
+ * If neither of this criteria are set (i.e. both filters return \c false), then the group will be visible.
+ */
+function wc4bp_custom_checkout_field_group_visibility( $visible, $group_id ) {
+    if ( ! $visible ) {
+        return false;
+    }
+
+    // Re-used across multiple groups
+    static $cart = null;
+    static $products_in_cart = null;
+    static $product_categories_in_cart = null;
+
+    // Check whether the group requires at least one of a particular set of products is in the cart
+    $products_for_visibility = apply_filters( 'wc4bp_wc_products_that_allow_group_visibility', false, $group_id );
+    $has_product_requirements = is_array( $products_for_visibility ) && count( $products_for_visibility ) > 0;
+    if ( $has_product_requirements ) {
+        if ( ! isset( $products_in_cart ) ) {
+            if ( ! isset( $cart ) ) {
+                $cart = WC()->cart->get_cart();
+            }
+            $products_in_cart = wc4bp_get_all_products_in_cart( $cart );
+        }
+
+        if ( count( array_intersect( array_keys( $products_in_cart ), $products_for_visibility ) ) > 0 ) {
+            return true;
+        }
+    }
+
+    // Check whether the group requires that at least one product of a particular set of categories is in the cart
+    $categories_for_visibility = apply_filters( 'wc4bp_wc_categories_that_allow_group_visibility', false, $group_id );
+    $has_category_requirements = is_array( $categories_for_visibility ) && count( $categories_for_visibility ) > 0;
+    if ( $has_category_requirements ) {
+        if ( ! isset( $product_categories_in_cart ) ) {
+            if ( ! isset( $products_in_cart ) ) {
+                if ( ! isset( $cart ) ) {
+                    $cart = WC()->cart->get_cart();
+                }
+                $products_in_cart = wc4bp_get_all_products_in_cart( $cart );
+            }
+            $product_categories_in_cart = wc4bp_get_categories_for_products( $products_in_cart );
+        }
+
+        if ( count( array_intersect( array_keys( $product_categories_in_cart ), $categories_for_visibility ) ) > 0 ) {
+            return true;
+        }
+    }
+
+    return ! $has_product_requirements && ! $has_category_requirements;
+}
+
+/**
+ * Return array containing a WC_Product for each unique product in the cart, indexed by product ID
+ */
+function wc4bp_get_all_products_in_cart( $cart ) {
+    $products = array();
+
+    foreach ( $cart as $cart_item_key => $values ) {
+        if ( isset( $values['data'] ) ) {
+            $product_data = $values['data'];
+            if ( $product_data instanceof WC_Product ) {
+                $products[ $product_data->id ] = $product_data;
+            }
+        }
+    }
+
+    return $products;
+}
+
+/**
+ * Return array containing a WP_Term for each unique category in an array of products, indexed by category ID
+ */
+function wc4bp_get_categories_for_products( $products ) {
+    $categories = array();
+
+    foreach ( $products as $product_id => $product ) {
+        if ( $product instanceof WC_Product ) {
+            $terms = get_the_terms( $product->id, 'product_cat' );
+            if ( ! empty( $terms ) ) {
+                foreach ( $terms as $term ) {
+                    if ( $term instanceof WP_Term ) {
+                        $categories[ $term->term_id ] = $term;
+                    }
+                }
+            }
+        }
+    }
+
+    return $categories;
 }
 
 /**
