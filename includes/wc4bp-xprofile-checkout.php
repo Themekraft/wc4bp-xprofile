@@ -1,5 +1,11 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+require_once( 'wc4bp-xprofile-data.php' );
+
 /**
  * Add the field to the checkout
  */
@@ -26,7 +32,7 @@ function wc4bp_custom_checkout_field( $checkout ) {
 
         foreach($fields as $field_id => $field_attr){
 
-            if ( ! apply_filters( 'wc4bp_custom_checkout_field_group_visibility', true, $group_id ) ) {
+            if ( ! apply_filters( 'wc4bp_custom_checkout_field_group_visible', true, $group_id ) ) {
                 continue;
             }
 
@@ -83,26 +89,30 @@ function wc4bp_custom_checkout_group_heading( $value, $group_name ) {
 /**
  * Filter the potential visibility of each field group on the checkout page
  */
-add_filter( 'wc4bp_custom_checkout_field_group_visibility', 'wc4bp_custom_checkout_field_group_visibility', 10, 2 );
+add_filter( 'wc4bp_custom_checkout_field_group_visible', 'wc4bp_xprofile_group_conditional_visibility', 10, 2 );
 
 /**
  * Default hook to determine visibility of Xprofile field groups on the checkout page
  *
- * Whether or not a group is visible can be altered based on two kinds of cart criteria:
+ * By default, all groups will be visible. Conditional visibility of a group can be enabled using Xprofile group meta,
+ * or via a hook attached to the 'wc4bp_xprofile_conditional_visibility_enabled' filter.
+ *
+ * If the feature is enabled, the visibility of a group can be made conditional on either of the following criteria
+ * being met:
  *
  * The first case is based on the individual products in the user's cart. If the user's cart contains at least one
  * item from a set of products, then the Xprofile group will be made visible. By default, groups do not require any
- * particular product to be present, but this can be changed via the 'wc4bp_wc_products_that_allow_group_visibility'
+ * particular product to be present, but this can be changed via the 'wc4bp_xprofile_conditional_visibility_products'
  * filter.
  *
  * The second case is based on the *categories* of products in the cart. If the cart contains a product belonging to at
  * least one of a particular set of categories, then the Xprofile group will be made visible. By default, groups do not
  * require any particular category to be present. As with the product-only case above, this behaviour can be changed
- * via a filter called 'wc4bp_wc_categories_that_allow_group_visibility'.
+ * via a filter called 'wc4bp_xprofile_conditional_visibility_categories'.
  *
- * If neither of this criteria are set (i.e. both filters return \c false), then the group will be visible.
+ * If neither of these criteria are met (i.e. both filters return \c false), then the group will be hidden.
  */
-function wc4bp_custom_checkout_field_group_visibility( $visible, $group_id ) {
+function wc4bp_xprofile_group_conditional_visibility( $visible, $group_id ) {
     if ( ! $visible ) {
         return false;
     }
@@ -112,10 +122,15 @@ function wc4bp_custom_checkout_field_group_visibility( $visible, $group_id ) {
     static $products_in_cart = null;
     static $product_categories_in_cart = null;
 
+    $feature_enabled = wc4bp_xprofile_conditional_visibility_enabled( $group_id, 'group' );
+    if ( ! apply_filters('wc4bp_xprofile_conditional_visibility_enabled', $feature_enabled, $group_id, 'group' ) ) {
+        return true;
+    }
+
     // Check whether the group requires at least one of a particular set of products is in the cart
-    $products_for_visibility = apply_filters( 'wc4bp_wc_products_that_allow_group_visibility', false, $group_id );
-    $has_product_requirements = is_array( $products_for_visibility ) && count( $products_for_visibility ) > 0;
-    if ( $has_product_requirements ) {
+    $products_for_visibility = apply_filters( 'wc4bp_xprofile_conditional_visibility_products',
+        wc4bp_xprofile_conditional_visibility_products( $group_id, 'group' ), $group_id, 'group' );
+    if ( is_array( $products_for_visibility ) && count( $products_for_visibility ) > 0 ) {
         if ( ! isset( $products_in_cart ) ) {
             if ( ! isset( $cart ) ) {
                 $cart = WC()->cart->get_cart();
@@ -129,9 +144,9 @@ function wc4bp_custom_checkout_field_group_visibility( $visible, $group_id ) {
     }
 
     // Check whether the group requires that at least one product of a particular set of categories is in the cart
-    $categories_for_visibility = apply_filters( 'wc4bp_wc_categories_that_allow_group_visibility', false, $group_id );
-    $has_category_requirements = is_array( $categories_for_visibility ) && count( $categories_for_visibility ) > 0;
-    if ( $has_category_requirements ) {
+    $categories_for_visibility = apply_filters( 'wc4bp_xprofile_conditional_visibility_categories',
+        wc4bp_xprofile_conditional_visibility_categories( $group_id, 'group' ), $group_id, 'group' );
+    if ( is_array( $categories_for_visibility ) && count( $categories_for_visibility ) > 0 ) {
         if ( ! isset( $product_categories_in_cart ) ) {
             if ( ! isset( $products_in_cart ) ) {
                 if ( ! isset( $cart ) ) {
@@ -147,7 +162,7 @@ function wc4bp_custom_checkout_field_group_visibility( $visible, $group_id ) {
         }
     }
 
-    return ! $has_product_requirements && ! $has_category_requirements;
+    return false;
 }
 
 /**

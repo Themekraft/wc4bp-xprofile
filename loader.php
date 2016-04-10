@@ -70,8 +70,13 @@ class WC4BP_xProfile {
 
         if (is_admin()){
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile.php');
+            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile-ajax.php');
         }
 
+    }
+
+    public static function plugin_base_url() {
+        return plugin_dir_url( __FILE__ );
     }
 
 }
