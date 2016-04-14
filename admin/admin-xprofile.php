@@ -350,7 +350,11 @@ function buddyforms_xprofile_admin_field( $admin_field, $admin_group, $class = '
  * Enqueue scripts and styles that support the WooCommerce BuddyPress Integration Settings page
  */
 function wc4bp_admin_enqueue_scripts() {
-    wp_enqueue_style( 'admin-xprofile.css', WC4BP_xProfile::plugin_base_url() . 'assets/css/admin-xprofile.css' );
+
+    $wc_assets_path = str_replace( array( 'http:', 'https:' ), '', WC()->plugin_url() ) . '/assets/';
+
+    wp_enqueue_style( 'select2', $wc_assets_path . 'css/select2.css' );
+    wp_enqueue_style( 'admin-xprofile.css', WC4BP_xProfile::plugin_base_url() . 'assets/css/admin-xprofile.css', array( 'select2', 'woocommerce_admin_styles' ) );
 
     wp_register_script( 'admin-xprofile.js', WC4BP_xProfile::plugin_base_url() . 'assets/js/admin-xprofile.js',
         array( 'select2' ),  // Dependencies
