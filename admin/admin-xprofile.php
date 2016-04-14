@@ -328,7 +328,7 @@ function buddyforms_xprofile_admin_field( $admin_field, $admin_group, $class = '
                 <input type="hidden" value="<?php echo $field->is_required; ?>" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][field_is_required]">
                 <input type="hidden" value="<?php echo $field->description; ?>" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][description]">
 
-                <?php if( array_search( $field->id, $billing ) || array_search( $field->id, $shipping) ) { ?>
+                <?php if( ( is_array( $billing ) && array_search( $field->id, $billing ) ) || ( is_array( $shipping ) && array_search( $field->id, $shipping) ) ) { ?>
                     <p>WooCommerce default field - Automatically Synced with BuddyPress</p>
                     Remove from Checkout: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['hide']) ? checked('hide',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['hide']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][hide]" value="hide">
                 <?php } else { ?>
