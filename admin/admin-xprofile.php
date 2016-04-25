@@ -67,7 +67,8 @@ function wc4bp_screen_xprofile() { ?>
                                 foreach ( $product_ids as $product_id ) {
                                     $trimmed_product_id = (string) trim( $product_id );
                                     if ( ctype_digit( $trimmed_product_id ) ) {
-                                        if ( ! empty( wc_get_product( $trimmed_product_id ) ) ) {
+                                        $trimmed_product_empty = wc_get_product( $trimmed_product_id );
+                                        if ( ! empty( $trimmed_product_empty ) ) {
                                             $safe_product_ids[] = $trimmed_product_id;
                                         }
                                     }

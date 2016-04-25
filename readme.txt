@@ -1,9 +1,9 @@
 === WC4BP -> Checkout Manager ===
-Contributors: svenl77
+Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
-Requires at least: WordPress 3.x, BuddyPress 1.7.x
-Tested up to: WordPress 4.4.1, BuddyPress 2.4
-Stable tag: 1.1.2
+Requires at least: WordPress 3.9
+Tested up to: WordPress 4.5
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,8 +27,7 @@ With this plugin you need no other WooCommerce Checkout manager. Use the BuddyPr
 
 BuddyPress Default Field Types:
 
-<p><b>Multi Fields</b></p>
-
+<h3><b>Multi Fields</h3>
 <ul>
     <li>Checkboxes</li>
     <li>Drop Down Select Box</li>
@@ -36,7 +35,7 @@ BuddyPress Default Field Types:
     <li>Radio Buttons</li>
 </ul>
 
-<p><b>Single Fields</b></p>
+<h3>Single Fields</h3>
 <ul>
     <li>Date Selector</li>
     <li>Multi-line Text Area</li>
@@ -49,6 +48,12 @@ There are already great plugins to add more field types to BuddyPress
 
 See BuddyPress xProfile Custom Fields Type: https://wordpress.org/plugins/buddypress-xprofile-custom-fields-type/
 
+<h3>Conditional Visibility</h3>
+Make profile groups visible on the checkout page, depend on certain products (or categories) being present in a user's cart.
+<ul>
+<li>Display this group if the cart contains any of the following products</li>
+<li>Display this group if the cart contains a product from any of the following categories:</li>
+</ul>
 
 == Documentation & Support ==
 
@@ -56,13 +61,12 @@ See BuddyPress xProfile Custom Fields Type: https://wordpress.org/plugins/buddyp
 
 All code is neat, clean and well documented (inline as well as in the documentation).
 
-See the documentation https://themekraft.zendesk.com/hc/en-us/categories/200005301-WooCommerce-BuddyPress-Integration
+See the documentation http://docs.themekraft.com/collection/208-wc4bp-integration
 
 If you still get stuck somewhere, our support gets you back on the right track.
 You can find all help buttons in your WC4BP Settings Panel in your WP Dashboard!
 
 <h4>Got ideas or just missing something?</h4>
-
 If you still miss something, let us know!
 
 
@@ -88,9 +92,22 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 
 2. **Manage WooCommerce Customer Fields** - Remove WooCommerce fields from the checkout
 
-3. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
+3. **Conditional Visibility** - Allow the Visibility of Xprofile Field Groups on the Checkout Page to Depend on Certain Products (or Categories) Being Present in a User's Cart.
+
+4. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+
+= 1.2 =
+* Fix CSS bugs in conditional visibility UI and fix warning shown when WP_DEBUG is enabled
+* Fix warning that is shown when wc4bp billing or shipping data is not set
+* Remove extra closing brace from stylesheet and ensure dependent stylesheets are loaded
+* Implement XProfile group conditional visibility feature in admin interface
+* Allow visibility of Xprofile field groups to depend on products or categories in cart
+* Ensure that group visibility hook handles all three positive cases correctly
+* Fix usage of non-existent ID fields in wc4bp_get_categories_for_products function
+* Add default hook to determine group visibility based on products (or categories) present in cart
+* Allow Xprofile field groups to be skipped based on the output of a filter
 
 = 1.1.2 =
 Huge thanks to tristanpenman for the his contributions:
