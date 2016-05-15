@@ -25,59 +25,58 @@
  *
  ****************************************************************************
  */
-
 class WC4BP_xProfile {
 
-    /**
-     * @var string
-     */
-    public $version = '1.2';
+	/**
+	 * @var string
+	 */
+	public $version = '1.2';
 
-    /**
-     * Initiate the class
-     *
-     * @package wc4bp_xprofile
-     * @since 1.0
-     */
-    public function __construct() {
+	/**
+	 * Initiate the class
+	 *
+	 * @package wc4bp_xprofile
+	 * @since 1.0
+	 */
+	public function __construct() {
 
-        define('WC4BP_XPROFILE_VERSION', $this->version);
+		define( 'WC4BP_XPROFILE_VERSION', $this->version );
 
-        add_action('init'					, array($this, 'includes')					, 4, 1);
-        add_action('init'					, array($this, 'load_plugin_textdomain')	, 10, 1);
+		add_action( 'init', array( $this, 'includes' ), 4, 1 );
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ), 10, 1 );
 
-    }
+	}
 
-    /**
-     * Load the language file
-     *
-     * @since 	1.0
-     * @uses 	load_plugin_textdomain()
-     */
-    public function load_plugin_textdomain()	{
-        load_plugin_textdomain( 'wc4bp_xprofile', false, dirname( plugin_basename( __FILE__ ) ) . "/languages" );
-    }
+	public static function plugin_base_url() {
+		return plugin_dir_url( __FILE__ );
+	}
 
-    /**
-     * Include files needed by wc4bp_xprofile
-     *
-     * @package wc4bp_xprofile
-     * @since 1.0
-     */
-    public function includes() {
+	/**
+	 * Load the language file
+	 *
+	 * @since    1.0
+	 * @uses    load_plugin_textdomain()
+	 */
+	public function load_plugin_textdomain() {
+		load_plugin_textdomain( 'wc4bp_xprofile', false, dirname( plugin_basename( __FILE__ ) ) . "/languages" );
+	}
 
-        require_once( plugin_dir_path( __FILE__ ) . '/includes/wc4bp-xprofile-checkout.php');
+	/**
+	 * Include files needed by wc4bp_xprofile
+	 *
+	 * @package wc4bp_xprofile
+	 * @since 1.0
+	 */
+	public function includes() {
 
-        if (is_admin()){
-            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile.php');
-            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile-ajax.php');
-        }
+		require_once( plugin_dir_path( __FILE__ ) . '/includes/wc4bp-xprofile-checkout.php' );
 
-    }
+		if ( is_admin() ) {
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile.php' );
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile-ajax.php' );
+		}
 
-    public static function plugin_base_url() {
-        return plugin_dir_url( __FILE__ );
-    }
+	}
 
 }
 
