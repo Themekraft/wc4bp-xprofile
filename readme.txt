@@ -2,8 +2,8 @@
 Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
 Requires at least: WordPress 3.9
-Tested up to: WordPress 4.5
-Stable tag: 1.2
+Tested up to: 4.6.1
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,6 +97,10 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 4. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+
+= 1.2.1 =
+Move has_action in the menue hook. for some reason it was not fired in the latest version.
+
 
 = 1.2 =
 * Fix CSS bugs in conditional visibility UI and fix warning shown when WP_DEBUG is enabled

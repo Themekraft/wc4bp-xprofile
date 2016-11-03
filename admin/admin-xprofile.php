@@ -5,21 +5,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once( dirname( __FILE__ ) . '/../includes/wc4bp-xprofile-data.php' );
-
 require_once( 'admin-xprofile-util.php' );
 
-if ( has_action( 'wc4bp_add_submenu_page' ) ) {
-	add_action( 'wc4bp_add_submenu_page', 'wc4bp_add_xprofile_menu' );
-	add_action( 'admin_enqueue_scripts', 'wc4bp_admin_enqueue_scripts' );
-} else {
-	add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'xProfile Checkout Manager needs WooCommerce BuddyPress Integration to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " wc4bp_xprofile" ) . \'</strong></p></div>\', "http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" );' ) );
-
-	return;
-}
+add_action( 'wc4bp_add_submenu_page', 'wc4bp_add_xprofile_menu' );
+add_action( 'admin_enqueue_scripts', 'wc4bp_admin_enqueue_scripts' );
 
 // Add the option page to the WC4BP Integration menu
 function wc4bp_add_xprofile_menu() {
-	add_submenu_page( 'wc4bp-options-page', 'BuddyPress Profile', 'BuddyPress xProfile', 'manage_options', 'wc4bp-options-page-xprofile', 'wc4bp_screen_xprofile' );
+	if( ! has_action('wc4bp_add_submenu_page') ) {
+		add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'xProfile Checkout Manager needs WooCommerce BuddyPress Integration to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " wc4bp_xprofile" ) . \'</strong></p></div>\', "http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" );' ) );
+		return;
+	}
+	add_submenu_page( 'wc4bp-options-page', 'BuddyPress Profile' , 'BuddyPress xProfile' , 'manage_options', 'wc4bp-options-page-xprofile', 'wc4bp_screen_xprofile' );
 }
 
 /**
