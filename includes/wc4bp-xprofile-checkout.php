@@ -333,11 +333,18 @@ function wc4bp_custom_checkout_field_update_user_meta( $user_id ) {
 			if ( isset( $field['checkout'] ) ) {
 
 				$field_slug = sanitize_title( 'field_' . $field_id );
-
-				if ( $user_id && ! empty( $_POST[ $field_slug ] ) ) {
-					update_user_meta( $user_id, $field_slug, esc_attr( $_POST[ $field_slug ] ) );
+				//Fix when is array();
+				if ( ! is_array( $_POST[ $field_slug ] ) ) {
+					$value = esc_attr( $_POST[ $field_slug ] );
+				} else {
+					$value = $_POST[ $field_slug ];
 				}
-				xprofile_set_field_data( $field_id, $user_id, esc_attr( $_POST[ $field_slug ] ) );
+
+				if ( $user_id && ! empty( $value ) ) {
+					update_user_meta( $user_id, $field_slug, $value );
+				}
+
+				xprofile_set_field_data( $field_id, $user_id, $value );
 			}
 
 		}
@@ -372,7 +379,12 @@ function wc4bp_custom_checkout_field_update_order_meta( $order_id ) {
 				$field_slug = sanitize_title( 'field_' . $field_id );
 
 				if ( ! empty( $_POST[ $field_slug ] ) ) {
-					update_post_meta( $order_id, $field_slug, sanitize_text_field( $_POST[ $field_slug ] ) );
+					if ( ! is_array( $_POST[ $field_slug ] ) ) {
+						$value = sanitize_text_field( $_POST[ $field_slug ] );
+					} else {
+						$value = maybe_serialize( $_POST[ $field_slug ] );
+					}
+					update_post_meta( $order_id, $field_slug, $value );
 				}
 
 			}
