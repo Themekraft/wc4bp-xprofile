@@ -528,18 +528,18 @@ function wc4bp_signup_wp_profile_sync( $user_id ) {
 
 	if ( ! empty( $shipping ) ) {
 		foreach ( $shipping as $key => $field_id ) {
-			wc4bp_sync_addresses_from_profile( $user_id, $field_id, $_POST[ 'field_' . $field_id ] );
+			wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $field_id, $_POST[ 'field_' . $field_id ] );
 		}
 	}
 
 	if ( ! empty( $billing ) ) {
 		foreach ( $billing as $key => $field_id ) {
-			wc4bp_sync_addresses_from_profile( $user_id, $field_id, $_POST[ 'field_' . $field_id ] );
+			wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $field_id, $_POST[ 'field_' . $field_id ] );
 		}
 	}
 
 	if ( ! empty( $wc4bp_sync_mail ) && ! empty( $billing ) ) {
-		wc4bp_sync_addresses_from_profile( $user_id, $billing['email'], $_POST['signup_email'] );
+		wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $billing['email'], $_POST['signup_email'] );
 	}
 
 }
