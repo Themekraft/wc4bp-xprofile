@@ -92,7 +92,7 @@ class WC4BP_Xprofile_Required {
 				'required'         => true,
 			),
 			array(
-				'name'             => 'WC4BP -> Checkout Manager',
+				'name'             => 'WC4BP -> WooCommerce BuddyPress Integration',
 				'slug'             => 'wc4bp',
 				'version'          => '2.5',
 				'required'         => true,
