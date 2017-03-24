@@ -1,9 +1,9 @@
 === WC4BP -> Checkout Manager ===
-Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft
+Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft, gfirem
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
 Requires at least: WordPress 3.9
-Tested up to: 4.6.1
-Stable tag: 1.2.1
+Tested up to: 4.7.3
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,9 +98,14 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 
 == Changelog ==
 
+
+= 1.2.2 =
+Include TGM to check requirements.
+Updating the call to a function from wc4bp to latest version
+Fixing issue with tgma
+
 = 1.2.1 =
 Move has_action in the menue hook. for some reason it was not fired in the latest version.
-
 
 = 1.2 =
 * Fix CSS bugs in conditional visibility UI and fix warning shown when WP_DEBUG is enabled
