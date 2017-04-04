@@ -11,7 +11,7 @@ WooCommerce BuddyPress Integration xProfile Checkout Manager
 
 == Description ==
 
-This is the WooCommerce BuddyPress Integration xProfile Checkout extension. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WC4BP plugin installed for the extension to work. <a href="http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" target="_blank">Get WC4BP now!</a>
+This is the WooCommerce BuddyPress Integration xProfile Checkout extension. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WC4BP plugin installed for the extension to work. <a href="https://themekraft.com/products/woocommerce-buddypress-integration/" target="_blank">Get WC4BP now!</a>
 
 What the plugin does:
 Add your BuddyPress Member Profile Fields into the WooCommerce Checkout.
@@ -46,7 +46,7 @@ BuddyPress Default Field Types:
 
 There are already great plugins to add more field types to BuddyPress
 
-See BuddyPress xProfile Custom Fields Type: https://wordpress.org/plugins/buddypress-xprofile-custom-fields-type/
+See BuddyPress xProfile Custom Fields Type:[BuddyPress xProfile Custom Fields Type](https://wordpress.org/plugins/buddypress-xprofile-custom-fields-type/)
 
 <h3>Conditional Visibility</h3>
 Make profile groups visible on the checkout page, depend on certain products (or categories) being present in a user's cart.
@@ -61,7 +61,7 @@ Make profile groups visible on the checkout page, depend on certain products (or
 
 All code is neat, clean and well documented (inline as well as in the documentation).
 
-See the documentation http://docs.themekraft.com/collection/208-wc4bp-integration
+See the documentation [Documentation](http://docs.themekraft.com/collection/208-wc4bp-integration)
 
 If you still get stuck somewhere, our support gets you back on the right track.
 You can find all help buttons in your WC4BP Settings Panel in your WP Dashboard!
@@ -79,7 +79,7 @@ Activate WC4BP xProfile in the "Plugins" admin panel using the "Activate" link.
 
 == Frequently Asked Questions ==
 
-You need the <a href="http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" target="_blank">WooCommerce BuddyPress Integration</a> plugin installed for the plugin to work.
+You need the <a href="https://themekraft.com/products/woocommerce-buddypress-integration/" target="_blank">WooCommerce BuddyPress Integration</a> plugin installed for the plugin to work.
 
 
 When is it the right choice for you?
