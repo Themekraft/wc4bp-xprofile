@@ -13,38 +13,38 @@ add_action( 'woocommerce_after_order_notes', 'wc4bp_custom_checkout_field' );
 
 function wc4bp_custom_checkout_field( $checkout ) {
 	global $field;
-
+	
 	$bf_xprofile_options = get_option( 'bf_xprofile_options' );
-
+	
 	if ( ! isset( $bf_xprofile_options ) ) {
 		return;
 	}
-
+	
 	if ( ! is_array( $bf_xprofile_options ) ) {
 		return;
 	}
-
+	
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
-
+	
 	foreach ( $bf_xprofile_options as $group_id => $fields ) {
-
+		
 		$group_fields_included = 0;
 		$display_group_name    = true;
-
+		
 		foreach ( $fields as $field_id => $field_attr ) {
-
+			
 			if ( ! apply_filters( 'wc4bp_custom_checkout_field_group_visible', true, $group_id ) ) {
 				continue;
 			}
-
+			
 			if ( ( ! empty( $billing ) && array_search( $field_id, $billing ) ) || ( ! empty( $shipping ) && array_search( $field_id, $shipping ) ) ) {
 				continue;
 			}
-
+			
 			if ( isset( $field_attr['checkout'] ) ) {
 				$field = new BP_XProfile_Field( $field_id );
-
+				
 				if ( ! empty( $field->id ) ) {
 					if ( $group_fields_included == 0 ) {
 						echo '<div class="wc4bp_custom_checkout_fields_group" id="wc4bp_checkout_field_group_' . $group_id . '">';
@@ -69,15 +69,15 @@ function wc4bp_custom_checkout_field( $checkout ) {
 					echo '</p>';
 					$group_fields_included ++;
 				}
-
+				
 			}
-
+			
 		}
 		if ( $group_fields_included > 0 ) {
 			echo '</div>';
 		}
 	}
-
+	
 }
 
 /**
@@ -119,17 +119,17 @@ function wc4bp_xprofile_group_conditional_visibility( $visible, $group_id ) {
 	if ( ! $visible ) {
 		return false;
 	}
-
+	
 	// Re-used across multiple groups
 	static $cart = null;
 	static $products_in_cart = null;
 	static $product_categories_in_cart = null;
-
+	
 	$feature_enabled = wc4bp_xprofile_conditional_visibility_enabled( $group_id, 'group' );
 	if ( ! apply_filters( 'wc4bp_xprofile_conditional_visibility_enabled', $feature_enabled, $group_id, 'group' ) ) {
 		return true;
 	}
-
+	
 	// Check whether the group requires at least one of a particular set of products is in the cart
 	$products_for_visibility = apply_filters( 'wc4bp_xprofile_conditional_visibility_products',
 		wc4bp_xprofile_conditional_visibility_products( $group_id, 'group' ), $group_id, 'group' );
@@ -140,12 +140,12 @@ function wc4bp_xprofile_group_conditional_visibility( $visible, $group_id ) {
 			}
 			$products_in_cart = wc4bp_get_all_products_in_cart( $cart );
 		}
-
+		
 		if ( count( array_intersect( array_keys( $products_in_cart ), $products_for_visibility ) ) > 0 ) {
 			return true;
 		}
 	}
-
+	
 	// Check whether the group requires that at least one product of a particular set of categories is in the cart
 	$categories_for_visibility = apply_filters( 'wc4bp_xprofile_conditional_visibility_categories',
 		wc4bp_xprofile_conditional_visibility_categories( $group_id, 'group' ), $group_id, 'group' );
@@ -159,12 +159,12 @@ function wc4bp_xprofile_group_conditional_visibility( $visible, $group_id ) {
 			}
 			$product_categories_in_cart = wc4bp_get_categories_for_products( $products_in_cart );
 		}
-
+		
 		if ( count( array_intersect( array_keys( $product_categories_in_cart ), $categories_for_visibility ) ) > 0 ) {
 			return true;
 		}
 	}
-
+	
 	return false;
 }
 
@@ -173,7 +173,7 @@ function wc4bp_xprofile_group_conditional_visibility( $visible, $group_id ) {
  */
 function wc4bp_get_all_products_in_cart( $cart ) {
 	$products = array();
-
+	
 	foreach ( $cart as $cart_item_key => $values ) {
 		if ( isset( $values['data'] ) ) {
 			$product_data = $values['data'];
@@ -182,7 +182,7 @@ function wc4bp_get_all_products_in_cart( $cart ) {
 			}
 		}
 	}
-
+	
 	return $products;
 }
 
@@ -191,7 +191,7 @@ function wc4bp_get_all_products_in_cart( $cart ) {
  */
 function wc4bp_get_categories_for_products( $products ) {
 	$categories = array();
-
+	
 	foreach ( $products as $product_id => $product ) {
 		if ( $product instanceof WC_Product ) {
 			$terms = get_the_terms( $product->id, 'product_cat' );
@@ -204,7 +204,7 @@ function wc4bp_get_categories_for_products( $products ) {
 			}
 		}
 	}
-
+	
 	return $categories;
 }
 
@@ -252,7 +252,7 @@ function wc4bp_woo_class_for_xprofile_checkout_fields( $elements ) {
 			$elements['class'] = $class;
 		}
 	}
-
+	
 	return $elements;
 }
 
@@ -271,42 +271,42 @@ function wc4bp_woo_replace_required_for_xprofile_checkout_fields() {
 add_action( 'woocommerce_checkout_process', 'wc4bp_custom_checkout_field_process' );
 
 function wc4bp_custom_checkout_field_process() {
-
+	
 	$bf_xprofile_options = get_option( 'bf_xprofile_options' );
-
+	
 	if ( ! isset( $bf_xprofile_options ) ) {
 		return;
 	}
-
+	
 	if ( ! is_array( $bf_xprofile_options ) ) {
 		return;
 	}
-
+	
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
-
+	
 	foreach ( $bf_xprofile_options as $group_id => $fields ) {
-
+		
 		foreach ( $fields as $field_id => $field ) {
-
+			
 			if ( array_search( $field['field_id'], $billing ) || array_search( $field['field_id'], $shipping ) ) {
 				continue;
 			}
-
+			
 			if ( isset( $field['checkout'] ) ) {
-
+				
 				$field_slug = sanitize_title( 'field_' . $field_id );
-
+				
 				if ( $field['field_is_required'] && ! $_POST[ $field_slug ] ) {
 					wc_add_notice( '<b>' . $field['field_name'] . ' </b>' . __( 'is a required field.' ), 'error' );
 				}
-
+				
 			}
-
+			
 		}
-
+		
 	}
-
+	
 }
 
 /**
@@ -315,23 +315,23 @@ function wc4bp_custom_checkout_field_process() {
 add_action( 'woocommerce_checkout_update_user_meta', 'wc4bp_custom_checkout_field_update_user_meta' );
 
 function wc4bp_custom_checkout_field_update_user_meta( $user_id ) {
-
+	
 	$bf_xprofile_options = get_option( 'bf_xprofile_options' );
-
+	
 	if ( ! isset( $bf_xprofile_options ) ) {
 		return;
 	}
-
+	
 	if ( ! is_array( $bf_xprofile_options ) ) {
 		return;
 	}
-
+	
 	foreach ( $bf_xprofile_options as $group_id => $fields ) {
-
+		
 		foreach ( $fields as $field_id => $field ) {
-
+			
 			if ( isset( $field['checkout'] ) ) {
-
+				
 				$field_slug = sanitize_title( 'field_' . $field_id );
 				//Fix when is array();
 				if ( ! is_array( $_POST[ $field_slug ] ) ) {
@@ -339,18 +339,18 @@ function wc4bp_custom_checkout_field_update_user_meta( $user_id ) {
 				} else {
 					$value = $_POST[ $field_slug ];
 				}
-
+				
 				if ( $user_id && ! empty( $value ) ) {
 					update_user_meta( $user_id, $field_slug, $value );
 				}
-
+				
 				xprofile_set_field_data( $field_id, $user_id, $value );
 			}
-
+			
 		}
-
+		
 	}
-
+	
 }
 
 /**
@@ -359,25 +359,25 @@ function wc4bp_custom_checkout_field_update_user_meta( $user_id ) {
 add_action( 'woocommerce_checkout_update_order_meta', 'wc4bp_custom_checkout_field_update_order_meta' );
 
 function wc4bp_custom_checkout_field_update_order_meta( $order_id ) {
-
+	
 	$bf_xprofile_options = get_option( 'bf_xprofile_options' );
-
+	
 	if ( ! isset( $bf_xprofile_options ) ) {
 		return;
 	}
-
+	
 	if ( ! is_array( $bf_xprofile_options ) ) {
 		return;
 	}
-
+	
 	foreach ( $bf_xprofile_options as $group_id => $fields ) {
-
+		
 		foreach ( $fields as $field_id => $field ) {
-
+			
 			if ( isset( $field['checkout'] ) ) {
-
+				
 				$field_slug = sanitize_title( 'field_' . $field_id );
-
+				
 				if ( ! empty( $_POST[ $field_slug ] ) ) {
 					if ( ! is_array( $_POST[ $field_slug ] ) ) {
 						$value = sanitize_text_field( $_POST[ $field_slug ] );
@@ -386,11 +386,11 @@ function wc4bp_custom_checkout_field_update_order_meta( $order_id ) {
 					}
 					update_post_meta( $order_id, $field_slug, $value );
 				}
-
+				
 			}
-
+			
 		}
-
+		
 	}
 }
 
@@ -400,32 +400,32 @@ function wc4bp_custom_checkout_field_update_order_meta( $order_id ) {
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'wc4bp_custom_checkout_field_display_admin_order_meta', 10, 1 );
 
 function wc4bp_custom_checkout_field_display_admin_order_meta( $order ) {
-
+	
 	$bf_xprofile_options = get_option( 'bf_xprofile_options' );
-
+	
 	if ( ! isset( $bf_xprofile_options ) ) {
 		return;
 	}
-
+	
 	if ( ! is_array( $bf_xprofile_options ) ) {
 		return;
 	}
-
+	
 	foreach ( $bf_xprofile_options as $group_id => $fields ) {
-
+		
 		foreach ( $fields as $field_id => $field ) {
-
+			
 			if ( isset( $field['checkout'] ) && isset( $field['order_edit'] ) ) {
-
+				
 				$field_slug = sanitize_title( 'field_' . $field_id );
 				echo '<p><strong>' . $field['field_name'] . ':</strong> ' . get_post_meta( $order->id, $field_slug, true ) . '</p>';
-
+				
 			}
-
+			
 		}
-
+		
 	}
-
+	
 }
 
 /**
@@ -435,30 +435,30 @@ add_filter( 'woocommerce_email_order_meta_keys', 'wc4bp_checkout_field_order_met
 
 function wc4bp_checkout_field_order_meta_keys( $keys ) {
 	$bf_xprofile_options = get_option( 'bf_xprofile_options' );
-
+	
 	if ( ! isset( $bf_xprofile_options ) ) {
 		return $keys;
 	}
-
+	
 	if ( ! is_array( $bf_xprofile_options ) ) {
 		return $keys;
 	}
-
+	
 	foreach ( $bf_xprofile_options as $group_id => $fields ) {
-
+		
 		foreach ( $fields as $field_id => $field ) {
-
+			
 			if ( isset( $field['checkout'] ) && isset( $field['email'] ) ) {
-
+				
 				$field_slug                   = sanitize_title( 'field_' . $field_id );
 				$keys[ $field['field_name'] ] = $field_slug;
-
+				
 			}
-
+			
 		}
-
+		
 	}
-
+	
 	return $keys;
 }
 
@@ -468,44 +468,44 @@ function wc4bp_checkout_field_order_meta_keys( $keys ) {
 add_filter( 'woocommerce_checkout_fields', 'wc4bp_custom_override_checkout_fields' );
 
 function wc4bp_custom_override_checkout_fields( $fields ) {
-
+	
 	$bf_xprofile_options = get_option( 'bf_xprofile_options' );
-
+	
 	if ( ! isset( $bf_xprofile_options ) ) {
 		return $fields;
 	}
-
+	
 	if ( ! is_array( $bf_xprofile_options ) ) {
 		return $fields;
 	}
-
+	
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
-
+	
 	foreach ( $bf_xprofile_options as $group_id => $bf_fields ) {
-
+		
 		foreach ( $bf_fields as $bf_field_id => $bf_field ) {
-
+			
 			if ( isset( $bf_field['hide'] ) ) {
-
+				
 				if ( array_search( $bf_field_id, $billing ) ) {
 					$group_name = 'billing';
 				}
-
+				
 				if ( array_search( $bf_field_id, $shipping ) ) {
 					$group_name = 'shipping';
 				}
-
+				
 				$field_name = str_replace( " ", "_", $bf_field['field_name'] );
 				$field_name = sanitize_title( $group_name . '_' . $field_name );
-
+				
 				unset( $fields[ $group_name ][ $field_name ] );
 			}
-
+			
 		}
-
+		
 	}
-
+	
 	return $fields;
 }
 
@@ -515,33 +515,35 @@ add_action( 'bp_core_signup_user', 'wc4bp_signup_wp_profile_sync', 30, 1 );
 add_action( 'bp_core_activated_user', 'wc4bp_signup_wp_profile_sync', 30, 1 );
 
 function wc4bp_signup_wp_profile_sync( $user_id ) {
-
+	
 	$wc4bp_sync_mail = get_option( 'wc4bp_sync_mail' );
-
+	
 	if ( empty( $user_id ) ) {
 		return;
 	}
-
+	
 	// get the profile fields
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
-
-	if ( ! empty( $shipping ) ) {
-		foreach ( $shipping as $key => $field_id ) {
-			wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $field_id, $_POST[ 'field_' . $field_id ] );
+	
+	if ( method_exists( 'wc4bp_Sync', 'wc4bp_sync_addresses_from_profile' ) ) {
+		if ( ! empty( $shipping ) ) {
+			foreach ( $shipping as $key => $field_id ) {
+				wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $field_id, $_POST[ 'field_' . $field_id ] );
+			}
+		}
+		
+		if ( ! empty( $billing ) ) {
+			foreach ( $billing as $key => $field_id ) {
+				wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $field_id, $_POST[ 'field_' . $field_id ] );
+			}
+		}
+		
+		
+		if ( ! empty( $wc4bp_sync_mail ) && ! empty( $billing ) ) {
+			wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $billing['email'], $_POST['signup_email'] );
 		}
 	}
-
-	if ( ! empty( $billing ) ) {
-		foreach ( $billing as $key => $field_id ) {
-			wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $field_id, $_POST[ 'field_' . $field_id ] );
-		}
-	}
-
-	if ( ! empty( $wc4bp_sync_mail ) && ! empty( $billing ) ) {
-		wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $billing['email'], $_POST['signup_email'] );
-	}
-
 }
 
 ?>

@@ -27,12 +27,12 @@
  ****************************************************************************
  */
 class WC4BP_xProfile {
-
+	
 	/**
 	 * @var string
 	 */
 	public $version = '1.2.2';
-
+	
 	/**
 	 * Initiate the class
 	 *
@@ -40,24 +40,24 @@ class WC4BP_xProfile {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
+		
 		define( 'WC4BP_XPROFILE_VERSION', $this->version );
 		
 		require_once( plugin_dir_path( __FILE__ ) . '/includes/class-tgm-plugin-activation.php' );
 		require_once( plugin_dir_path( __FILE__ ) . '/includes/wc4bp-xprofile-required.php' );
 		new WC4BP_Xprofile_Required();
 		
-		if(WC4BP_Xprofile_Required::is_woocommerce_active() && WC4BP_Xprofile_Required::is_buddypress_active() && WC4BP_Xprofile_Required::is_wc4bp_active()) {
+		if ( WC4BP_Xprofile_Required::is_woocommerce_active() && WC4BP_Xprofile_Required::is_buddypress_active() && WC4BP_Xprofile_Required::is_wc4bp_active() ) {
 			add_action( 'init', array( $this, 'includes' ), 4, 1 );
 			add_action( 'init', array( $this, 'load_plugin_textdomain' ), 10, 1 );
 		}
-
+		
 	}
-
+	
 	public static function plugin_base_url() {
 		return plugin_dir_url( __FILE__ );
 	}
-
+	
 	/**
 	 * Load the language file
 	 *
@@ -67,7 +67,7 @@ class WC4BP_xProfile {
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain( 'wc4bp_xprofile', false, dirname( plugin_basename( __FILE__ ) ) . "/languages" );
 	}
-
+	
 	/**
 	 * Include files needed by wc4bp_xprofile
 	 *
@@ -80,9 +80,9 @@ class WC4BP_xProfile {
 			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile.php' );
 			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile-ajax.php' );
 		}
-
+		
 	}
-
+	
 }
 
 $GLOBALS['wc4bp_xprofile_new'] = new WC4BP_xProfile();
