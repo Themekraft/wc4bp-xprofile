@@ -178,7 +178,7 @@ function wc4bp_get_all_products_in_cart( $cart ) {
 		if ( isset( $values['data'] ) ) {
 			$product_data = $values['data'];
 			if ( $product_data instanceof WC_Product ) {
-				$products[ $product_data->id ] = $product_data;
+				$products[ $product_data->get_id() ] = $product_data;
 			}
 		}
 	}
@@ -194,7 +194,7 @@ function wc4bp_get_categories_for_products( $products ) {
 	
 	foreach ( $products as $product_id => $product ) {
 		if ( $product instanceof WC_Product ) {
-			$terms = get_the_terms( $product->id, 'product_cat' );
+			$terms = get_the_terms( $product->get_id(), 'product_cat' );
 			if ( ! empty( $terms ) ) {
 				foreach ( $terms as $term ) {
 					if ( $term instanceof WP_Term ) {
