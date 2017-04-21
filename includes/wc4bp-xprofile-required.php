@@ -58,44 +58,56 @@ class WC4BP_Xprofile_Required {
 	
 	public static function is_woocommerce_active() {
 		self::load_plugins_dependency();
+		
 		return is_plugin_active( 'woocommerce/woocommerce.php' );
 	}
 	
 	public static function is_buddypress_active() {
 		self::load_plugins_dependency();
+		
 		return is_plugin_active( 'buddypress/bp-loader.php' );
 	}
 	
 	public static function is_wc4bp_active() {
 		self::load_plugins_dependency();
-		return is_plugin_active( 'wc4bp/wc4bp-basic-integration.php' );
+		
+		return ( is_plugin_active( 'wc4bp-premium/wc4bp-basic-integration.php' ) || is_plugin_active( 'wc4bp/wc4bp-basic-integration.php' ) );
 	}
 	
 	public static function is_current_active() {
 		self::load_plugins_dependency();
+		
 		return is_plugin_active( 'wc4bp-xprofile/loader.php' );
 	}
 	
 	public function setup_and_check() {
+		$wc4bp_slug = 'wc4bp';
+		if ( isset( $GLOBALS['wc4bp_loader'] ) ) {
+			/** @var WC4BP_Loader $wc4bp */
+			$wc4bp = $GLOBALS['wc4bp_loader'];
+			if ( $wc4bp::getFreemius()->has_paid_plan() ) {
+				$wc4bp_slug = 'wc4bp-premium';
+			}
+		}
 		// Create the required required_plugins array
 		$required_plugins = array(
 			array(
-				'name'             => 'BuddyPress',
-				'slug'             => 'buddypress',
-				'version'          => '2.2',
-				'required'         => true,
+				'name'     => 'BuddyPress',
+				'slug'     => 'buddypress',
+				'version'  => '2.2',
+				'required' => true,
 			),
 			array(
-				'name'             => 'WooCommerce',
-				'slug'             => 'woocommerce',
-				'version'          => '2.4',
-				'required'         => true,
+				'name'     => 'WooCommerce',
+				'slug'     => 'woocommerce',
+				'version'  => '2.4',
+				'required' => true,
 			),
 			array(
-				'name'             => 'WC4BP -> WooCommerce BuddyPress Integration',
-				'slug'             => 'wc4bp',
-				'version'          => '2.5',
-				'required'         => true,
+				'name'     => 'WC4BP -> WooCommerce BuddyPress Integration',
+				'slug'     => $wc4bp_slug,
+				'version'  => '2.5',
+				'required' => true,
 			),
 		);
 		
