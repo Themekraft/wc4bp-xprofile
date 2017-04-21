@@ -11,7 +11,7 @@ WooCommerce BuddyPress Integration xProfile Checkout Manager
 
 == Description ==
 
-This is the WooCommerce BuddyPress Integration xProfile Checkout extension. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WC4BP plugin installed for the extension to work. <a href="https://themekraft.com/products/woocommerce-buddypress-integration/" target="_blank">Get WC4BP now!</a>
+This is the WooCommerce BuddyPress Integration xProfile Checkout extension. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WC4BP plugin installed for the extension to work. <a href="https://wordpress.org/plugins/wc4bp/" target="_blank">Get WC4BP now!</a>
 
 What the plugin does:
 Add your BuddyPress Member Profile Fields into the WooCommerce Checkout.
