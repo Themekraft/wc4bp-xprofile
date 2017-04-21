@@ -99,13 +99,17 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 == Changelog ==
 
 
+= 1.2.3 =
+* Refactoring the code. Including the premium version of wc4bp in the requirement check
+* Multiple Fixes for WooCommerce 3.0
+
 = 1.2.2 =
-Include TGM to check requirements.
-Updating the call to a function from wc4bp to latest version
-Fixing issue with tgma
+* Include TGM to check requirements.
+* Updating the call to a function from wc4bp to latest version
+* Fixing issue with tgma
 
 = 1.2.1 =
-Move has_action in the menue hook. for some reason it was not fired in the latest version.
+* Move has_action in the menue hook. for some reason it was not fired in the latest version.
 
 = 1.2 =
 * Fix CSS bugs in conditional visibility UI and fix warning shown when WP_DEBUG is enabled
