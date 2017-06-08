@@ -4,7 +4,7 @@
  * Plugin Name: WC4BP -> BuddyPress xProfile Checkout Manager
  * Plugin URI:  https://themekraft.com/products/wc4bp-checkout-manager/
  * Description: WooCommerce BuddyPress Integration - Add BuddyPress xProfile Fields to the WooCommerce Checkout and remove WooCommerce Fields from the Checkout
- * Author: ThemeKraft
+ * Author: ThemeKraft, gfirem
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
  * Version:     1.2.3
  *
