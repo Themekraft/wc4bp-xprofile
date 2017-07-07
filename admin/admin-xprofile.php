@@ -233,7 +233,7 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 							/* This function handles the WYSIWYG profile field
 							* display for the xprofile admin setup screen
 							*/
-							buddyforms_xprofile_admin_field( $field, $group, $class );
+							wc4bp_xprofile_admin_field( $field, $group, $class );
 
 						} // end for
 
@@ -325,7 +325,7 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 /**
  * Handles the WYSIWYG display of each profile field on the edit screen
  */
-function buddyforms_xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
+function wc4bp_xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
 	global $field;
 
 	$bf_xprofile_options = get_option( 'bf_xprofile_options' );
