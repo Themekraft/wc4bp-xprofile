@@ -178,6 +178,14 @@ function wc4bp_screen_xprofile() { ?>
 	</div><?php
 
 }
+function findDuplicates($name,$collection){
+
+    foreach ($collection as $item){
+        if ($item->name == $name)
+            return true;
+    }
+    return false;
+}
 
 /**
  * Handles all actions for the admin area for creating, editing and deleting
@@ -187,12 +195,19 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 
 	$groups = BP_XProfile_Group::get( array(
 		'fetch_fields' => true
-	) ); ?>
+	) );
+    $final  = array();
+    foreach ($groups as $current) {
+        if ( ! findDuplicates($current->name, $final)) {
+            $final[] = $current;
+        }
+    }
+    $resultado = '';?>
 
 	<div id="tabs">
 		<ul id="field-group-tabs" class="nav tabs" style="display: block;">
 
-			<?php if ( ! empty( $groups ) ) : foreach ( $groups as $group ) : ?>
+			<?php if ( ! empty( $groups ) ) : foreach ( $final as $group ) : ?>
 				<li id="group_<?php echo $group->id; ?>"><a href="#tabs-<?php echo $group->id; ?>"
 				                                            class="ui-tab"><?php echo esc_attr( $group->name ); ?><?php if ( ! $group->can_delete ) : ?><?php _e( '(Primary)', 'wc4bp' ); endif; ?></a>
 				</li>
