@@ -85,7 +85,7 @@ class WC4BP_Xprofile_Required {
 		if ( isset( $GLOBALS['wc4bp_loader'] ) ) {
 			/** @var WC4BP_Loader $wc4bp */
 			$wc4bp = $GLOBALS['wc4bp_loader'];
-			if ( $wc4bp::getFreemius()->is_paying() ) {
+			if ( !empty($wc4bp::getFreemius()) && $wc4bp::getFreemius()->is_paying() ) {
 				$wc4bp_slug = 'wc4bp-premium';
 			}
 		}
