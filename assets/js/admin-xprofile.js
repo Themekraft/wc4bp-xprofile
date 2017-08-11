@@ -1,21 +1,21 @@
 jQuery(document).ready(function ($) {
+
     $('.wc4bp-conditional-visibility-container').each(function () {
         var $container = $(this);
-
         $container.find('.cv-enabled input').each(function () {
             var $checkbox = $(this);
 
             // Reset checked status
             $checkbox.prop('checked', $checkbox.data('checked'));
-
             // Enable or disable search fields in response to change in checked status
             $checkbox.change(function () {
                 if ($(this).is(":checked")) {
-                    $container.find('.wc-search').select2('readonly', false);
+
                     $container.find('.field.cv-products, .field.cv-categories').removeClass('disabled');
-                } else {
-                    $container.find('.wc-search').select2('readonly', true);
+                }
+                else {
                     $container.find('.field.cv-products, .field.cv-categories').addClass('disabled');
+                   
                 }
             });
         });
@@ -52,6 +52,7 @@ jQuery(document).ready(function ($) {
                     },
                     cache: true
                 },
+                 width: '250px',
                 escapeMarkup: function (m) {
                     return m;
                 },

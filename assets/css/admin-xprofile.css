@@ -80,7 +80,9 @@
     top: -2px;
     position: relative;
 }
-
+.select2 .select2-container{
+    width:250px;
+}
 .wc4bp-conditional-visibility-container .fields .field.disabled .wc-search ul.select2-choices li.select2-search-field input {
     color: #aaa !important;
 }
