@@ -15,31 +15,35 @@ jQuery(document).ready(function ($) {
                 }
                 else {
                     $container.find('.field.cv-products, .field.cv-categories').addClass('disabled');
-                   
+
                 }
             });
         });
 
         $container.find('.wc-search').each(function () {
             var $search = $(this);
-
+            var nonce =  $search.data('nonce');
+            var action =  $search.data('action');
+            var url = wc4bp_admin_xprofile_params.ajax_url;
             // Reset field value
             $search.val($search.data('value'));
 
+
             // Use select2 to implement intelligent search box
             $search.select2({
+
                 ajax: {
-                    url: wc4bp_admin_xprofile_params.ajax_url,
+                    url: url,
                     dataType: 'json',
-                    quietMillis: 250,
-                    data: function (term) {
+                    delay: 250,
+                    data: function (params) {
                         return {
-                            term: term,
-                            action: $search.data('action'),
+                            term: params.term,
+                            action:action,
                             security: $search.data('nonce')
                         };
                     },
-                    results: function (data) {
+                    processResults: function (data) {
                         var terms = [];
                         if (data) {
                             $.each(data, function (id, text) {
@@ -63,14 +67,14 @@ jQuery(document).ready(function ($) {
                     var selected = [];
                     var data = $.parseJSON(element.attr('data-selected'));
 
-                    $(element.val().split(',')).each(function (i, val) {
+                    /*$(element.val().split(',')).each(function (i, val) {
                         if (val in data) {
                             selected.push({
                                 id: val,
                                 text: data[val]
                             });
                         }
-                    });
+                    });*/
 
                     return callback(selected);
                 },
@@ -79,5 +83,8 @@ jQuery(document).ready(function ($) {
                 placeholder: $search.data('placeholder')
             });
         });
+
+        //Category
+        
     });
 });

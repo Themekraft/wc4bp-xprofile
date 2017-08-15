@@ -274,7 +274,7 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
                                     <span><?php echo
 	                                    esc_html( __( 'Display this group if the cart contains any of the following ' .
 	                                                  'products:' ) ); ?></span>
-									<input type="hidden" class="wc-search"
+									<select class="wc-search"
 									       name="<?php echo esc_attr( $group_visibility_prefix . "[products]" ); ?>"
 									       data-action="woocommerce_json_search_products_and_variations"
 									       data-value="<?php echo esc_attr( implode( ',', array_keys( $product_data ) ) ); ?>"
@@ -293,7 +293,7 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
                                     <span><?php echo
 	                                    esc_html( __( 'Display this group if the cart contains a product from any of ' .
 	                                                  'the following categories:' ) ); ?></span>
-									<input type="hidden" class="wc-search"
+									<select  class="wc-search"
 									       name="<?php echo esc_attr( $group_visibility_prefix . "[categories]" ); ?>"
 									       data-action="wc4bp_xprofile_search_categories"
 									       data-value="<?php echo esc_attr( implode( ',', array_keys( $category_data ) ) ); ?>"
