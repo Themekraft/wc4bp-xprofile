@@ -81,32 +81,29 @@ class WC4BP_Xprofile_Required {
 	}
 	
 	public function setup_and_check() {
+		self::load_plugins_dependency();
 		$wc4bp_slug = 'wc4bp';
-		if ( isset( $GLOBALS['wc4bp_loader'] ) ) {
-			/** @var WC4BP_Loader $wc4bp */
-			$wc4bp = $GLOBALS['wc4bp_loader'];
-			if ( !empty($wc4bp::getFreemius()) && $wc4bp::getFreemius()->is_paying() ) {
-				$wc4bp_slug = 'wc4bp-premium';
-			}
+		if ( is_plugin_active( 'wc4bp-premium/wc4bp-basic-integration.php' ) ) {
+			$wc4bp_slug = 'wc4bp-premium';
 		}
 		// Create the required required_plugins array
 		$required_plugins = array(
 			array(
 				'name'     => 'BuddyPress',
 				'slug'     => 'buddypress',
-				'version'  => '2.2',
+				'version'  => '2.9.0',
 				'required' => true,
 			),
 			array(
 				'name'     => 'WooCommerce',
 				'slug'     => 'woocommerce',
-				'version'  => '2.4',
+				'version'  => '3.1.0',
 				'required' => true,
 			),
 			array(
 				'name'     => 'WC4BP -> WooCommerce BuddyPress Integration',
 				'slug'     => $wc4bp_slug,
-				'version'  => '2.5',
+				'version'  => '3.0.12',
 				'required' => true,
 			),
 		);
