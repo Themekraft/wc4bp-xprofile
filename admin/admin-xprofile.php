@@ -283,7 +283,7 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 									       data-selected="<?php echo esc_attr( json_encode( $product_data ) ); ?>"
 										<?php if ( ! $feature_enabled ) {
 											echo 'readonly';
-										} ?>/>
+										} ?>></select>
 								</label>
 							</div>
 							<div class="field cv-categories<?php if ( ! $feature_enabled ) {
@@ -302,7 +302,7 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 									       data-selected="<?php echo esc_attr( json_encode( $category_data ) ); ?>"
 										<?php if ( ! $feature_enabled ) {
 											echo 'readonly';
-										} ?>/>
+										} ?>></select>
 								</label>
 							</div>
 						</div>
