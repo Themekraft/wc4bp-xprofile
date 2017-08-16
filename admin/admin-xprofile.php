@@ -56,7 +56,8 @@ function wc4bp_screen_xprofile() { ?>
 
 					// Update list of products that allow group to be displayed
 					if ( array_key_exists( 'products', $group_options ) ) {
-						if ( $group_options['products'] === '' ) {
+                        $deleteProd = in_array('deleteProduct',$group_options['products']);
+						if ( $deleteProd ) {
 							bp_xprofile_delete_meta( $group_id, 'group', 'bf_xprofile_conditional_visibility_products' );
 
 						} else {
@@ -91,7 +92,8 @@ function wc4bp_screen_xprofile() { ?>
 
 					// Update list of categories that allow group to be displayed
 					if ( array_key_exists( 'categories', $group_options ) ) {
-						if ( $group_options['categories'] === '' ) {
+                        $deleteCategory = in_array('deleteCategory',$group_options['categories']);
+						if ( $deleteCategory ) {
 							bp_xprofile_delete_meta( $group_id, 'group', 'bf_xprofile_conditional_visibility_categories' );
 
 						} else {
@@ -139,7 +141,7 @@ function wc4bp_screen_xprofile() { ?>
 			$wc4bp_sync_mail = get_option( 'wc4bp_sync_mail' );
 			?>
 
-			<form method="post" action="?page=wc4bp-options-page-xprofile">
+			<form method="post" action="?page=wc4bp-options-page-xprofile" id="wc4bp-option-form">
 				<h2>WooCommerce BuddyPress Integration Settings</h2>
 				<div id="post-body-content">
 

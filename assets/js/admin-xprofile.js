@@ -1,5 +1,34 @@
 jQuery(document).ready(function ($) {
 
+    $("#wc4bp-option-form").submit(function (event) {
+
+        $('.wc4bp-conditional-visibility-container').each(function () {
+            var $container = $(this);
+           var products = $container.find('.field.cv-products');
+
+           var productSelection = products.find('.select2-selection__rendered');
+           var productSelectionChoice = productSelection.find('.select2-selection__choice');
+           if(productSelectionChoice.length===0){
+               var name= products.find('.wc-search').attr('name');
+
+               products.append('<input type="hidden" name="'+name+'" value="deleteProduct" />');
+           }
+
+           var categories = $container.find('.field.cv-categories');
+            var categorySelection = categories.find('.select2-selection__rendered');
+            var categorySelectionChoice = categorySelection.find('.select2-selection__choice');
+            if(categorySelectionChoice.length===0){
+                var nameCat= categories.find('.wc-search').attr('name');
+
+                categories.append('<input type="hidden" name="'+nameCat+'" value="deleteCategory" />');
+            }
+
+
+
+        });
+        return true;
+
+    });
     $('.wc4bp-conditional-visibility-container').each(function () {
         var $container = $(this);
         $container.find('.cv-enabled input').each(function () {
