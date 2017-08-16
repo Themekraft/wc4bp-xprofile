@@ -66,15 +66,16 @@ jQuery(document).ready(function ($) {
                 initSelection: function (element, callback) {
                     var selected = [];
                     var data = $.parseJSON(element.attr('data-selected'));
+                    var myJSON = JSON.stringify(data);
+                    for(var k in data) {
 
-                    /*$(element.val().split(',')).each(function (i, val) {
-                        if (val in data) {
-                            selected.push({
-                                id: val,
-                                text: data[val]
-                            });
-                        }
-                    });*/
+                        selected.push({
+                            id: data[k],
+                            text: data[k]
+                        });
+                    }
+
+                  
 
                     return callback(selected);
                 },

@@ -61,7 +61,7 @@ function wc4bp_screen_xprofile() { ?>
 
 						} else {
 							$safe_product_ids = array();
-							$product_ids      = explode( ',', $group_options['products'] );
+							$product_ids      =  $group_options['products'] ;
 							foreach ( $product_ids as $product_id ) {
 								$trimmed_product_id = (string) trim( $product_id );
 								if ( ctype_digit( $trimmed_product_id ) ) {
@@ -85,6 +85,9 @@ function wc4bp_screen_xprofile() { ?>
 							}
 						}
 					}
+					else{
+                      //  bp_xprofile_delete_meta( $group_id, 'group', 'bf_xprofile_conditional_visibility_products' );
+                    }
 
 					// Update list of categories that allow group to be displayed
 					if ( array_key_exists( 'categories', $group_options ) ) {
@@ -93,7 +96,7 @@ function wc4bp_screen_xprofile() { ?>
 
 						} else {
 							$safe_category_ids = array();
-							$category_ids      = explode( ',', $group_options['categories'] );
+							$category_ids      =  $group_options['categories'] ;
 							foreach ( $category_ids as $category_id ) {
 								$trimmed_category_id = (string) trim( $category_id );
 								if ( ctype_digit( $trimmed_category_id ) ) {
@@ -117,6 +120,9 @@ function wc4bp_screen_xprofile() { ?>
 							}
 						}
 					}
+					else{
+                       // bp_xprofile_delete_meta( $group_id, 'group', 'bf_xprofile_conditional_visibility_categories' );
+                    }
 				}
 			}
 
@@ -274,12 +280,14 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
                                     <span><?php echo
 	                                    esc_html( __( 'Display this group if the cart contains any of the following ' .
 	                                                  'products:' ) ); ?></span>
-									<select class="wc-search"
-									       name="<?php echo esc_attr( $group_visibility_prefix . "[products]" ); ?>"
+									<select multiple class="select2-hidden-accessible wc-search"
+									       name="<?php echo esc_attr( $group_visibility_prefix . "[products][]" ); ?>"
 									       data-action="woocommerce_json_search_products_and_variations"
 									       data-value="<?php echo esc_attr( implode( ',', array_keys( $product_data ) ) ); ?>"
 									       data-nonce="<?php echo esc_attr( wc4bp_xprofile_get_nonce( 'search-products' ) ); ?>"
 									       data-placeholder="<?php echo esc_attr( __( 'Choose a product...' ) ); ?>"
+                                            data-multiple="true"
+                                            data-exclude="default"
 									       data-selected="<?php echo esc_attr( json_encode( $product_data ) ); ?>"
 										<?php if ( ! $feature_enabled ) {
 											echo 'readonly';
@@ -293,12 +301,13 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
                                     <span><?php echo
 	                                    esc_html( __( 'Display this group if the cart contains a product from any of ' .
 	                                                  'the following categories:' ) ); ?></span>
-									<select  class="wc-search"
-									       name="<?php echo esc_attr( $group_visibility_prefix . "[categories]" ); ?>"
+									<select multiple class="select2-hidden-accessible wc-search"
+									       name="<?php echo esc_attr( $group_visibility_prefix . "[categories][]" ); ?>"
 									       data-action="wc4bp_xprofile_search_categories"
 									       data-value="<?php echo esc_attr( implode( ',', array_keys( $category_data ) ) ); ?>"
 									       data-nonce="<?php echo esc_attr( wc4bp_xprofile_get_nonce( 'search-categories' ) ); ?>"
 									       data-placeholder="<?php echo esc_attr( __( 'Choose a category...' ) ); ?>"
+                                            data-multiple="true"
 									       data-selected="<?php echo esc_attr( json_encode( $category_data ) ); ?>"
 										<?php if ( ! $feature_enabled ) {
 											echo 'readonly';
