@@ -3,7 +3,7 @@ Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft, gfirem
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
 Requires at least: WordPress 3.9
 Tested up to: 4.8
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,12 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 
 == Changelog ==
 
+= 1.2.5 Sept 23.2017 =
+* Refactoring the code.
+* Remove duplicate tabs when upgrade to paid version of the core plugin.
+* Remove the hidding duplicate tabs verification.
+* Fix the required dependency messages.
+* Fixing the dropdowns using select2
 
 = 1.2.4 Jun 15.2017 =
 * Improving the requirement for wc4bp
