@@ -254,6 +254,10 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 
 					<?php endif; // end $group->fields ?>
 
+                    <?php if ( $group->name != 'Billing Address' && $group->name != 'Shipping Address' ) { ?>
+
+
+
 					<div class="wc4bp-conditional-visibility-container">
 						<h2><span><?php echo esc_html( __( 'Conditional Visibility' ) ); ?></span></h2>
 						<?php
@@ -318,6 +322,7 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 							</div>
 						</div>
 					</div>
+                    <?php } ?>
 
 				</fieldset>
 			</div>

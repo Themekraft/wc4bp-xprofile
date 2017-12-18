@@ -6,7 +6,7 @@
  * Description: WooCommerce BuddyPress Integration - Add BuddyPress xProfile Fields to the WooCommerce Checkout and remove WooCommerce Fields from the Checkout
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version:     1.2.5
+ * Version:     1.2.7
  *
  *****************************************************************************
  *
@@ -31,7 +31,7 @@ class WC4BP_xProfile {
 	/**
 	 * @var string
 	 */
-	public $version = '1.2.5';
+	public $version = '1.2.7';
 
 	/**
 	 * Initiate the class

@@ -36,11 +36,6 @@ rm -rf ./Gruntfile.js
 rm -rf ./composer.lock
 rm -rf ./.netbeans*
 rm -rf ./.php_cs
-rm -rf ./assets
-rm -rf ./admin/assets/sass
-rm -rf ./admin/assets/coffee
-rm -rf ./public/assets/sass
-rm -rf ./public/assets/coffee
 rm -rf ./*.zip
 #This contain the test stuff
 rm -rf ./vendor
