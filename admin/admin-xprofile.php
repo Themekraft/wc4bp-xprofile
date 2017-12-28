@@ -142,7 +142,8 @@ function wc4bp_screen_xprofile() { ?>
 			?>
 
 			<form method="post" action="?page=wc4bp-options-page-xprofile" id="wc4bp-option-form">
-				<h2>WooCommerce BuddyPress Integration Settings</h2>
+
+                <?php _e( '<h2>WooCommerce BuddyPress Integration Settings</h2>', 'wc4bp' ); ?>
 				<div id="post-body-content">
 
 					<div id="icon-options-general" class="icon32"><br></div>
@@ -154,11 +155,11 @@ function wc4bp_screen_xprofile() { ?>
 				<div id="postbox-container-1" class="postbox-container">
 					<div id="submitdiv" class="postbox ">
 						<div class="handlediv" title="Click to toggle"><br></div>
-						<h3><span>Save WC xProfile Setting</span></h3>
+						<h3><span>   <?php _e( ' Save WC xProfile Setting', 'wc4bp' ); ?></span></h3>
 						<div class="inside">
 							<div class="submitbox" id="submitpost">
 
-								<div style="padding: 10px;"><input type="submit" value="Save" class="button"></div>
+								<div style="padding: 10px;"><input type="submit" value="   <?php _e( ' Save', 'wc4bp' ); ?>" class="button"></div>
 								<div class="clear"></div>
 							</div>
 
@@ -167,11 +168,11 @@ function wc4bp_screen_xprofile() { ?>
 
 					<div id="submitdiv" class="postbox ">
 						<div class="handlediv" title="Click to toggle"><br></div>
-						<h3><span>Email Address Synchronisation</span></h3>
+						<h3><span>    <?php _e( ' Email Address Synchronisation', 'wc4bp' ); ?></span></h3>
 						<div class="inside">
 							<div class="submitbox" id="submitpost">
 								<div style="padding: 10px;">
-									<p>Sync BuddyPress signup email address with WooCommerce billing email address</p>
+									<p> <?php _e( ' Sync BuddyPress signup email address with WooCommerce billing email address', 'wc4bp' ); ?></p>
 									<input type="checkbox" id="wc4bp_sync_mail"
 									       name="wc4bp_sync_mail" <?php checked( 'on', $wc4bp_sync_mail ) ?>></div>
 								<div class="clear"></div>
@@ -216,8 +217,7 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 			<div id="tabs-<?php echo $group->id; ?>" class="tab-wrapper">
 
 				<?php if ( $group->name == 'Billing Address' || $group->name == 'Shipping Address' ) { ?>
-					<h3><?php echo $group->name ?> WooCommerce fields are already in the checkout and get synced with
-						BuddyPress.</h3>
+					<h3><?php echo $group->name ?>  <?php _e( ' WooCommerce fields are already in the checkout and get synced with BuddyPress.', 'wc4bp' ); ?> </h3>
 				<?php } ?>
 
 				<fieldset id="<?php echo $group->id; ?>" class="field-group">
@@ -259,7 +259,7 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 
 
 					<div class="wc4bp-conditional-visibility-container">
-						<h2><span><?php echo esc_html( __( 'Conditional Visibility' ) ); ?></span></h2>
+						<h2><span><?php echo esc_html( _e( 'Conditional Visibility' ,'wc4bp') ); ?></span></h2>
 						<?php
 						$feature_enabled         = wc4bp_xprofile_conditional_visibility_enabled( $group->id, 'group' );
 						$group_visibility_prefix = "bf_xprofile_conditional_visibility[{$group->id}]";
@@ -275,8 +275,8 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 									       type="checkbox" <?php checked( $feature_enabled ); ?>
 									       data-checked="<?php echo $feature_enabled ? 'true' : 'false'; ?>"/>
                                     <span><?php echo
-	                                    esc_html( __( 'Make this group hidden on the checkout page, unless at least ' .
-	                                                  'one of the following criteria are met:' ) ); ?></span>
+	                                    esc_html( _e( 'Make this group hidden on the checkout page, unless at least ' .
+	                                                  'one of the following criteria are met:' ,'wc4bp') ); ?></span>
 								</label>
 							</div>
 							<div class="field cv-products<?php if ( ! $feature_enabled ) {
@@ -284,14 +284,14 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 							} ?>">
 								<label>
                                     <span><?php echo
-	                                    esc_html( __( 'Display this group if the cart contains any of the following ' .
-	                                                  'products:' ) ); ?></span>
+	                                    esc_html( _e( 'Display this group if the cart contains any of the following ' .
+	                                                  'products:','wc4bp' ) ); ?></span>
 									<select multiple class="select2-hidden-accessible wc-search"
 									       name="<?php echo esc_attr( $group_visibility_prefix . "[products][]" ); ?>"
 									       data-action="woocommerce_json_search_products_and_variations"
 									       data-value="<?php echo esc_attr( implode( ',', array_keys( $product_data ) ) ); ?>"
 									       data-nonce="<?php echo esc_attr( wc4bp_xprofile_get_nonce( 'search-products' ) ); ?>"
-									       data-placeholder="<?php echo esc_attr( __( 'Choose a product...' ) ); ?>"
+									       data-placeholder="<?php echo esc_attr( _e( 'Choose a product...' ,'wc4bp') ); ?>"
                                             data-multiple="true"
                                             data-exclude="default"
 									       data-selected="<?php echo esc_attr( json_encode( $product_data ) ); ?>"
@@ -305,14 +305,14 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 							} ?>">
 								<label>
                                     <span><?php echo
-	                                    esc_html( __( 'Display this group if the cart contains a product from any of ' .
-	                                                  'the following categories:' ) ); ?></span>
+	                                    esc_html( _e( 'Display this group if the cart contains a product from any of ' .
+	                                                  'the following categories:', 'wc4bp' ) ); ?></span>
 									<select multiple class="select2-hidden-accessible wc-search"
 									       name="<?php echo esc_attr( $group_visibility_prefix . "[categories][]" ); ?>"
 									       data-action="wc4bp_xprofile_search_categories"
 									       data-value="<?php echo esc_attr( implode( ',', array_keys( $category_data ) ) ); ?>"
 									       data-nonce="<?php echo esc_attr( wc4bp_xprofile_get_nonce( 'search-categories' ) ); ?>"
-									       data-placeholder="<?php echo esc_attr( __( 'Choose a category...' ) ); ?>"
+									       data-placeholder="<?php echo esc_attr( _e( 'Choose a category...','wc4bp' ) ); ?>"
                                             data-multiple="true"
 									       data-selected="<?php echo esc_attr( json_encode( $category_data ) ); ?>"
 										<?php if ( ! $feature_enabled ) {
