@@ -25,7 +25,7 @@ class WC4BP_Xprofile_Required {
 		if ( ! is_admin() ) {
 			return;
 		}
-		add_action( 'tgmpa_register', array( $this, 'setup_and_check' ) );
+		add_action( 'wc4bp_xprofile_tmpga_register', array( $this, 'setup_and_check' ) );
 		add_action( 'in_admin_footer', array( $this, 'remove_woo_footer' ) );
 	}
 
@@ -109,7 +109,7 @@ class WC4BP_Xprofile_Required {
 		);
 
 		$config = array(
-			'id'           => 'wc4bp_xprofile',                 // Unique ID for hashing notices for multiple instances of TGMPA.
+			'id'           => 'wc4bp_xprofile',                 // Unique ID for hashing notices for multiple instances of wc4bp_xprofile_tmpga.
 			'default_path' => '',                      // Default absolute path to bundled plugins.
 			'menu'         => 'wc4bp-xprofile-install-plugins', // Menu slug.
 			'parent_slug'  => 'admin.php',            // Parent menu slug.
@@ -146,8 +146,8 @@ class WC4BP_Xprofile_Required {
 			),
 		);
 
-		// Call the tgmpa function to register the required required_plugins
-		tgmpa( $required_plugins, $config );
+		// Call the wc4bp_xprofile_tmpga function to register the required required_plugins
+		wc4bp_xprofile_tmpga( $required_plugins, $config );
 	}
 
 }

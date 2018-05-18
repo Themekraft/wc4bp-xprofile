@@ -49,13 +49,13 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 	 */
 	class TGM_Plugin_Activation {
 		/**
-		 * TGMPA version number.
+		 * wc4bp_xprofile_tmpga version number.
 		 *
 		 * @since 2.5.0
 		 *
 		 * @const string Version number.
 		 */
-		const TGMPA_VERSION = '2.6.1';
+		const wc4bp_xprofile_tmpga_VERSION = '2.6.1';
 
 		/**
 		 * Regular expression to test if a URL is a WP plugin repo URL.
@@ -128,7 +128,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 *
 		 * @var string
 		 */
-		public $id = 'tgmpa';
+		public $id = 'wc4bp_xprofile_tmpga';
 
 		/**
 		 * Name of the query-string argument for the admin page.
@@ -137,7 +137,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $menu = 'tgmpa-install-plugins';
+		protected $menu = 'wc4bp_xprofile_tmpga-install-plugins';
 
 		/**
 		 * Parent menu file slug.
@@ -242,9 +242,9 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 
 		/**
 		 * Adds a reference of this object to $instance, populates default strings,
-		 * does the tgmpa_init action hook, and hooks in the interactions to init.
+		 * does the wc4bp_xprofile_tmpga_init action hook, and hooks in the interactions to init.
 		 *
-		 * {@internal This method should be `protected`, but as too many TGMPA implementations
+		 * {@internal This method should be `protected`, but as too many wc4bp_xprofile_tmpga implementations
 		 * haven't upgraded beyond v2.3.6 yet, this gives backward compatibility issues.
 		 * Reverted back to public for the time being.}}
 		 *
@@ -257,12 +257,12 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			$this->wp_version = $GLOBALS['wp_version'];
 
 			// Announce that the class is ready, and pass the object (for advanced use).
-			do_action_ref_array( 'tgmpa_init', array( $this ) );
+			do_action_ref_array( 'wc4bp_xprofile_tmpga_init', array( $this ) );
 
 			/*
 			 * Load our text domain and allow for overloading the fall-back file.
 			 *
-			 * {@internal IMPORTANT! If this code changes, review the regex in the custom TGMPA
+			 * {@internal IMPORTANT! If this code changes, review the regex in the custom wc4bp_xprofile_tmpga
 			 * generator on the website.}}
 			 */
 			add_action( 'init', array( $this, 'load_textdomain' ), 5 );
@@ -279,7 +279,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * is being assigned rather than tested in a conditional, effectively rendering it useless.
 		 * This 'hack' prevents this from happening.}}
 		 *
-		 * @see https://github.com/TGMPA/TGM-Plugin-Activation/blob/2.3.6/tgm-plugin-activation/class-tgm-plugin-activation.php#L1593
+		 * @see https://github.com/wc4bp_xprofile_tmpga/TGM-Plugin-Activation/blob/2.3.6/tgm-plugin-activation/class-tgm-plugin-activation.php#L1593
 		 *
 		 * @since 2.5.2
 		 *
@@ -317,94 +317,94 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 */
 		public function init() {
 			/**
-			 * By default TGMPA only loads on the WP back-end and not in an Ajax call. Using this filter
+			 * By default wc4bp_xprofile_tmpga only loads on the WP back-end and not in an Ajax call. Using this filter
 			 * you can overrule that behaviour.
 			 *
 			 * @since 2.5.0
 			 *
-			 * @param bool $load Whether or not TGMPA should load.
+			 * @param bool $load Whether or not wc4bp_xprofile_tmpga should load.
 			 *                   Defaults to the return of `is_admin() && ! defined( 'DOING_AJAX' )`.
 			 */
-			if ( true !== apply_filters( 'tgmpa_load', ( is_admin() && ! defined( 'DOING_AJAX' ) ) ) ) {
+			if ( true !== apply_filters( 'wc4bp_xprofile_tmpga_load', ( is_admin() && ! defined( 'DOING_AJAX' ) ) ) ) {
 				return;
 			}
 
 			// Load class strings.
 			$this->strings = array(
-				'page_title'                      => __( 'Install Required Plugins', 'tgmpa' ),
-				'menu_title'                      => __( 'Install Plugins', 'tgmpa' ),
+				'page_title'                      => __( 'Install Required Plugins', 'wc4bp_xprofile_tmpga' ),
+				'menu_title'                      => __( 'Install Plugins', 'wc4bp_xprofile_tmpga' ),
 				/* translators: %s: plugin name. */
-				'installing'                      => __( 'Installing Plugin: %s', 'tgmpa' ),
+				'installing'                      => __( 'Installing Plugin: %s', 'wc4bp_xprofile_tmpga' ),
 				/* translators: %s: plugin name. */
-				'updating'                        => __( 'Updating Plugin: %s', 'tgmpa' ),
-				'oops'                            => __( 'Something went wrong with the plugin API.', 'tgmpa' ),
+				'updating'                        => __( 'Updating Plugin: %s', 'wc4bp_xprofile_tmpga' ),
+				'oops'                            => __( 'Something went wrong with the plugin API.', 'wc4bp_xprofile_tmpga' ),
 				'notice_can_install_required'     => _n_noop(
 					/* translators: 1: plugin name(s). */
 					'This theme requires the following plugin: %1$s.',
 					'This theme requires the following plugins: %1$s.',
-					'tgmpa'
+					'wc4bp_xprofile_tmpga'
 				),
 				'notice_can_install_recommended'  => _n_noop(
 					/* translators: 1: plugin name(s). */
 					'This theme recommends the following plugin: %1$s.',
 					'This theme recommends the following plugins: %1$s.',
-					'tgmpa'
+					'wc4bp_xprofile_tmpga'
 				),
 				'notice_ask_to_update'            => _n_noop(
 					/* translators: 1: plugin name(s). */
 					'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.',
 					'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.',
-					'tgmpa'
+					'wc4bp_xprofile_tmpga'
 				),
 				'notice_ask_to_update_maybe'      => _n_noop(
 					/* translators: 1: plugin name(s). */
 					'There is an update available for: %1$s.',
 					'There are updates available for the following plugins: %1$s.',
-					'tgmpa'
+					'wc4bp_xprofile_tmpga'
 				),
 				'notice_can_activate_required'    => _n_noop(
 					/* translators: 1: plugin name(s). */
 					'The following required plugin is currently inactive: %1$s.',
 					'The following required plugins are currently inactive: %1$s.',
-					'tgmpa'
+					'wc4bp_xprofile_tmpga'
 				),
 				'notice_can_activate_recommended' => _n_noop(
 					/* translators: 1: plugin name(s). */
 					'The following recommended plugin is currently inactive: %1$s.',
 					'The following recommended plugins are currently inactive: %1$s.',
-					'tgmpa'
+					'wc4bp_xprofile_tmpga'
 				),
 				'install_link'                    => _n_noop(
 					'Begin installing plugin',
 					'Begin installing plugins',
-					'tgmpa'
+					'wc4bp_xprofile_tmpga'
 				),
 				'update_link'                     => _n_noop(
 					'Begin updating plugin',
 					'Begin updating plugins',
-					'tgmpa'
+					'wc4bp_xprofile_tmpga'
 				),
 				'activate_link'                   => _n_noop(
 					'Begin activating plugin',
 					'Begin activating plugins',
-					'tgmpa'
+					'wc4bp_xprofile_tmpga'
 				),
-				'return'                          => __( 'Return to Required Plugins Installer', 'tgmpa' ),
-				'dashboard'                       => __( 'Return to the Dashboard', 'tgmpa' ),
-				'plugin_activated'                => __( 'Plugin activated successfully.', 'tgmpa' ),
-				'activated_successfully'          => __( 'The following plugin was activated successfully:', 'tgmpa' ),
+				'return'                          => __( 'Return to Required Plugins Installer', 'wc4bp_xprofile_tmpga' ),
+				'dashboard'                       => __( 'Return to the Dashboard', 'wc4bp_xprofile_tmpga' ),
+				'plugin_activated'                => __( 'Plugin activated successfully.', 'wc4bp_xprofile_tmpga' ),
+				'activated_successfully'          => __( 'The following plugin was activated successfully:', 'wc4bp_xprofile_tmpga' ),
 				/* translators: 1: plugin name. */
-				'plugin_already_active'           => __( 'No action taken. Plugin %1$s was already active.', 'tgmpa' ),
+				'plugin_already_active'           => __( 'No action taken. Plugin %1$s was already active.', 'wc4bp_xprofile_tmpga' ),
 				/* translators: 1: plugin name. */
-				'plugin_needs_higher_version'     => __( 'Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin.', 'tgmpa' ),
+				'plugin_needs_higher_version'     => __( 'Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin.', 'wc4bp_xprofile_tmpga' ),
 				/* translators: 1: dashboard link. */
-				'complete'                        => __( 'All plugins installed and activated successfully. %1$s', 'tgmpa' ),
-				'dismiss'                         => __( 'Dismiss this notice', 'tgmpa' ),
-				'notice_cannot_install_activate'  => __( 'There are one or more required or recommended plugins to install, update or activate.', 'tgmpa' ),
-				'contact_admin'                   => __( 'Please contact the administrator of this site for help.', 'tgmpa' ),
+				'complete'                        => __( 'All plugins installed and activated successfully. %1$s', 'wc4bp_xprofile_tmpga' ),
+				'dismiss'                         => __( 'Dismiss this notice', 'wc4bp_xprofile_tmpga' ),
+				'notice_cannot_install_activate'  => __( 'There are one or more required or recommended plugins to install, update or activate.', 'wc4bp_xprofile_tmpga' ),
+				'contact_admin'                   => __( 'Please contact the administrator of this site for help.', 'wc4bp_xprofile_tmpga' ),
 			);
 
-			do_action( 'tgmpa_register' );
+			do_action( 'wc4bp_xprofile_tmpga_register' );
 
 			/* After this point, the plugins should be registered and the configuration set. */
 
@@ -414,7 +414,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			}
 
 			// Set up the menu and notices if we still have outstanding actions.
-			if ( true !== $this->is_tgmpa_complete() ) {
+			if ( true !== $this->is_wc4bp_xprofile_tmpga_complete() ) {
 				// Sort the plugins.
 				array_multisort( $this->sort_order, SORT_ASC, $this->plugins );
 
@@ -462,21 +462,21 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * get round the different ways of handling the path and deprecated notices being thrown
 		 * and such. For plugins, the actual file name will be corrected by a filter.}}
 		 *
-		 * {@internal IMPORTANT! If this function changes, review the regex in the custom TGMPA
+		 * {@internal IMPORTANT! If this function changes, review the regex in the custom wc4bp_xprofile_tmpga
 		 * generator on the website.}}
 		 */
 		public function load_textdomain() {
-			if ( is_textdomain_loaded( 'tgmpa' ) ) {
+			if ( is_textdomain_loaded( 'wc4bp_xprofile_tmpga' ) ) {
 				return;
 			}
 
 			if ( false !== strpos( __FILE__, WP_PLUGIN_DIR ) || false !== strpos( __FILE__, WPMU_PLUGIN_DIR ) ) {
 				// Plugin, we'll need to adjust the file name.
 				add_action( 'load_textdomain_mofile', array( $this, 'correct_plugin_mofile' ), 10, 2 );
-				load_theme_textdomain( 'tgmpa', dirname( __FILE__ ) . '/languages' );
+				load_theme_textdomain( 'wc4bp_xprofile_tmpga', dirname( __FILE__ ) . '/languages' );
 				remove_action( 'load_textdomain_mofile', array( $this, 'correct_plugin_mofile' ), 10 );
 			} else {
-				load_theme_textdomain( 'tgmpa', dirname( __FILE__ ) . '/languages' );
+				load_theme_textdomain( 'wc4bp_xprofile_tmpga', dirname( __FILE__ ) . '/languages' );
 			}
 		}
 
@@ -485,7 +485,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 *
 		 * Themese use `/path/{locale}.mo` while plugins use `/path/{text-domain}-{locale}.mo`.
 		 *
-		 * {@internal IMPORTANT! If this function changes, review the regex in the custom TGMPA
+		 * {@internal IMPORTANT! If this function changes, review the regex in the custom wc4bp_xprofile_tmpga
 		 * generator on the website.}}
 		 *
 		 * @since 2.6.0
@@ -496,10 +496,10 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 */
 		public function correct_plugin_mofile( $mofile, $domain ) {
 			// Exit early if not our domain (just in case).
-			if ( 'tgmpa' !== $domain ) {
+			if ( 'wc4bp_xprofile_tmpga' !== $domain ) {
 				return $mofile;
 			}
-			return preg_replace( '`/([a-z]{2}_[A-Z]{2}.mo)$`', '/tgmpa-$1', $mofile );
+			return preg_replace( '`/([a-z]{2}_[A-Z]{2}.mo)$`', '/wc4bp_xprofile_tmpga-$1', $mofile );
 		}
 
 		/**
@@ -507,12 +507,12 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 *
 		 * WP, by default since WP 3.7, will load a local translation first and if none
 		 * can be found, will try and find a translation in the /wp-content/languages/ directory.
-		 * As this library is theme/plugin agnostic, translation files for TGMPA can exist both
+		 * As this library is theme/plugin agnostic, translation files for wc4bp_xprofile_tmpga can exist both
 		 * in the WP_LANG_DIR /plugins/ subdirectory as well as in the /themes/ subdirectory.
 		 *
 		 * This method makes sure both directories are checked.
 		 *
-		 * {@internal IMPORTANT! If this function changes, review the regex in the custom TGMPA
+		 * {@internal IMPORTANT! If this function changes, review the regex in the custom wc4bp_xprofile_tmpga
 		 * generator on the website.}}
 		 *
 		 * @since 2.6.0
@@ -523,7 +523,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 */
 		public function overload_textdomain_mofile( $mofile, $domain ) {
 			// Exit early if not our domain, not a WP_LANG_DIR load or if the file exists and is readable.
-			if ( 'tgmpa' !== $domain || false === strpos( $mofile, WP_LANG_DIR ) || @is_readable( $mofile ) ) {
+			if ( 'wc4bp_xprofile_tmpga' !== $domain || false === strpos( $mofile, WP_LANG_DIR ) || @is_readable( $mofile ) ) {
 				return $mofile;
 			}
 
@@ -603,9 +603,9 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		public function filter_plugin_action_links_update( $actions ) {
 			$actions['update'] = sprintf(
 				'<a href="%1$s" title="%2$s" class="edit">%3$s</a>',
-				esc_url( $this->get_tgmpa_status_url( 'update' ) ),
-				esc_attr__( 'This plugin needs to be updated to be compatible with your theme.', 'tgmpa' ),
-				esc_html__( 'Update Required', 'tgmpa' )
+				esc_url( $this->get_wc4bp_xprofile_tmpga_status_url( 'update' ) ),
+				esc_attr__( 'This plugin needs to be updated to be compatible with your theme.', 'wc4bp_xprofile_tmpga' ),
+				esc_html__( 'Update Required', 'wc4bp_xprofile_tmpga' )
 			);
 
 			return $actions;
@@ -614,7 +614,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		/**
 		 * Handles calls to show plugin information via links in the notices.
 		 *
-		 * We get the links in the admin notices to point to the TGMPA page, rather
+		 * We get the links in the admin notices to point to the wc4bp_xprofile_tmpga page, rather
 		 * than the typical plugin-install.php file, so we can prepare everything
 		 * beforehand.
 		 *
@@ -625,17 +625,17 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 *
 		 * Down right easy once you know how...
 		 *
-		 * Returns early if not the TGMPA page.
+		 * Returns early if not the wc4bp_xprofile_tmpga page.
 		 *
 		 * @since 2.1.0
 		 *
 		 * @global string $tab Used as iframe div class names, helps with styling
 		 * @global string $body_id Used as the iframe body ID, helps with styling
 		 *
-		 * @return null Returns early if not the TGMPA page.
+		 * @return null Returns early if not the wc4bp_xprofile_tmpga page.
 		 */
 		public function admin_init() {
-			if ( ! $this->is_tgmpa_page() ) {
+			if ( ! $this->is_wc4bp_xprofile_tmpga_page() ) {
 				return;
 			}
 
@@ -669,7 +669,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * @since 2.1.0
 		 */
 		public function thickbox() {
-			if ( ! get_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice_' . $this->id, true ) ) {
+			if ( ! get_user_meta( get_current_user_id(), 'wc4bp_xprofile_tmpga_dismissed_notice_' . $this->id, true ) ) {
 				add_thickbox();
 			}
 		}
@@ -696,7 +696,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			}
 
 			$args = apply_filters(
-				'tgmpa_admin_menu_args',
+				'wc4bp_xprofile_tmpga_admin_menu_args',
 				array(
 					'parent_slug' => $this->parent_slug,                     // Parent Menu slug.
 					'page_title'  => $this->strings['page_title'],           // Page title.
@@ -713,7 +713,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		/**
 		 * Add the menu item.
 		 *
-		 * {@internal IMPORTANT! If this function changes, review the regex in the custom TGMPA
+		 * {@internal IMPORTANT! If this function changes, review the regex in the custom wc4bp_xprofile_tmpga
 		 * generator on the website.}}
 		 *
 		 * @since 2.5.0
@@ -721,8 +721,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * @param array $args Menu item configuration.
 		 */
 		protected function add_admin_menu( array $args ) {
-			if ( has_filter( 'tgmpa_admin_menu_use_add_theme_page' ) ) {
-				_deprecated_function( 'The "tgmpa_admin_menu_use_add_theme_page" filter', '2.5.0', esc_html__( 'Set the parent_slug config variable instead.', 'tgmpa' ) );
+			if ( has_filter( 'wc4bp_xprofile_tmpga_admin_menu_use_add_theme_page' ) ) {
+				_deprecated_function( 'The "wc4bp_xprofile_tmpga_admin_menu_use_add_theme_page" filter', '2.5.0', esc_html__( 'Set the parent_slug config variable instead.', 'wc4bp_xprofile_tmpga' ) );
 			}
 
 			if ( 'themes.php' === $this->parent_slug ) {
@@ -745,10 +745,10 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 */
 		public function install_plugins_page() {
 			// Store new instance of plugin table in object.
-			$plugin_table = new TGMPA_List_Table;
+			$plugin_table = new wc4bp_xprofile_tmpga_List_Table;
 
 			// Return early if processing a plugin installation action.
-			if ( ( ( 'tgmpa-bulk-install' === $plugin_table->current_action() || 'tgmpa-bulk-update' === $plugin_table->current_action() ) && $plugin_table->process_bulk_actions() ) || $this->do_plugin_install() ) {
+			if ( ( ( 'wc4bp_xprofile_tmpga-bulk-install' === $plugin_table->current_action() || 'wc4bp_xprofile_tmpga-bulk-update' === $plugin_table->current_action() ) && $plugin_table->process_bulk_actions() ) || $this->do_plugin_install() ) {
 				return;
 			}
 
@@ -756,7 +756,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			wp_clean_plugins_cache( false );
 
 			?>
-			<div class="tgmpa wrap">
+			<div class="wc4bp_xprofile_tmpga wrap">
 				<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 				<?php $plugin_table->prepare_items(); ?>
 
@@ -767,8 +767,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				?>
 				<?php $plugin_table->views(); ?>
 
-				<form id="tgmpa-plugins" action="" method="post">
-					<input type="hidden" name="tgmpa-page" value="<?php echo esc_attr( $this->menu ); ?>" />
+				<form id="wc4bp_xprofile_tmpga-plugins" action="" method="post">
+					<input type="hidden" name="wc4bp_xprofile_tmpga-page" value="<?php echo esc_attr( $this->menu ); ?>" />
 					<input type="hidden" name="plugin_status" value="<?php echo esc_attr( $plugin_table->view_context ); ?>" />
 					<?php $plugin_table->display(); ?>
 				</form>
@@ -809,26 +809,26 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			}
 
 			// Was an install or upgrade action link clicked?
-			if ( ( isset( $_GET['tgmpa-install'] ) && 'install-plugin' === $_GET['tgmpa-install'] ) || ( isset( $_GET['tgmpa-update'] ) && 'update-plugin' === $_GET['tgmpa-update'] ) ) {
+			if ( ( isset( $_GET['wc4bp_xprofile_tmpga-install'] ) && 'install-plugin' === $_GET['wc4bp_xprofile_tmpga-install'] ) || ( isset( $_GET['wc4bp_xprofile_tmpga-update'] ) && 'update-plugin' === $_GET['wc4bp_xprofile_tmpga-update'] ) ) {
 
 				$install_type = 'install';
-				if ( isset( $_GET['tgmpa-update'] ) && 'update-plugin' === $_GET['tgmpa-update'] ) {
+				if ( isset( $_GET['wc4bp_xprofile_tmpga-update'] ) && 'update-plugin' === $_GET['wc4bp_xprofile_tmpga-update'] ) {
 					$install_type = 'update';
 				}
 
-				check_admin_referer( 'tgmpa-' . $install_type, 'tgmpa-nonce' );
+				check_admin_referer( 'wc4bp_xprofile_tmpga-' . $install_type, 'wc4bp_xprofile_tmpga-nonce' );
 
 				// Pass necessary information via URL if WP_Filesystem is needed.
 				$url = wp_nonce_url(
 					add_query_arg(
 						array(
 							'plugin'                 => urlencode( $slug ),
-							'tgmpa-' . $install_type => $install_type . '-plugin',
+							'wc4bp_xprofile_tmpga-' . $install_type => $install_type . '-plugin',
 						),
-						$this->get_tgmpa_url()
+						$this->get_wc4bp_xprofile_tmpga_url()
 					),
-					'tgmpa-' . $install_type,
-					'tgmpa-nonce'
+					'wc4bp_xprofile_tmpga-' . $install_type,
+					'wc4bp_xprofile_tmpga-nonce'
 				);
 
 				$method = ''; // Leave blank so WP_Filesystem can populate it as necessary.
@@ -913,20 +913,20 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 					}
 				}
 
-				$this->show_tgmpa_version();
+				$this->show_wc4bp_xprofile_tmpga_version();
 
 				// Display message based on if all plugins are now active or not.
-				if ( $this->is_tgmpa_complete() ) {
-					echo '<p>', sprintf( esc_html( $this->strings['complete'] ), '<a href="' . esc_url( self_admin_url() ) . '">' . esc_html__( 'Return to the Dashboard', 'tgmpa' ) . '</a>' ), '</p>';
+				if ( $this->is_wc4bp_xprofile_tmpga_complete() ) {
+					echo '<p>', sprintf( esc_html( $this->strings['complete'] ), '<a href="' . esc_url( self_admin_url() ) . '">' . esc_html__( 'Return to the Dashboard', 'wc4bp_xprofile_tmpga' ) . '</a>' ), '</p>';
 					echo '<style type="text/css">#adminmenu .wp-submenu li.current { display: none !important; }</style>';
 				} else {
-					echo '<p><a href="', esc_url( $this->get_tgmpa_url() ), '" target="_parent">', esc_html( $this->strings['return'] ), '</a></p>';
+					echo '<p><a href="', esc_url( $this->get_wc4bp_xprofile_tmpga_url() ), '" target="_parent">', esc_html( $this->strings['return'] ), '</a></p>';
 				}
 
 				return true;
-			} elseif ( isset( $this->plugins[ $slug ]['file_path'], $_GET['tgmpa-activate'] ) && 'activate-plugin' === $_GET['tgmpa-activate'] ) {
+			} elseif ( isset( $this->plugins[ $slug ]['file_path'], $_GET['wc4bp_xprofile_tmpga-activate'] ) && 'activate-plugin' === $_GET['wc4bp_xprofile_tmpga-activate'] ) {
 				// Activate action link was clicked.
-				check_admin_referer( 'tgmpa-activate', 'tgmpa-nonce' );
+				check_admin_referer( 'wc4bp_xprofile_tmpga-activate', 'wc4bp_xprofile_tmpga-nonce' );
 
 				if ( false === $this->activate_single_plugin( $this->plugins[ $slug ]['file_path'], $slug ) ) {
 					return true; // Finish execution of the function early as we encountered an error.
@@ -987,7 +987,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * @return string $source
 		 */
 		public function maybe_adjust_source_dir( $source, $remote_source, $upgrader ) {
-			if ( ! $this->is_tgmpa_page() || ! is_object( $GLOBALS['wp_filesystem'] ) ) {
+			if ( ! $this->is_wc4bp_xprofile_tmpga_page() || ! is_object( $GLOBALS['wp_filesystem'] ) ) {
 				return $source;
 			}
 
@@ -1024,10 +1024,10 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 					if ( true === $GLOBALS['wp_filesystem']->move( $from_path, $to_path ) ) {
 						return trailingslashit( $to_path );
 					} else {
-						return new WP_Error( 'rename_failed', esc_html__( 'The remote plugin package does not contain a folder with the desired slug and renaming did not work.', 'tgmpa' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'tgmpa' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
+						return new WP_Error( 'rename_failed', esc_html__( 'The remote plugin package does not contain a folder with the desired slug and renaming did not work.', 'wc4bp_xprofile_tmpga' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'wc4bp_xprofile_tmpga' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
 					}
 				} elseif ( empty( $subdir_name ) ) {
-					return new WP_Error( 'packaged_wrong', esc_html__( 'The remote plugin package consists of more than one file, but the files are not packaged in a folder.', 'tgmpa' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'tgmpa' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
+					return new WP_Error( 'packaged_wrong', esc_html__( 'The remote plugin package consists of more than one file, but the files are not packaged in a folder.', 'wc4bp_xprofile_tmpga' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'wc4bp_xprofile_tmpga' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
 				}
 			}
 
@@ -1051,7 +1051,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 
 				if ( is_wp_error( $activate ) ) {
 					echo '<div id="message" class="error"><p>', wp_kses_post( $activate->get_error_message() ), '</p></div>',
-						'<p><a href="', esc_url( $this->get_tgmpa_url() ), '" target="_parent">', esc_html( $this->strings['return'] ), '</a></p>';
+						'<p><a href="', esc_url( $this->get_wc4bp_xprofile_tmpga_url() ), '" target="_parent">', esc_html( $this->strings['return'] ), '</a></p>';
 
 					return false; // End it here if there is an error with activation.
 				} else {
@@ -1113,7 +1113,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 */
 		public function notices() {
 			// Remove nag on the install page / Return early if the nag message has been dismissed or user < author.
-			if ( ( $this->is_tgmpa_page() || $this->is_core_update_page() ) || get_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice_' . $this->id, true ) || ! current_user_can( apply_filters( 'tgmpa_show_admin_notice_capability', 'publish_posts' ) ) ) {
+			if ( ( $this->is_wc4bp_xprofile_tmpga_page() || $this->is_core_update_page() ) || get_user_meta( get_current_user_id(), 'wc4bp_xprofile_tmpga_dismissed_notice_' . $this->id, true ) || ! current_user_can( apply_filters( 'wc4bp_xprofile_tmpga_show_admin_notice_capability', 'publish_posts' ) ) ) {
 				return;
 			}
 
@@ -1209,14 +1209,14 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 						unset( $plugin_slug );
 
 						$count          = count( $plugin_group );
-						$linked_plugins = array_map( array( 'TGMPA_Utils', 'wrap_in_em' ), $linked_plugins );
+						$linked_plugins = array_map( array( 'wc4bp_xprofile_tmpga_Utils', 'wrap_in_em' ), $linked_plugins );
 						$last_plugin    = array_pop( $linked_plugins ); // Pop off last name to prep for readability.
-						$imploded       = empty( $linked_plugins ) ? $last_plugin : ( implode( ', ', $linked_plugins ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'tgmpa' ) . ' ' . $last_plugin );
+						$imploded       = empty( $linked_plugins ) ? $last_plugin : ( implode( ', ', $linked_plugins ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'wc4bp_xprofile_tmpga' ) . ' ' . $last_plugin );
 
 						$rendered .= sprintf(
 							$line_template,
 							sprintf(
-								translate_nooped_plural( $this->strings[ $type ], $count, 'tgmpa' ),
+								translate_nooped_plural( $this->strings[ $type ], $count, 'wc4bp_xprofile_tmpga' ),
 								$imploded,
 								$count
 							)
@@ -1229,7 +1229,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				}
 
 				// Register the nag messages and prepare them to be processed.
-				add_settings_error( 'tgmpa', 'tgmpa', $rendered, $this->get_admin_notice_class() );
+				add_settings_error( 'wc4bp_xprofile_tmpga', 'wc4bp_xprofile_tmpga', $rendered, $this->get_admin_notice_class() );
 			}
 
 			// Admin options pages already output settings_errors, so this is to avoid duplication.
@@ -1255,7 +1255,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				'install'  => '',
 				'update'   => '',
 				'activate' => '',
-				'dismiss'  => $this->dismissable ? '<a href="' . esc_url( wp_nonce_url( add_query_arg( 'tgmpa-dismiss', 'dismiss_admin_notices' ), 'tgmpa-dismiss-' . get_current_user_id() ) ) . '" class="dismiss-notice" target="_parent">' . esc_html( $this->strings['dismiss'] ) . '</a>' : '',
+				'dismiss'  => $this->dismissable ? '<a href="' . esc_url( wp_nonce_url( add_query_arg( 'wc4bp_xprofile_tmpga-dismiss', 'dismiss_admin_notices' ), 'wc4bp_xprofile_tmpga-dismiss-' . get_current_user_id() ) ) . '" class="dismiss-notice" target="_parent">' . esc_html( $this->strings['dismiss'] ) . '</a>' : '',
 			);
 
 			$link_template = '<a href="%2$s">%1$s</a>';
@@ -1264,15 +1264,15 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				if ( $install_count > 0 ) {
 					$action_links['install'] = sprintf(
 						$link_template,
-						translate_nooped_plural( $this->strings['install_link'], $install_count, 'tgmpa' ),
-						esc_url( $this->get_tgmpa_status_url( 'install' ) )
+						translate_nooped_plural( $this->strings['install_link'], $install_count, 'wc4bp_xprofile_tmpga' ),
+						esc_url( $this->get_wc4bp_xprofile_tmpga_status_url( 'install' ) )
 					);
 				}
 				if ( $update_count > 0 ) {
 					$action_links['update'] = sprintf(
 						$link_template,
-						translate_nooped_plural( $this->strings['update_link'], $update_count, 'tgmpa' ),
-						esc_url( $this->get_tgmpa_status_url( 'update' ) )
+						translate_nooped_plural( $this->strings['update_link'], $update_count, 'wc4bp_xprofile_tmpga' ),
+						esc_url( $this->get_wc4bp_xprofile_tmpga_status_url( 'update' ) )
 					);
 				}
 			}
@@ -1280,18 +1280,18 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			if ( current_user_can( 'activate_plugins' ) && $activate_count > 0 ) {
 				$action_links['activate'] = sprintf(
 					$link_template,
-					translate_nooped_plural( $this->strings['activate_link'], $activate_count, 'tgmpa' ),
-					esc_url( $this->get_tgmpa_status_url( 'activate' ) )
+					translate_nooped_plural( $this->strings['activate_link'], $activate_count, 'wc4bp_xprofile_tmpga' ),
+					esc_url( $this->get_wc4bp_xprofile_tmpga_status_url( 'activate' ) )
 				);
 			}
 
-			$action_links = apply_filters( 'tgmpa_notice_action_links', $action_links );
+			$action_links = apply_filters( 'wc4bp_xprofile_tmpga_notice_action_links', $action_links );
 
 			$action_links = array_filter( (array) $action_links ); // Remove any empty array items.
 
 			if ( ! empty( $action_links ) ) {
 				$action_links = sprintf( $line_template, implode( ' | ', $action_links ) );
-				return apply_filters( 'tgmpa_notice_rendered_action_links', $action_links );
+				return apply_filters( 'wc4bp_xprofile_tmpga_notice_rendered_action_links', $action_links );
 			} else {
 				return '';
 			}
@@ -1301,7 +1301,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * Get admin notice class.
 		 *
 		 * Work around all the changes to the various admin notice classes between WP 4.4 and 3.7
-		 * (lowest supported version by TGMPA).
+		 * (lowest supported version by wc4bp_xprofile_tmpga).
 		 *
 		 * @since 2.6.0
 		 *
@@ -1329,10 +1329,10 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		protected function display_settings_errors() {
 			global $wp_settings_errors;
 
-			settings_errors( 'tgmpa' );
+			settings_errors( 'wc4bp_xprofile_tmpga' );
 
 			foreach ( (array) $wp_settings_errors as $key => $details ) {
-				if ( 'tgmpa' === $details['setting'] ) {
+				if ( 'wc4bp_xprofile_tmpga' === $details['setting'] ) {
 					unset( $wp_settings_errors[ $key ] );
 					break;
 				}
@@ -1348,8 +1348,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * @since 2.1.0
 		 */
 		public function dismiss() {
-			if ( isset( $_GET['tgmpa-dismiss'] ) && check_admin_referer( 'tgmpa-dismiss-' . get_current_user_id() ) ) {
-				update_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice_' . $this->id, 1 );
+			if ( isset( $_GET['wc4bp_xprofile_tmpga-dismiss'] ) && check_admin_referer( 'wc4bp_xprofile_tmpga-dismiss-' . get_current_user_id() ) ) {
+				update_user_meta( get_current_user_id(), 'wc4bp_xprofile_tmpga_dismissed_notice_' . $this->id, 1 );
 			}
 		}
 
@@ -1394,9 +1394,9 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			// Forgive users for using string versions of booleans or floats for version number.
 			$plugin['version']            = (string) $plugin['version'];
 			$plugin['source']             = empty( $plugin['source'] ) ? 'repo' : $plugin['source'];
-			$plugin['required']           = TGMPA_Utils::validate_bool( $plugin['required'] );
-			$plugin['force_activation']   = TGMPA_Utils::validate_bool( $plugin['force_activation'] );
-			$plugin['force_deactivation'] = TGMPA_Utils::validate_bool( $plugin['force_deactivation'] );
+			$plugin['required']           = wc4bp_xprofile_tmpga_Utils::validate_bool( $plugin['required'] );
+			$plugin['force_activation']   = wc4bp_xprofile_tmpga_Utils::validate_bool( $plugin['force_activation'] );
+			$plugin['force_deactivation'] = wc4bp_xprofile_tmpga_Utils::validate_bool( $plugin['force_deactivation'] );
 
 			// Enrich the received data.
 			$plugin['file_path']   = $this->_get_plugin_basename_from_slug( $plugin['slug'] );
@@ -1462,7 +1462,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			 * @param string $key     Sanitized key.
 			 * @param string $raw_key The key prior to sanitization.
 			 */
-			return apply_filters( 'tgmpa_sanitize_key', $key, $raw_key );
+			return apply_filters( 'wc4bp_xprofile_tmpga_sanitize_key', $key, $raw_key );
 		}
 
 		/**
@@ -1507,8 +1507,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * @return false|array Amended array of actions.
 		 */
 		public function actions( $install_actions ) {
-			// Remove action links on the TGMPA install page.
-			if ( $this->is_tgmpa_page() ) {
+			// Remove action links on the wc4bp_xprofile_tmpga install page.
+			if ( $this->is_wc4bp_xprofile_tmpga_page() ) {
 				return false;
 			}
 
@@ -1703,13 +1703,13 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		}
 
 		/**
-		 * Determine if we're on the TGMPA Install page.
+		 * Determine if we're on the wc4bp_xprofile_tmpga Install page.
 		 *
 		 * @since 2.1.0
 		 *
-		 * @return boolean True when on the TGMPA page, false otherwise.
+		 * @return boolean True when on the wc4bp_xprofile_tmpga page, false otherwise.
 		 */
-		protected function is_tgmpa_page() {
+		protected function is_wc4bp_xprofile_tmpga_page() {
 			return isset( $_GET['page'] ) && $this->menu === $_GET['page'];
 		}
 
@@ -1743,16 +1743,16 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		}
 
 		/**
-		 * Retrieve the URL to the TGMPA Install page.
+		 * Retrieve the URL to the wc4bp_xprofile_tmpga Install page.
 		 *
 		 * I.e. depending on the config settings passed something along the lines of:
-		 * http://example.com/wp-admin/themes.php?page=tgmpa-install-plugins
+		 * http://example.com/wp-admin/themes.php?page=wc4bp_xprofile_tmpga-install-plugins
 		 *
 		 * @since 2.5.0
 		 *
 		 * @return string Properly encoded URL (not escaped).
 		 */
-		public function get_tgmpa_url() {
+		public function get_wc4bp_xprofile_tmpga_url() {
 			static $url;
 
 			if ( ! isset( $url ) ) {
@@ -1772,33 +1772,33 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		}
 
 		/**
-		 * Retrieve the URL to the TGMPA Install page for a specific plugin status (view).
+		 * Retrieve the URL to the wc4bp_xprofile_tmpga Install page for a specific plugin status (view).
 		 *
 		 * I.e. depending on the config settings passed something along the lines of:
-		 * http://example.com/wp-admin/themes.php?page=tgmpa-install-plugins&plugin_status=install
+		 * http://example.com/wp-admin/themes.php?page=wc4bp_xprofile_tmpga-install-plugins&plugin_status=install
 		 *
 		 * @since 2.5.0
 		 *
 		 * @param string $status Plugin status - either 'install', 'update' or 'activate'.
 		 * @return string Properly encoded URL (not escaped).
 		 */
-		public function get_tgmpa_status_url( $status ) {
+		public function get_wc4bp_xprofile_tmpga_status_url( $status ) {
 			return add_query_arg(
 				array(
 					'plugin_status' => urlencode( $status ),
 				),
-				$this->get_tgmpa_url()
+				$this->get_wc4bp_xprofile_tmpga_url()
 			);
 		}
 
 		/**
-		 * Determine whether there are open actions for plugins registered with TGMPA.
+		 * Determine whether there are open actions for plugins registered with wc4bp_xprofile_tmpga.
 		 *
 		 * @since 2.5.0
 		 *
 		 * @return bool True if complete, i.e. no outstanding actions. False otherwise.
 		 */
-		public function is_tgmpa_complete() {
+		public function is_wc4bp_xprofile_tmpga_complete() {
 			$complete = true;
 			foreach ( $this->plugins as $slug => $plugin ) {
 				if ( ! $this->is_plugin_active( $slug ) || false !== $this->does_plugin_have_update( $slug ) ) {
@@ -1880,7 +1880,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 
 		/**
 		 * Check if a plugin can be activated, i.e. is not currently active and meets the minimum
-		 * plugin version requirements set in TGMPA (if any).
+		 * plugin version requirements set in wc4bp_xprofile_tmpga (if any).
 		 *
 		 * @since 2.5.0
 		 *
@@ -2000,7 +2000,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * @since 2.1.1
 		 */
 		public function update_dismiss() {
-			delete_metadata( 'user', null, 'tgmpa_dismissed_notice_' . $this->id, null, true );
+			delete_metadata( 'user', null, 'wc4bp_xprofile_tmpga_dismissed_notice_' . $this->id, null, true );
 		}
 
 		/**
@@ -2063,17 +2063,17 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		}
 
 		/**
-		 * Echo the current TGMPA version number to the page.
+		 * Echo the current wc4bp_xprofile_tmpga version number to the page.
 		 *
 		 * @since 2.5.0
 		 */
-		public function show_tgmpa_version() {
+		public function show_wc4bp_xprofile_tmpga_version() {
 			echo '<p style="float: right; padding: 0em 1.5em 0.5em 0;"><strong><small>',
 				esc_html(
 					sprintf(
 						/* translators: %s: version number */
-						__( 'TGMPA v%s', 'tgmpa' ),
-						self::TGMPA_VERSION
+						__( 'wc4bp_xprofile_tmpga v%s', 'wc4bp_xprofile_tmpga' ),
+						self::wc4bp_xprofile_tmpga_VERSION
 					)
 				),
 				'</small></strong></p>';
@@ -2102,7 +2102,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * @since 2.5.0
 		 */
 		function load_tgm_plugin_activation() {
-			$GLOBALS['tgmpa'] = TGM_Plugin_Activation::get_instance();
+			$GLOBALS['wc4bp_xprofile_tmpga'] = TGM_Plugin_Activation::get_instance();
 		}
 	}
 
@@ -2113,7 +2113,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tgmpa' ) ) {
+if ( ! function_exists( 'wc4bp_xprofile_tmpga' ) ) {
 	/**
 	 * Helper function to register a collection of required plugins.
 	 *
@@ -2123,8 +2123,8 @@ if ( ! function_exists( 'tgmpa' ) ) {
 	 * @param array $plugins An array of plugin arrays.
 	 * @param array $config  Optional. An array of configuration values.
 	 */
-	function tgmpa( $plugins, $config = array() ) {
-		$instance = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
+	function wc4bp_xprofile_tmpga( $plugins, $config = array() ) {
+		$instance = call_user_func( array( get_class( $GLOBALS['wc4bp_xprofile_tmpga'] ), 'get_instance' ) );
 
 		foreach ( $plugins as $plugin ) {
 			call_user_func( array( $instance, 'register' ), $plugin );
@@ -2133,17 +2133,17 @@ if ( ! function_exists( 'tgmpa' ) ) {
 		if ( ! empty( $config ) && is_array( $config ) ) {
 			// Send out notices for deprecated arguments passed.
 			if ( isset( $config['notices'] ) ) {
-				_deprecated_argument( __FUNCTION__, '2.2.0', 'The `notices` config parameter was renamed to `has_notices` in TGMPA 2.2.0. Please adjust your configuration.' );
+				_deprecated_argument( __FUNCTION__, '2.2.0', 'The `notices` config parameter was renamed to `has_notices` in wc4bp_xprofile_tmpga 2.2.0. Please adjust your configuration.' );
 				if ( ! isset( $config['has_notices'] ) ) {
 					$config['has_notices'] = $config['notices'];
 				}
 			}
 
 			if ( isset( $config['parent_menu_slug'] ) ) {
-				_deprecated_argument( __FUNCTION__, '2.4.0', 'The `parent_menu_slug` config parameter was removed in TGMPA 2.4.0. In TGMPA 2.5.0 an alternative was (re-)introduced. Please adjust your configuration. For more information visit the website: http://tgmpluginactivation.com/configuration/#h-configuration-options.' );
+				_deprecated_argument( __FUNCTION__, '2.4.0', 'The `parent_menu_slug` config parameter was removed in wc4bp_xprofile_tmpga 2.4.0. In wc4bp_xprofile_tmpga 2.5.0 an alternative was (re-)introduced. Please adjust your configuration. For more information visit the website: http://tgmpluginactivation.com/configuration/#h-configuration-options.' );
 			}
 			if ( isset( $config['parent_url_slug'] ) ) {
-				_deprecated_argument( __FUNCTION__, '2.4.0', 'The `parent_url_slug` config parameter was removed in TGMPA 2.4.0. In TGMPA 2.5.0 an alternative was (re-)introduced. Please adjust your configuration. For more information visit the website: http://tgmpluginactivation.com/configuration/#h-configuration-options.' );
+				_deprecated_argument( __FUNCTION__, '2.4.0', 'The `parent_url_slug` config parameter was removed in wc4bp_xprofile_tmpga 2.4.0. In wc4bp_xprofile_tmpga 2.5.0 an alternative was (re-)introduced. Please adjust your configuration. For more information visit the website: http://tgmpluginactivation.com/configuration/#h-configuration-options.' );
 			}
 
 			call_user_func( array( $instance, 'config' ), $config );
@@ -2161,7 +2161,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-if ( ! class_exists( 'TGMPA_List_Table' ) ) {
+if ( ! class_exists( 'wc4bp_xprofile_tmpga_List_Table' ) ) {
 
 	/**
 	 * List table class for handling plugins.
@@ -2180,15 +2180,15 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 	 * @author  Thomas Griffin
 	 * @author  Gary Jones
 	 */
-	class TGMPA_List_Table extends WP_List_Table {
+	class wc4bp_xprofile_tmpga_List_Table extends WP_List_Table {
 		/**
-		 * TGMPA instance.
+		 * wc4bp_xprofile_tmpga instance.
 		 *
 		 * @since 2.5.0
 		 *
 		 * @var object
 		 */
-		protected $tgmpa;
+		protected $wc4bp_xprofile_tmpga;
 
 		/**
 		 * The currently chosen view.
@@ -2219,7 +2219,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 * @since 2.2.0
 		 */
 		public function __construct() {
-			$this->tgmpa = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
+			$this->wc4bp_xprofile_tmpga = call_user_func( array( get_class( $GLOBALS['wc4bp_xprofile_tmpga'] ), 'get_instance' ) );
 
 			parent::__construct(
 				array(
@@ -2233,7 +2233,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				$this->view_context = sanitize_key( $_REQUEST['plugin_status'] );
 			}
 
-			add_filter( 'tgmpa_table_data_items', array( $this, 'sort_table_items' ) );
+			add_filter( 'wc4bp_xprofile_tmpga_table_data_items', array( $this, 'sort_table_items' ) );
 		}
 
 		/**
@@ -2258,8 +2258,8 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 */
 		protected function _gather_plugin_data() {
 			// Load thickbox for plugin links.
-			$this->tgmpa->admin_init();
-			$this->tgmpa->thickbox();
+			$this->wc4bp_xprofile_tmpga->admin_init();
+			$this->wc4bp_xprofile_tmpga->thickbox();
 
 			// Categorize the plugins which have open actions.
 			$plugins = $this->categorize_plugins_to_views();
@@ -2279,23 +2279,23 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 			foreach ( $plugins[ $this->view_context ] as $slug => $plugin ) {
 				$table_data[ $i ]['sanitized_plugin']  = $plugin['name'];
 				$table_data[ $i ]['slug']              = $slug;
-				$table_data[ $i ]['plugin']            = '<strong>' . $this->tgmpa->get_info_link( $slug ) . '</strong>';
+				$table_data[ $i ]['plugin']            = '<strong>' . $this->wc4bp_xprofile_tmpga->get_info_link( $slug ) . '</strong>';
 				$table_data[ $i ]['source']            = $this->get_plugin_source_type_text( $plugin['source_type'] );
 				$table_data[ $i ]['type']              = $this->get_plugin_advise_type_text( $plugin['required'] );
 				$table_data[ $i ]['status']            = $this->get_plugin_status_text( $slug );
-				$table_data[ $i ]['installed_version'] = $this->tgmpa->get_installed_version( $slug );
+				$table_data[ $i ]['installed_version'] = $this->wc4bp_xprofile_tmpga->get_installed_version( $slug );
 				$table_data[ $i ]['minimum_version']   = $plugin['version'];
-				$table_data[ $i ]['available_version'] = $this->tgmpa->does_plugin_have_update( $slug );
+				$table_data[ $i ]['available_version'] = $this->wc4bp_xprofile_tmpga->does_plugin_have_update( $slug );
 
 				// Prep the upgrade notice info.
-				$upgrade_notice = $this->tgmpa->get_upgrade_notice( $slug );
+				$upgrade_notice = $this->wc4bp_xprofile_tmpga->get_upgrade_notice( $slug );
 				if ( ! empty( $upgrade_notice ) ) {
 					$table_data[ $i ]['upgrade_notice'] = $upgrade_notice;
 
-					add_action( "tgmpa_after_plugin_row_{$slug}", array( $this, 'wp_plugin_update_row' ), 10, 2 );
+					add_action( "wc4bp_xprofile_tmpga_after_plugin_row_{$slug}", array( $this, 'wp_plugin_update_row' ), 10, 2 );
 				}
 
-				$table_data[ $i ] = apply_filters( 'tgmpa_table_data_item', $table_data[ $i ], $plugin );
+				$table_data[ $i ] = apply_filters( 'wc4bp_xprofile_tmpga_table_data_item', $table_data[ $i ], $plugin );
 
 				$i++;
 			}
@@ -2304,7 +2304,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		}
 
 		/**
-		 * Categorize the plugins which have open actions into views for the TGMPA page.
+		 * Categorize the plugins which have open actions into views for the wc4bp_xprofile_tmpga page.
 		 *
 		 * @since 2.5.0
 		 */
@@ -2316,21 +2316,21 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				'activate' => array(),
 			);
 
-			foreach ( $this->tgmpa->plugins as $slug => $plugin ) {
-				if ( $this->tgmpa->is_plugin_active( $slug ) && false === $this->tgmpa->does_plugin_have_update( $slug ) ) {
+			foreach ( $this->wc4bp_xprofile_tmpga->plugins as $slug => $plugin ) {
+				if ( $this->wc4bp_xprofile_tmpga->is_plugin_active( $slug ) && false === $this->wc4bp_xprofile_tmpga->does_plugin_have_update( $slug ) ) {
 					// No need to display plugins if they are installed, up-to-date and active.
 					continue;
 				} else {
 					$plugins['all'][ $slug ] = $plugin;
 
-					if ( ! $this->tgmpa->is_plugin_installed( $slug ) ) {
+					if ( ! $this->wc4bp_xprofile_tmpga->is_plugin_installed( $slug ) ) {
 						$plugins['install'][ $slug ] = $plugin;
 					} else {
-						if ( false !== $this->tgmpa->does_plugin_have_update( $slug ) ) {
+						if ( false !== $this->wc4bp_xprofile_tmpga->does_plugin_have_update( $slug ) ) {
 							$plugins['update'][ $slug ] = $plugin;
 						}
 
-						if ( $this->tgmpa->can_plugin_activate( $slug ) ) {
+						if ( $this->wc4bp_xprofile_tmpga->can_plugin_activate( $slug ) ) {
 							$plugins['activate'][ $slug ] = $plugin;
 						}
 					}
@@ -2363,10 +2363,10 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 */
 		protected function get_plugin_advise_type_text( $required ) {
 			if ( true === $required ) {
-				return __( 'Required', 'tgmpa' );
+				return __( 'Required', 'wc4bp_xprofile_tmpga' );
 			}
 
-			return __( 'Recommended', 'tgmpa' );
+			return __( 'Recommended', 'wc4bp_xprofile_tmpga' );
 		}
 
 		/**
@@ -2382,13 +2382,13 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 			switch ( $type ) {
 				case 'repo':
-					$string = __( 'WordPress Repository', 'tgmpa' );
+					$string = __( 'WordPress Repository', 'wc4bp_xprofile_tmpga' );
 					break;
 				case 'external':
-					$string = __( 'External Source', 'tgmpa' );
+					$string = __( 'External Source', 'wc4bp_xprofile_tmpga' );
 					break;
 				case 'bundled':
-					$string = __( 'Pre-Packaged', 'tgmpa' );
+					$string = __( 'Pre-Packaged', 'wc4bp_xprofile_tmpga' );
 					break;
 			}
 
@@ -2404,26 +2404,26 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 * @return string
 		 */
 		protected function get_plugin_status_text( $slug ) {
-			if ( ! $this->tgmpa->is_plugin_installed( $slug ) ) {
-				return __( 'Not Installed', 'tgmpa' );
+			if ( ! $this->wc4bp_xprofile_tmpga->is_plugin_installed( $slug ) ) {
+				return __( 'Not Installed', 'wc4bp_xprofile_tmpga' );
 			}
 
-			if ( ! $this->tgmpa->is_plugin_active( $slug ) ) {
-				$install_status = __( 'Installed But Not Activated', 'tgmpa' );
+			if ( ! $this->wc4bp_xprofile_tmpga->is_plugin_active( $slug ) ) {
+				$install_status = __( 'Installed But Not Activated', 'wc4bp_xprofile_tmpga' );
 			} else {
-				$install_status = __( 'Active', 'tgmpa' );
+				$install_status = __( 'Active', 'wc4bp_xprofile_tmpga' );
 			}
 
 			$update_status = '';
 
-			if ( $this->tgmpa->does_plugin_require_update( $slug ) && false === $this->tgmpa->does_plugin_have_update( $slug ) ) {
-				$update_status = __( 'Required Update not Available', 'tgmpa' );
+			if ( $this->wc4bp_xprofile_tmpga->does_plugin_require_update( $slug ) && false === $this->wc4bp_xprofile_tmpga->does_plugin_have_update( $slug ) ) {
+				$update_status = __( 'Required Update not Available', 'wc4bp_xprofile_tmpga' );
 
-			} elseif ( $this->tgmpa->does_plugin_require_update( $slug ) ) {
-				$update_status = __( 'Requires Update', 'tgmpa' );
+			} elseif ( $this->wc4bp_xprofile_tmpga->does_plugin_require_update( $slug ) ) {
+				$update_status = __( 'Requires Update', 'wc4bp_xprofile_tmpga' );
 
-			} elseif ( false !== $this->tgmpa->does_plugin_have_update( $slug ) ) {
-				$update_status = __( 'Update recommended', 'tgmpa' );
+			} elseif ( false !== $this->wc4bp_xprofile_tmpga->does_plugin_have_update( $slug ) ) {
+				$update_status = __( 'Update recommended', 'wc4bp_xprofile_tmpga' );
 			}
 
 			if ( '' === $update_status ) {
@@ -2432,7 +2432,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 			return sprintf(
 				/* translators: 1: install status, 2: update status */
-				_x( '%1$s, %2$s', 'Install/Update Status', 'tgmpa' ),
+				_x( '%1$s, %2$s', 'Install/Update Status', 'wc4bp_xprofile_tmpga' ),
 				$install_status,
 				$update_status
 			);
@@ -2478,19 +2478,19 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				switch ( $type ) {
 					case 'all':
 						/* translators: 1: number of plugins. */
-						$text = _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $count, 'plugins', 'tgmpa' );
+						$text = _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $count, 'plugins', 'wc4bp_xprofile_tmpga' );
 						break;
 					case 'install':
 						/* translators: 1: number of plugins. */
-						$text = _n( 'To Install <span class="count">(%s)</span>', 'To Install <span class="count">(%s)</span>', $count, 'tgmpa' );
+						$text = _n( 'To Install <span class="count">(%s)</span>', 'To Install <span class="count">(%s)</span>', $count, 'wc4bp_xprofile_tmpga' );
 						break;
 					case 'update':
 						/* translators: 1: number of plugins. */
-						$text = _n( 'Update Available <span class="count">(%s)</span>', 'Update Available <span class="count">(%s)</span>', $count, 'tgmpa' );
+						$text = _n( 'Update Available <span class="count">(%s)</span>', 'Update Available <span class="count">(%s)</span>', $count, 'wc4bp_xprofile_tmpga' );
 						break;
 					case 'activate':
 						/* translators: 1: number of plugins. */
-						$text = _n( 'To Activate <span class="count">(%s)</span>', 'To Activate <span class="count">(%s)</span>', $count, 'tgmpa' );
+						$text = _n( 'To Activate <span class="count">(%s)</span>', 'To Activate <span class="count">(%s)</span>', $count, 'wc4bp_xprofile_tmpga' );
 						break;
 					default:
 						$text = '';
@@ -2501,7 +2501,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 					$status_links[ $type ] = sprintf(
 						'<a href="%s"%s>%s</a>',
-						esc_url( $this->tgmpa->get_tgmpa_status_url( $type ) ),
+						esc_url( $this->wc4bp_xprofile_tmpga->get_wc4bp_xprofile_tmpga_status_url( $type ) ),
 						( $type === $this->view_context ) ? ' class="current"' : '',
 						sprintf( $text, number_format_i18n( $count ) )
 					);
@@ -2571,16 +2571,16 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		public function column_version( $item ) {
 			$output = array();
 
-			if ( $this->tgmpa->is_plugin_installed( $item['slug'] ) ) {
-				$installed = ! empty( $item['installed_version'] ) ? $item['installed_version'] : _x( 'unknown', 'as in: "version nr unknown"', 'tgmpa' );
+			if ( $this->wc4bp_xprofile_tmpga->is_plugin_installed( $item['slug'] ) ) {
+				$installed = ! empty( $item['installed_version'] ) ? $item['installed_version'] : _x( 'unknown', 'as in: "version nr unknown"', 'wc4bp_xprofile_tmpga' );
 
 				$color = '';
-				if ( ! empty( $item['minimum_version'] ) && $this->tgmpa->does_plugin_require_update( $item['slug'] ) ) {
+				if ( ! empty( $item['minimum_version'] ) && $this->wc4bp_xprofile_tmpga->does_plugin_require_update( $item['slug'] ) ) {
 					$color = ' color: #ff0000; font-weight: bold;';
 				}
 
 				$output[] = sprintf(
-					'<p><span style="min-width: 32px; text-align: right; float: right;%1$s">%2$s</span>' . __( 'Installed version:', 'tgmpa' ) . '</p>',
+					'<p><span style="min-width: 32px; text-align: right; float: right;%1$s">%2$s</span>' . __( 'Installed version:', 'wc4bp_xprofile_tmpga' ) . '</p>',
 					$color,
 					$installed
 				);
@@ -2588,7 +2588,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 			if ( ! empty( $item['minimum_version'] ) ) {
 				$output[] = sprintf(
-					'<p><span style="min-width: 32px; text-align: right; float: right;">%1$s</span>' . __( 'Minimum required version:', 'tgmpa' ) . '</p>',
+					'<p><span style="min-width: 32px; text-align: right; float: right;">%1$s</span>' . __( 'Minimum required version:', 'wc4bp_xprofile_tmpga' ) . '</p>',
 					$item['minimum_version']
 				);
 			}
@@ -2600,7 +2600,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				}
 
 				$output[] = sprintf(
-					'<p><span style="min-width: 32px; text-align: right; float: right;%1$s">%2$s</span>' . __( 'Available version:', 'tgmpa' ) . '</p>',
+					'<p><span style="min-width: 32px; text-align: right; float: right;%1$s">%2$s</span>' . __( 'Available version:', 'wc4bp_xprofile_tmpga' ) . '</p>',
 					$color,
 					$item['available_version']
 				);
@@ -2623,7 +2623,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 * @since 2.2.0
 		 */
 		public function no_items() {
-			echo esc_html__( 'No plugins to install, update or activate.', 'tgmpa' ) . ' <a href="' . esc_url( self_admin_url() ) . '"> ' . esc_html__( 'Return to the Dashboard', 'tgmpa' ) . '</a>';
+			echo esc_html__( 'No plugins to install, update or activate.', 'wc4bp_xprofile_tmpga' ) . ' <a href="' . esc_url( self_admin_url() ) . '"> ' . esc_html__( 'Return to the Dashboard', 'wc4bp_xprofile_tmpga' ) . '</a>';
 			echo '<style type="text/css">#adminmenu .wp-submenu li.current { display: none !important; }</style>';
 		}
 
@@ -2637,17 +2637,17 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		public function get_columns() {
 			$columns = array(
 				'cb'     => '<input type="checkbox" />',
-				'plugin' => __( 'Plugin', 'tgmpa' ),
-				'source' => __( 'Source', 'tgmpa' ),
-				'type'   => __( 'Type', 'tgmpa' ),
+				'plugin' => __( 'Plugin', 'wc4bp_xprofile_tmpga' ),
+				'source' => __( 'Source', 'wc4bp_xprofile_tmpga' ),
+				'type'   => __( 'Type', 'wc4bp_xprofile_tmpga' ),
 			);
 
 			if ( 'all' === $this->view_context || 'update' === $this->view_context ) {
-				$columns['version'] = __( 'Version', 'tgmpa' );
-				$columns['status']  = __( 'Status', 'tgmpa' );
+				$columns['version'] = __( 'Version', 'wc4bp_xprofile_tmpga' );
+				$columns['status']  = __( 'Status', 'wc4bp_xprofile_tmpga' );
 			}
 
-			return apply_filters( 'tgmpa_table_columns', $columns );
+			return apply_filters( 'wc4bp_xprofile_tmpga_table_columns', $columns );
 		}
 
 		/**
@@ -2691,20 +2691,20 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 			$action_links = array();
 
 			// Display the 'Install' action link if the plugin is not yet available.
-			if ( ! $this->tgmpa->is_plugin_installed( $item['slug'] ) ) {
+			if ( ! $this->wc4bp_xprofile_tmpga->is_plugin_installed( $item['slug'] ) ) {
 				/* translators: %2$s: plugin name in screen reader markup */
-				$actions['install'] = __( 'Install %2$s', 'tgmpa' );
+				$actions['install'] = __( 'Install %2$s', 'wc4bp_xprofile_tmpga' );
 			} else {
 				// Display the 'Update' action link if an update is available and WP complies with plugin minimum.
-				if ( false !== $this->tgmpa->does_plugin_have_update( $item['slug'] ) && $this->tgmpa->can_plugin_update( $item['slug'] ) ) {
+				if ( false !== $this->wc4bp_xprofile_tmpga->does_plugin_have_update( $item['slug'] ) && $this->wc4bp_xprofile_tmpga->can_plugin_update( $item['slug'] ) ) {
 					/* translators: %2$s: plugin name in screen reader markup */
-					$actions['update'] = __( 'Update %2$s', 'tgmpa' );
+					$actions['update'] = __( 'Update %2$s', 'wc4bp_xprofile_tmpga' );
 				}
 
 				// Display the 'Activate' action link, but only if the plugin meets the minimum version.
-				if ( $this->tgmpa->can_plugin_activate( $item['slug'] ) ) {
+				if ( $this->wc4bp_xprofile_tmpga->can_plugin_activate( $item['slug'] ) ) {
 					/* translators: %2$s: plugin name in screen reader markup */
-					$actions['activate'] = __( 'Activate %2$s', 'tgmpa' );
+					$actions['activate'] = __( 'Activate %2$s', 'wc4bp_xprofile_tmpga' );
 				}
 			}
 
@@ -2714,12 +2714,12 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 					add_query_arg(
 						array(
 							'plugin'           => urlencode( $item['slug'] ),
-							'tgmpa-' . $action => $action . '-plugin',
+							'wc4bp_xprofile_tmpga-' . $action => $action . '-plugin',
 						),
-						$this->tgmpa->get_tgmpa_url()
+						$this->wc4bp_xprofile_tmpga->get_wc4bp_xprofile_tmpga_url()
 					),
-					'tgmpa-' . $action,
-					'tgmpa-nonce'
+					'wc4bp_xprofile_tmpga-' . $action,
+					'wc4bp_xprofile_tmpga-nonce'
 				);
 
 				$action_links[ $action ] = sprintf(
@@ -2730,7 +2730,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 			}
 
 			$prefix = ( defined( 'WP_NETWORK_ADMIN' ) && WP_NETWORK_ADMIN ) ? 'network_admin_' : '';
-			return apply_filters( "tgmpa_{$prefix}plugin_action_links", array_filter( $action_links ), $item['slug'], $item, $this->view_context );
+			return apply_filters( "wc4bp_xprofile_tmpga_{$prefix}plugin_action_links", array_filter( $action_links ), $item['slug'], $item, $this->view_context );
 		}
 
 		/**
@@ -2744,14 +2744,14 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 			parent::single_row( $item );
 
 			/**
-			 * Fires after each specific row in the TGMPA Plugins list table.
+			 * Fires after each specific row in the wc4bp_xprofile_tmpga Plugins list table.
 			 *
 			 * The dynamic portion of the hook name, `$item['slug']`, refers to the slug
 			 * for the plugin.
 			 *
 			 * @since 2.5.0
 			 */
-			do_action( "tgmpa_after_plugin_row_{$item['slug']}", $item['slug'], $item, $this->view_context );
+			do_action( "wc4bp_xprofile_tmpga_after_plugin_row_{$item['slug']}", $item['slug'], $item, $this->view_context );
 		}
 
 		/**
@@ -2774,7 +2774,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				<tr class="plugin-update-tr">
 					<td colspan="', absint( $this->get_column_count() ), '" class="plugin-update colspanchange">
 						<div class="update-message">',
-							esc_html__( 'Upgrade message from the plugin author:', 'tgmpa' ),
+							esc_html__( 'Upgrade message from the plugin author:', 'wc4bp_xprofile_tmpga' ),
 							' <strong>', wp_kses_data( $item['upgrade_notice'] ), '</strong>
 						</div>
 					</td>
@@ -2790,7 +2790,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 */
 		public function extra_tablenav( $which ) {
 			if ( 'bottom' === $which ) {
-				$this->tgmpa->show_tgmpa_version();
+				$this->wc4bp_xprofile_tmpga->show_wc4bp_xprofile_tmpga_version();
 			}
 		}
 
@@ -2807,16 +2807,16 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 			if ( 'update' !== $this->view_context && 'activate' !== $this->view_context ) {
 				if ( current_user_can( 'install_plugins' ) ) {
-					$actions['tgmpa-bulk-install'] = __( 'Install', 'tgmpa' );
+					$actions['wc4bp_xprofile_tmpga-bulk-install'] = __( 'Install', 'wc4bp_xprofile_tmpga' );
 				}
 			}
 
 			if ( 'install' !== $this->view_context ) {
 				if ( current_user_can( 'update_plugins' ) ) {
-					$actions['tgmpa-bulk-update'] = __( 'Update', 'tgmpa' );
+					$actions['wc4bp_xprofile_tmpga-bulk-update'] = __( 'Update', 'wc4bp_xprofile_tmpga' );
 				}
 				if ( current_user_can( 'activate_plugins' ) ) {
-					$actions['tgmpa-bulk-activate'] = __( 'Activate', 'tgmpa' );
+					$actions['wc4bp_xprofile_tmpga-bulk-activate'] = __( 'Activate', 'wc4bp_xprofile_tmpga' );
 				}
 			}
 
@@ -2833,12 +2833,12 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 */
 		public function process_bulk_actions() {
 			// Bulk installation process.
-			if ( 'tgmpa-bulk-install' === $this->current_action() || 'tgmpa-bulk-update' === $this->current_action() ) {
+			if ( 'wc4bp_xprofile_tmpga-bulk-install' === $this->current_action() || 'wc4bp_xprofile_tmpga-bulk-update' === $this->current_action() ) {
 
 				check_admin_referer( 'bulk-' . $this->_args['plural'] );
 
 				$install_type = 'install';
-				if ( 'tgmpa-bulk-update' === $this->current_action() ) {
+				if ( 'wc4bp_xprofile_tmpga-bulk-update' === $this->current_action() ) {
 					$install_type = 'update';
 				}
 
@@ -2847,9 +2847,9 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				// Did user actually select any plugins to install/update ?
 				if ( empty( $_POST['plugin'] ) ) {
 					if ( 'install' === $install_type ) {
-						$message = __( 'No plugins were selected to be installed. No action taken.', 'tgmpa' );
+						$message = __( 'No plugins were selected to be installed. No action taken.', 'wc4bp_xprofile_tmpga' );
 					} else {
-						$message = __( 'No plugins were selected to be updated. No action taken.', 'tgmpa' );
+						$message = __( 'No plugins were selected to be updated. No action taken.', 'wc4bp_xprofile_tmpga' );
 					}
 
 					echo '<div id="message" class="error"><p>', esc_html( $message ), '</p></div>';
@@ -2866,23 +2866,23 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 				// Sanitize the received input.
 				$plugins_to_install = array_map( 'urldecode', $plugins_to_install );
-				$plugins_to_install = array_map( array( $this->tgmpa, 'sanitize_key' ), $plugins_to_install );
+				$plugins_to_install = array_map( array( $this->wc4bp_xprofile_tmpga, 'sanitize_key' ), $plugins_to_install );
 
 				// Validate the received input.
 				foreach ( $plugins_to_install as $key => $slug ) {
-					// Check if the plugin was registered with TGMPA and remove if not.
-					if ( ! isset( $this->tgmpa->plugins[ $slug ] ) ) {
+					// Check if the plugin was registered with wc4bp_xprofile_tmpga and remove if not.
+					if ( ! isset( $this->wc4bp_xprofile_tmpga->plugins[ $slug ] ) ) {
 						unset( $plugins_to_install[ $key ] );
 						continue;
 					}
 
 					// For install: make sure this is a plugin we *can* install and not one already installed.
-					if ( 'install' === $install_type && true === $this->tgmpa->is_plugin_installed( $slug ) ) {
+					if ( 'install' === $install_type && true === $this->wc4bp_xprofile_tmpga->is_plugin_installed( $slug ) ) {
 						unset( $plugins_to_install[ $key ] );
 					}
 
 					// For updates: make sure this is a plugin we *can* update (update available and WP version ok).
-					if ( 'update' === $install_type && false === $this->tgmpa->is_plugin_updatetable( $slug ) ) {
+					if ( 'update' === $install_type && false === $this->wc4bp_xprofile_tmpga->is_plugin_updatetable( $slug ) ) {
 						unset( $plugins_to_install[ $key ] );
 					}
 				}
@@ -2890,9 +2890,9 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				// No need to proceed further if we have no plugins to handle.
 				if ( empty( $plugins_to_install ) ) {
 					if ( 'install' === $install_type ) {
-						$message = __( 'No plugins are available to be installed at this time.', 'tgmpa' );
+						$message = __( 'No plugins are available to be installed at this time.', 'wc4bp_xprofile_tmpga' );
 					} else {
-						$message = __( 'No plugins are available to be updated at this time.', 'tgmpa' );
+						$message = __( 'No plugins are available to be updated at this time.', 'wc4bp_xprofile_tmpga' );
 					}
 
 					echo '<div id="message" class="error"><p>', esc_html( $message ), '</p></div>';
@@ -2902,7 +2902,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 				// Pass all necessary information if WP_Filesystem is needed.
 				$url = wp_nonce_url(
-					$this->tgmpa->get_tgmpa_url(),
+					$this->wc4bp_xprofile_tmpga->get_wc4bp_xprofile_tmpga_url(),
 					'bulk-' . $this->_args['plural']
 				);
 
@@ -2934,8 +2934,8 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 				// Prepare the data for validated plugins for the install/upgrade.
 				foreach ( $plugins_to_install as $slug ) {
-					$name   = $this->tgmpa->plugins[ $slug ]['name'];
-					$source = $this->tgmpa->get_download_url( $slug );
+					$name   = $this->wc4bp_xprofile_tmpga->plugins[ $slug ]['name'];
+					$source = $this->wc4bp_xprofile_tmpga->get_download_url( $slug );
 
 					if ( ! empty( $name ) && ! empty( $source ) ) {
 						$names[] = $name;
@@ -2947,8 +2947,8 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 								break;
 
 							case 'update':
-								$file_paths[]                 = $this->tgmpa->plugins[ $slug ]['file_path'];
-								$to_inject[ $slug ]           = $this->tgmpa->plugins[ $slug ];
+								$file_paths[]                 = $this->wc4bp_xprofile_tmpga->plugins[ $slug ]['file_path'];
+								$to_inject[ $slug ]           = $this->wc4bp_xprofile_tmpga->plugins[ $slug ];
 								$to_inject[ $slug ]['source'] = $source;
 								break;
 						}
@@ -2956,11 +2956,11 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				}
 				unset( $slug, $name, $source );
 
-				// Create a new instance of TGMPA_Bulk_Installer.
-				$installer = new TGMPA_Bulk_Installer(
-					new TGMPA_Bulk_Installer_Skin(
+				// Create a new instance of wc4bp_xprofile_tmpga_Bulk_Installer.
+				$installer = new wc4bp_xprofile_tmpga_Bulk_Installer(
+					new wc4bp_xprofile_tmpga_Bulk_Installer_Skin(
 						array(
-							'url'          => esc_url_raw( $this->tgmpa->get_tgmpa_url() ),
+							'url'          => esc_url_raw( $this->wc4bp_xprofile_tmpga->get_wc4bp_xprofile_tmpga_url() ),
 							'nonce'        => 'bulk-' . $this->_args['plural'],
 							'names'        => $names,
 							'install_type' => $install_type,
@@ -2969,23 +2969,23 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				);
 
 				// Wrap the install process with the appropriate HTML.
-				echo '<div class="tgmpa">',
+				echo '<div class="wc4bp_xprofile_tmpga">',
 					'<h2 style="font-size: 23px; font-weight: 400; line-height: 29px; margin: 0; padding: 9px 15px 4px 0;">', esc_html( get_admin_page_title() ), '</h2>
 					<div class="update-php" style="width: 100%; height: 98%; min-height: 850px; padding-top: 1px;">';
 
 				// Process the bulk installation submissions.
-				add_filter( 'upgrader_source_selection', array( $this->tgmpa, 'maybe_adjust_source_dir' ), 1, 3 );
+				add_filter( 'upgrader_source_selection', array( $this->wc4bp_xprofile_tmpga, 'maybe_adjust_source_dir' ), 1, 3 );
 
-				if ( 'tgmpa-bulk-update' === $this->current_action() ) {
+				if ( 'wc4bp_xprofile_tmpga-bulk-update' === $this->current_action() ) {
 					// Inject our info into the update transient.
-					$this->tgmpa->inject_update_info( $to_inject );
+					$this->wc4bp_xprofile_tmpga->inject_update_info( $to_inject );
 
 					$installer->bulk_upgrade( $file_paths );
 				} else {
 					$installer->bulk_install( $sources );
 				}
 
-				remove_filter( 'upgrader_source_selection', array( $this->tgmpa, 'maybe_adjust_source_dir' ), 1 );
+				remove_filter( 'upgrader_source_selection', array( $this->wc4bp_xprofile_tmpga, 'maybe_adjust_source_dir' ), 1 );
 
 				echo '</div></div>';
 
@@ -2993,12 +2993,12 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 			}
 
 			// Bulk activation process.
-			if ( 'tgmpa-bulk-activate' === $this->current_action() ) {
+			if ( 'wc4bp_xprofile_tmpga-bulk-activate' === $this->current_action() ) {
 				check_admin_referer( 'bulk-' . $this->_args['plural'] );
 
 				// Did user actually select any plugins to activate ?
 				if ( empty( $_POST['plugin'] ) ) {
-					echo '<div id="message" class="error"><p>', esc_html__( 'No plugins were selected to be activated. No action taken.', 'tgmpa' ), '</p></div>';
+					echo '<div id="message" class="error"><p>', esc_html__( 'No plugins were selected to be activated. No action taken.', 'wc4bp_xprofile_tmpga' ), '</p></div>';
 
 					return false;
 				}
@@ -3007,7 +3007,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				$plugins = array();
 				if ( isset( $_POST['plugin'] ) ) {
 					$plugins = array_map( 'urldecode', (array) $_POST['plugin'] );
-					$plugins = array_map( array( $this->tgmpa, 'sanitize_key' ), $plugins );
+					$plugins = array_map( array( $this->wc4bp_xprofile_tmpga, 'sanitize_key' ), $plugins );
 				}
 
 				$plugins_to_activate = array();
@@ -3015,16 +3015,16 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 				// Grab the file paths for the selected & inactive plugins from the registration array.
 				foreach ( $plugins as $slug ) {
-					if ( $this->tgmpa->can_plugin_activate( $slug ) ) {
-						$plugins_to_activate[] = $this->tgmpa->plugins[ $slug ]['file_path'];
-						$plugin_names[]        = $this->tgmpa->plugins[ $slug ]['name'];
+					if ( $this->wc4bp_xprofile_tmpga->can_plugin_activate( $slug ) ) {
+						$plugins_to_activate[] = $this->wc4bp_xprofile_tmpga->plugins[ $slug ]['file_path'];
+						$plugin_names[]        = $this->wc4bp_xprofile_tmpga->plugins[ $slug ]['name'];
 					}
 				}
 				unset( $slug );
 
 				// Return early if there are no plugins to activate.
 				if ( empty( $plugins_to_activate ) ) {
-					echo '<div id="message" class="error"><p>', esc_html__( 'No plugins are available to be activated at this time.', 'tgmpa' ), '</p></div>';
+					echo '<div id="message" class="error"><p>', esc_html__( 'No plugins are available to be activated at this time.', 'wc4bp_xprofile_tmpga' ), '</p></div>';
 
 					return false;
 				}
@@ -3036,13 +3036,13 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 					echo '<div id="message" class="error"><p>', wp_kses_post( $activate->get_error_message() ), '</p></div>';
 				} else {
 					$count        = count( $plugin_names ); // Count so we can use _n function.
-					$plugin_names = array_map( array( 'TGMPA_Utils', 'wrap_in_strong' ), $plugin_names );
+					$plugin_names = array_map( array( 'wc4bp_xprofile_tmpga_Utils', 'wrap_in_strong' ), $plugin_names );
 					$last_plugin  = array_pop( $plugin_names ); // Pop off last name to prep for readability.
-					$imploded     = empty( $plugin_names ) ? $last_plugin : ( implode( ', ', $plugin_names ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'tgmpa' ) . ' ' . $last_plugin );
+					$imploded     = empty( $plugin_names ) ? $last_plugin : ( implode( ', ', $plugin_names ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'wc4bp_xprofile_tmpga' ) . ' ' . $last_plugin );
 
 					printf( // WPCS: xss ok.
 						'<div id="message" class="updated"><p>%1$s %2$s.</p></div>',
-						esc_html( _n( 'The following plugin was activated successfully:', 'The following plugins were activated successfully:', $count, 'tgmpa' ) ),
+						esc_html( _n( 'The following plugin was activated successfully:', 'The following plugins were activated successfully:', $count, 'wc4bp_xprofile_tmpga' ) ),
 						$imploded
 					);
 
@@ -3077,12 +3077,12 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 			$this->_column_headers = array( $columns, $hidden, $sortable, $primary ); // Get all necessary column headers.
 
 			// Process our bulk activations here.
-			if ( 'tgmpa-bulk-activate' === $this->current_action() ) {
+			if ( 'wc4bp_xprofile_tmpga-bulk-activate' === $this->current_action() ) {
 				$this->process_bulk_actions();
 			}
 
 			// Store all of our plugin data into $items array so WP_List_Table can use it.
-			$this->items = apply_filters( 'tgmpa_table_data_items', $this->_gather_plugin_data() );
+			$this->items = apply_filters( 'wc4bp_xprofile_tmpga_table_data_items', $this->_gather_plugin_data() );
 		}
 
 		/* *********** DEPRECATED METHODS *********** */
@@ -3099,9 +3099,9 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 * @return string|boolean Plugin slug if found, false otherwise.
 		 */
 		protected function _get_plugin_data_from_name( $name, $data = 'slug' ) {
-			_deprecated_function( __FUNCTION__, 'TGMPA 2.5.0', 'TGM_Plugin_Activation::_get_plugin_data_from_name()' );
+			_deprecated_function( __FUNCTION__, 'wc4bp_xprofile_tmpga 2.5.0', 'TGM_Plugin_Activation::_get_plugin_data_from_name()' );
 
-			return $this->tgmpa->_get_plugin_data_from_name( $name, $data );
+			return $this->wc4bp_xprofile_tmpga->_get_plugin_data_from_name( $name, $data );
 		}
 	}
 }
@@ -3110,11 +3110,11 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 if ( ! class_exists( 'TGM_Bulk_Installer' ) ) {
 
 	/**
-	 * Hack: Prevent TGMPA v2.4.1- bulk installer class from being loaded if 2.4.1- is loaded after 2.5+.
+	 * Hack: Prevent wc4bp_xprofile_tmpga v2.4.1- bulk installer class from being loaded if 2.4.1- is loaded after 2.5+.
 	 *
 	 * @since 2.5.2
 	 *
-	 * {@internal The TGMPA_Bulk_Installer class was originally called TGM_Bulk_Installer.
+	 * {@internal The wc4bp_xprofile_tmpga_Bulk_Installer class was originally called TGM_Bulk_Installer.
 	 *            For more information, see that class.}}
 	 */
 	class TGM_Bulk_Installer {
@@ -3123,11 +3123,11 @@ if ( ! class_exists( 'TGM_Bulk_Installer' ) ) {
 if ( ! class_exists( 'TGM_Bulk_Installer_Skin' ) ) {
 
 	/**
-	 * Hack: Prevent TGMPA v2.4.1- bulk installer skin class from being loaded if 2.4.1- is loaded after 2.5+.
+	 * Hack: Prevent wc4bp_xprofile_tmpga v2.4.1- bulk installer skin class from being loaded if 2.4.1- is loaded after 2.5+.
 	 *
 	 * @since 2.5.2
 	 *
-	 * {@internal The TGMPA_Bulk_Installer_Skin class was originally called TGM_Bulk_Installer_Skin.
+	 * {@internal The wc4bp_xprofile_tmpga_Bulk_Installer_Skin class was originally called TGM_Bulk_Installer_Skin.
 	 *            For more information, see that class.}}
 	 */
 	class TGM_Bulk_Installer_Skin {
@@ -3144,26 +3144,26 @@ if ( ! class_exists( 'TGM_Bulk_Installer_Skin' ) ) {
  *
  * @since 2.2.0
  */
-add_action( 'admin_init', 'tgmpa_load_bulk_installer' );
-if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
+add_action( 'admin_init', 'wc4bp_xprofile_tmpga_load_bulk_installer' );
+if ( ! function_exists( 'wc4bp_xprofile_tmpga_load_bulk_installer' ) ) {
 	/**
 	 * Load bulk installer
 	 */
-	function tgmpa_load_bulk_installer() {
+	function wc4bp_xprofile_tmpga_load_bulk_installer() {
 		// Silently fail if 2.5+ is loaded *after* an older version.
-		if ( ! isset( $GLOBALS['tgmpa'] ) ) {
+		if ( ! isset( $GLOBALS['wc4bp_xprofile_tmpga'] ) ) {
 			return;
 		}
 
-		// Get TGMPA class instance.
-		$tgmpa_instance = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
+		// Get wc4bp_xprofile_tmpga class instance.
+		$wc4bp_xprofile_tmpga_instance = call_user_func( array( get_class( $GLOBALS['wc4bp_xprofile_tmpga'] ), 'get_instance' ) );
 
-		if ( isset( $_GET['page'] ) && $tgmpa_instance->menu === $_GET['page'] ) {
+		if ( isset( $_GET['page'] ) && $wc4bp_xprofile_tmpga_instance->menu === $_GET['page'] ) {
 			if ( ! class_exists( 'Plugin_Upgrader', false ) ) {
 				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 			}
 
-			if ( ! class_exists( 'TGMPA_Bulk_Installer' ) ) {
+			if ( ! class_exists( 'wc4bp_xprofile_tmpga_Bulk_Installer' ) ) {
 
 				/**
 				 * Installer class to handle bulk plugin installations.
@@ -3174,14 +3174,14 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				 * @since 2.2.0
 				 *
 				 * {@internal Since 2.5.0 the class is an extension of Plugin_Upgrader rather than WP_Upgrader.}}
-				 * {@internal Since 2.5.2 the class has been renamed from TGM_Bulk_Installer to TGMPA_Bulk_Installer.
+				 * {@internal Since 2.5.2 the class has been renamed from TGM_Bulk_Installer to wc4bp_xprofile_tmpga_Bulk_Installer.
 				 *            This was done to prevent backward compatibility issues with v2.3.6.}}
 				 *
 				 * @package TGM-Plugin-Activation
 				 * @author  Thomas Griffin
 				 * @author  Gary Jones
 				 */
-				class TGMPA_Bulk_Installer extends Plugin_Upgrader {
+				class wc4bp_xprofile_tmpga_Bulk_Installer extends Plugin_Upgrader {
 					/**
 					 * Holds result of bulk plugin installation.
 					 *
@@ -3201,13 +3201,13 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					public $bulk = false;
 
 					/**
-					 * TGMPA instance
+					 * wc4bp_xprofile_tmpga instance
 					 *
 					 * @since 2.5.0
 					 *
 					 * @var object
 					 */
-					protected $tgmpa;
+					protected $wc4bp_xprofile_tmpga;
 
 					/**
 					 * Whether or not the destination directory needs to be cleared ( = on update).
@@ -3226,8 +3226,8 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 * @param \Bulk_Upgrader_Skin|null $skin Installer skin.
 					 */
 					public function __construct( $skin = null ) {
-						// Get TGMPA class instance.
-						$this->tgmpa = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
+						// Get wc4bp_xprofile_tmpga class instance.
+						$this->wc4bp_xprofile_tmpga = call_user_func( array( get_class( $GLOBALS['wc4bp_xprofile_tmpga'] ), 'get_instance' ) );
 
 						parent::__construct( $skin );
 
@@ -3235,11 +3235,11 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 							$this->clear_destination = true;
 						}
 
-						if ( $this->tgmpa->is_automatic ) {
+						if ( $this->wc4bp_xprofile_tmpga->is_automatic ) {
 							$this->activate_strings();
 						}
 
-						add_action( 'upgrader_process_complete', array( $this->tgmpa, 'populate_file_path' ) );
+						add_action( 'upgrader_process_complete', array( $this->wc4bp_xprofile_tmpga, 'populate_file_path' ) );
 					}
 
 					/**
@@ -3248,8 +3248,8 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 * @since 2.2.0
 					 */
 					public function activate_strings() {
-						$this->strings['activation_failed']  = __( 'Plugin activation failed.', 'tgmpa' );
-						$this->strings['activation_success'] = __( 'Plugin activated successfully.', 'tgmpa' );
+						$this->strings['activation_failed']  = __( 'Plugin activation failed.', 'wc4bp_xprofile_tmpga' );
+						$this->strings['activation_success'] = __( 'Plugin activated successfully.', 'wc4bp_xprofile_tmpga' );
 					}
 
 					/**
@@ -3266,7 +3266,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						$result = parent::run( $options );
 
 						// Reset the strings in case we changed one during automatic activation.
-						if ( $this->tgmpa->is_automatic ) {
+						if ( $this->wc4bp_xprofile_tmpga->is_automatic ) {
 							if ( 'update' === $this->skin->options['install_type'] ) {
 								$this->upgrade_strings();
 							} else {
@@ -3297,7 +3297,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 * @return array|false   Install confirmation messages on success, false on failure.
 					 */
 					public function bulk_install( $plugins, $args = array() ) {
-						// [TGMPA + ] Hook auto-activation in.
+						// [wc4bp_xprofile_tmpga + ] Hook auto-activation in.
 						add_filter( 'upgrader_post_install', array( $this, 'auto_activate' ), 10 );
 
 						$defaults    = array(
@@ -3308,11 +3308,11 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						$this->init();
 						$this->bulk = true;
 
-						$this->install_strings(); // [TGMPA + ] adjusted.
+						$this->install_strings(); // [wc4bp_xprofile_tmpga + ] adjusted.
 
-						/* [TGMPA - ] $current = get_site_transient( 'update_plugins' ); */
+						/* [wc4bp_xprofile_tmpga - ] $current = get_site_transient( 'update_plugins' ); */
 
-						/* [TGMPA - ] add_filter('upgrader_clear_destination', array($this, 'delete_old_plugin'), 10, 4); */
+						/* [wc4bp_xprofile_tmpga - ] add_filter('upgrader_clear_destination', array($this, 'delete_old_plugin'), 10, 4); */
 
 						$this->skin->header();
 
@@ -3334,7 +3334,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						$maintenance = ( is_multisite() && ! empty( $plugins ) );
 
 						/*
-						[TGMPA - ]
+						[wc4bp_xprofile_tmpga - ]
 						foreach ( $plugins as $plugin )
 							$maintenance = $maintenance || ( is_plugin_active( $plugin ) && isset( $current->response[ $plugin] ) );
 						*/
@@ -3350,7 +3350,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 							$this->update_current++;
 
 							/*
-							[TGMPA - ]
+							[wc4bp_xprofile_tmpga - ]
 							$this->skin->plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin, false, true);
 
 							if ( !isset( $current->response[ $plugin ] ) ) {
@@ -3370,9 +3370,9 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 
 							$result = $this->run(
 								array(
-									'package'           => $plugin, // [TGMPA + ] adjusted.
+									'package'           => $plugin, // [wc4bp_xprofile_tmpga + ] adjusted.
 									'destination'       => WP_PLUGIN_DIR,
-									'clear_destination' => false, // [TGMPA + ] adjusted.
+									'clear_destination' => false, // [wc4bp_xprofile_tmpga + ] adjusted.
 									'clear_working'     => true,
 									'is_multi'          => true,
 									'hook_extra'        => array(
@@ -3394,7 +3394,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						/**
 						 * Fires when the bulk upgrader process is complete.
 						 *
-						 * @since WP 3.6.0 / TGMPA 2.5.0
+						 * @since WP 3.6.0 / wc4bp_xprofile_tmpga 2.5.0
 						 *
 						 * @param Plugin_Upgrader $this Plugin_Upgrader instance. In other contexts, $this, might
 						 *                              be a Theme_Upgrader or Core_Upgrade instance.
@@ -3408,7 +3408,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						 * }
 						 */
 						do_action( 'upgrader_process_complete', $this, array(
-							'action'  => 'install', // [TGMPA + ] adjusted.
+							'action'  => 'install', // [wc4bp_xprofile_tmpga + ] adjusted.
 							'type'    => 'plugin',
 							'bulk'    => true,
 							'plugins' => $plugins,
@@ -3419,9 +3419,9 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						$this->skin->footer();
 
 						// Cleanup our hooks, in case something else does a upgrade on this connection.
-						/* [TGMPA - ] remove_filter('upgrader_clear_destination', array($this, 'delete_old_plugin')); */
+						/* [wc4bp_xprofile_tmpga - ] remove_filter('upgrader_clear_destination', array($this, 'delete_old_plugin')); */
 
-						// [TGMPA + ] Remove our auto-activation hook.
+						// [wc4bp_xprofile_tmpga + ] Remove our auto-activation hook.
 						remove_filter( 'upgrader_post_install', array( $this, 'auto_activate' ), 10 );
 
 						// Force refresh of plugin update information.
@@ -3464,7 +3464,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 */
 					public function auto_activate( $bool ) {
 						// Only process the activation of installed plugins if the automatic flag is set to true.
-						if ( $this->tgmpa->is_automatic ) {
+						if ( $this->wc4bp_xprofile_tmpga->is_automatic ) {
 							// Flush plugins cache so the headers of the newly installed plugins will be read correctly.
 							wp_clean_plugins_cache();
 
@@ -3492,7 +3492,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				}
 			}
 
-			if ( ! class_exists( 'TGMPA_Bulk_Installer_Skin' ) ) {
+			if ( ! class_exists( 'wc4bp_xprofile_tmpga_Bulk_Installer_Skin' ) ) {
 
 				/**
 				 * Installer skin to set strings for the bulk plugin installations..
@@ -3503,7 +3503,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				 * @since 2.2.0
 				 *
 				 * {@internal Since 2.5.2 the class has been renamed from TGM_Bulk_Installer_Skin to
-				 *            TGMPA_Bulk_Installer_Skin.
+				 *            wc4bp_xprofile_tmpga_Bulk_Installer_Skin.
 				 *            This was done to prevent backward compatibility issues with v2.3.6.}}
 				 *
 				 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-admin/includes/class-wp-upgrader-skins.php
@@ -3512,7 +3512,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				 * @author  Thomas Griffin
 				 * @author  Gary Jones
 				 */
-				class TGMPA_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
+				class wc4bp_xprofile_tmpga_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
 					/**
 					 * Holds plugin info for each individual plugin installation.
 					 *
@@ -3541,13 +3541,13 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					public $i = 0;
 
 					/**
-					 * TGMPA instance
+					 * wc4bp_xprofile_tmpga instance
 					 *
 					 * @since 2.5.0
 					 *
 					 * @var object
 					 */
-					protected $tgmpa;
+					protected $wc4bp_xprofile_tmpga;
 
 					/**
 					 * Constructor. Parses default args with new ones and extracts them for use.
@@ -3557,8 +3557,8 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 * @param array $args Arguments to pass for use within the class.
 					 */
 					public function __construct( $args = array() ) {
-						// Get TGMPA class instance.
-						$this->tgmpa = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
+						// Get wc4bp_xprofile_tmpga class instance.
+						$this->wc4bp_xprofile_tmpga = call_user_func( array( get_class( $GLOBALS['wc4bp_xprofile_tmpga'] ), 'get_instance' ) );
 
 						// Parse default and new args.
 						$defaults = array(
@@ -3588,29 +3588,29 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						if ( 'update' === $this->options['install_type'] ) {
 							parent::add_strings();
 							/* translators: 1: plugin name, 2: action number 3: total number of actions. */
-							$this->upgrader->strings['skin_before_update_header'] = __( 'Updating Plugin %1$s (%2$d/%3$d)', 'tgmpa' );
+							$this->upgrader->strings['skin_before_update_header'] = __( 'Updating Plugin %1$s (%2$d/%3$d)', 'wc4bp_xprofile_tmpga' );
 						} else {
 							/* translators: 1: plugin name, 2: error message. */
-							$this->upgrader->strings['skin_update_failed_error'] = __( 'An error occurred while installing %1$s: <strong>%2$s</strong>.', 'tgmpa' );
+							$this->upgrader->strings['skin_update_failed_error'] = __( 'An error occurred while installing %1$s: <strong>%2$s</strong>.', 'wc4bp_xprofile_tmpga' );
 							/* translators: 1: plugin name. */
-							$this->upgrader->strings['skin_update_failed'] = __( 'The installation of %1$s failed.', 'tgmpa' );
+							$this->upgrader->strings['skin_update_failed'] = __( 'The installation of %1$s failed.', 'wc4bp_xprofile_tmpga' );
 
-							if ( $this->tgmpa->is_automatic ) {
+							if ( $this->wc4bp_xprofile_tmpga->is_automatic ) {
 								// Automatic activation strings.
-								$this->upgrader->strings['skin_upgrade_start'] = __( 'The installation and activation process is starting. This process may take a while on some hosts, so please be patient.', 'tgmpa' );
+								$this->upgrader->strings['skin_upgrade_start'] = __( 'The installation and activation process is starting. This process may take a while on some hosts, so please be patient.', 'wc4bp_xprofile_tmpga' );
 								/* translators: 1: plugin name. */
-								$this->upgrader->strings['skin_update_successful'] = __( '%1$s installed and activated successfully.', 'tgmpa' ) . ' <a href="#" class="hide-if-no-js" onclick="%2$s"><span>' . esc_html__( 'Show Details', 'tgmpa' ) . '</span><span class="hidden">' . esc_html__( 'Hide Details', 'tgmpa' ) . '</span>.</a>';
-								$this->upgrader->strings['skin_upgrade_end']       = __( 'All installations and activations have been completed.', 'tgmpa' );
+								$this->upgrader->strings['skin_update_successful'] = __( '%1$s installed and activated successfully.', 'wc4bp_xprofile_tmpga' ) . ' <a href="#" class="hide-if-no-js" onclick="%2$s"><span>' . esc_html__( 'Show Details', 'wc4bp_xprofile_tmpga' ) . '</span><span class="hidden">' . esc_html__( 'Hide Details', 'wc4bp_xprofile_tmpga' ) . '</span>.</a>';
+								$this->upgrader->strings['skin_upgrade_end']       = __( 'All installations and activations have been completed.', 'wc4bp_xprofile_tmpga' );
 								/* translators: 1: plugin name, 2: action number 3: total number of actions. */
-								$this->upgrader->strings['skin_before_update_header'] = __( 'Installing and Activating Plugin %1$s (%2$d/%3$d)', 'tgmpa' );
+								$this->upgrader->strings['skin_before_update_header'] = __( 'Installing and Activating Plugin %1$s (%2$d/%3$d)', 'wc4bp_xprofile_tmpga' );
 							} else {
 								// Default installation strings.
-								$this->upgrader->strings['skin_upgrade_start'] = __( 'The installation process is starting. This process may take a while on some hosts, so please be patient.', 'tgmpa' );
+								$this->upgrader->strings['skin_upgrade_start'] = __( 'The installation process is starting. This process may take a while on some hosts, so please be patient.', 'wc4bp_xprofile_tmpga' );
 								/* translators: 1: plugin name. */
-								$this->upgrader->strings['skin_update_successful'] = esc_html__( '%1$s installed successfully.', 'tgmpa' ) . ' <a href="#" class="hide-if-no-js" onclick="%2$s"><span>' . esc_html__( 'Show Details', 'tgmpa' ) . '</span><span class="hidden">' . esc_html__( 'Hide Details', 'tgmpa' ) . '</span>.</a>';
-								$this->upgrader->strings['skin_upgrade_end']       = __( 'All installations have been completed.', 'tgmpa' );
+								$this->upgrader->strings['skin_update_successful'] = esc_html__( '%1$s installed successfully.', 'wc4bp_xprofile_tmpga' ) . ' <a href="#" class="hide-if-no-js" onclick="%2$s"><span>' . esc_html__( 'Show Details', 'wc4bp_xprofile_tmpga' ) . '</span><span class="hidden">' . esc_html__( 'Hide Details', 'wc4bp_xprofile_tmpga' ) . '</span>.</a>';
+								$this->upgrader->strings['skin_upgrade_end']       = __( 'All installations have been completed.', 'wc4bp_xprofile_tmpga' );
 								/* translators: 1: plugin name, 2: action number 3: total number of actions. */
-								$this->upgrader->strings['skin_before_update_header'] = __( 'Installing Plugin %1$s (%2$d/%3$d)', 'tgmpa' );
+								$this->upgrader->strings['skin_before_update_header'] = __( 'Installing Plugin %1$s (%2$d/%3$d)', 'wc4bp_xprofile_tmpga' );
 							}
 						}
 					}
@@ -3660,20 +3660,20 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						// Flush plugins cache so we can make sure that the installed plugins list is always up to date.
 						wp_clean_plugins_cache();
 
-						$this->tgmpa->show_tgmpa_version();
+						$this->wc4bp_xprofile_tmpga->show_wc4bp_xprofile_tmpga_version();
 
 						// Display message based on if all plugins are now active or not.
 						$update_actions = array();
 
-						if ( $this->tgmpa->is_tgmpa_complete() ) {
+						if ( $this->wc4bp_xprofile_tmpga->is_wc4bp_xprofile_tmpga_complete() ) {
 							// All plugins are active, so we display the complete string and hide the menu to protect users.
 							echo '<style type="text/css">#adminmenu .wp-submenu li.current { display: none !important; }</style>';
 							$update_actions['dashboard'] = sprintf(
-								esc_html( $this->tgmpa->strings['complete'] ),
-								'<a href="' . esc_url( self_admin_url() ) . '">' . esc_html__( 'Return to the Dashboard', 'tgmpa' ) . '</a>'
+								esc_html( $this->wc4bp_xprofile_tmpga->strings['complete'] ),
+								'<a href="' . esc_url( self_admin_url() ) . '">' . esc_html__( 'Return to the Dashboard', 'wc4bp_xprofile_tmpga' ) . '</a>'
 							);
 						} else {
-							$update_actions['tgmpa_page'] = '<a href="' . esc_url( $this->tgmpa->get_tgmpa_url() ) . '" target="_parent">' . esc_html( $this->tgmpa->strings['return'] ) . '</a>';
+							$update_actions['wc4bp_xprofile_tmpga_page'] = '<a href="' . esc_url( $this->wc4bp_xprofile_tmpga->get_wc4bp_xprofile_tmpga_url() ) . '" target="_parent">' . esc_html( $this->wc4bp_xprofile_tmpga->strings['return'] ) . '</a>';
 						}
 
 						/**
@@ -3684,7 +3684,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						 * @param array $update_actions Array of plugin action links.
 						 * @param array $plugin_info    Array of information for the last-handled plugin.
 						 */
-						$update_actions = apply_filters( 'tgmpa_update_bulk_plugins_complete_actions', $update_actions, $this->plugin_info );
+						$update_actions = apply_filters( 'wc4bp_xprofile_tmpga_update_bulk_plugins_complete_actions', $update_actions, $this->plugin_info );
 
 						if ( ! empty( $update_actions ) ) {
 							$this->feedback( implode( ' | ', (array) $update_actions ) );
@@ -3701,7 +3701,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 * @see        Bulk_Upgrader_Skin::flush_output()
 					 */
 					public function before_flush_output() {
-						_deprecated_function( __FUNCTION__, 'TGMPA 2.5.0', 'Bulk_Upgrader_Skin::flush_output()' );
+						_deprecated_function( __FUNCTION__, 'wc4bp_xprofile_tmpga 2.5.0', 'Bulk_Upgrader_Skin::flush_output()' );
 						$this->flush_output();
 					}
 
@@ -3714,7 +3714,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 * @see        Bulk_Upgrader_Skin::flush_output()
 					 */
 					public function after_flush_output() {
-						_deprecated_function( __FUNCTION__, 'TGMPA 2.5.0', 'Bulk_Upgrader_Skin::flush_output()' );
+						_deprecated_function( __FUNCTION__, 'wc4bp_xprofile_tmpga 2.5.0', 'Bulk_Upgrader_Skin::flush_output()' );
 						$this->flush_output();
 						$this->i++;
 					}
@@ -3724,21 +3724,21 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 	}
 }
 
-if ( ! class_exists( 'TGMPA_Utils' ) ) {
+if ( ! class_exists( 'wc4bp_xprofile_tmpga_Utils' ) ) {
 
 	/**
-	 * Generic utilities for TGMPA.
+	 * Generic utilities for wc4bp_xprofile_tmpga.
 	 *
 	 * All methods are static, poor-dev name-spacing class wrapper.
 	 *
-	 * Class was called TGM_Utils in 2.5.0 but renamed TGMPA_Utils in 2.5.1 as this was conflicting with Soliloquy.
+	 * Class was called TGM_Utils in 2.5.0 but renamed wc4bp_xprofile_tmpga_Utils in 2.5.1 as this was conflicting with Soliloquy.
 	 *
 	 * @since 2.5.0
 	 *
 	 * @package TGM-Plugin-Activation
 	 * @author  Juliette Reinders Folmer
 	 */
-	class TGMPA_Utils {
+	class wc4bp_xprofile_tmpga_Utils {
 		/**
 		 * Whether the PHP filter extension is enabled.
 		 *
@@ -3849,5 +3849,5 @@ if ( ! class_exists( 'TGMPA_Utils' ) ) {
 
 			return false;
 		}
-	} // End of class TGMPA_Utils
+	} // End of class wc4bp_xprofile_tmpga_Utils
 } // End of class_exists wrapper
