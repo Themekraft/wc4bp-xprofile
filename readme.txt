@@ -2,8 +2,8 @@
 Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft, gfirem
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
 Requires at least: WordPress 3.9
-Tested up to: 4.9
-Stable tag: 1.2.7
+Tested up to: 4.9.5
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,6 +97,9 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 4. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+= 1.3.0 May 21.2018 =
+* Changing the TMPGA library to avoid crash with other implementations of the same library.
+
 = 1.2.7 Dec 18.2017 =
 * Changing the requirement text for generic one.
 
