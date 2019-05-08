@@ -7,6 +7,8 @@
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
  * Version:     1.3.0
+ * Text Domain: wc4bp_xprofile
+ * Domain Path: /languages
  *
  *****************************************************************************
  * WC requires at least: 3.0.0
