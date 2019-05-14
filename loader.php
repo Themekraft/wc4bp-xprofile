@@ -9,6 +9,7 @@
  * Version:     1.3.0
  * Text Domain: wc4bp_xprofile
  * Domain Path: /languages
+ * Svn: woocommerce-buddypress-integration-xprofile-checkout-manager
  *
  *****************************************************************************
  * WC requires at least: 3.0.0
