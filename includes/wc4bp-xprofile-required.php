@@ -101,7 +101,7 @@ class WC4BP_Xprofile_Required {
 				'required' => true,
 			),
 			array(
-				'name'     => 'WC4BP -> WooCommerce BuddyPress Integration',
+				'name'     => 'WooBuddy -> WooCommerce BuddyPress Integration',
 				'slug'     => $wc4bp_slug,
 				'version'  => '3.0.15',
 				'required' => true,

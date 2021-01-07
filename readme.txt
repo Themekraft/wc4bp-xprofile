@@ -1,17 +1,17 @@
-=== WC4BP -> Checkout Manager ===
+=== WooBuddy -> BuddyPress xProfile Checkout Manager ===
 Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft, gfirem
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
 Requires at least: WordPress 3.9
 Tested up to: 5.2
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WooCommerce BuddyPress Integration xProfile Checkout Manager
+WooBuddy -> BuddyPress xProfile Checkout Manager extension where you can integrate BuddyPress xProfile into WooCommerce Checkout.
 
 == Description ==
 
-This is the WooCommerce BuddyPress Integration xProfile Checkout extension. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WC4BP plugin installed for the extension to work. <a href="https://wordpress.org/plugins/wc4bp/" target="_blank">Get WC4BP now!</a>
+This is the WooBuddy -> BuddyPress xProfile Checkout Manager extension where you can integrate BuddyPress xProfile into WooCommerce Checkout. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WooBuddy -> WooCommerce BuddyPress Integration plugin installed for the extension to work. <a href="https://wordpress.org/plugins/wc4bp/" target="_blank">Get WooBuddy -> WooCommerce BuddyPress Integration now!</a>
 
 What the plugin does:
 Add your BuddyPress Member Profile Fields into the WooCommerce Checkout.
@@ -64,7 +64,7 @@ All code is neat, clean and well documented (inline as well as in the documentat
 See the documentation [Documentation](http://docs.themekraft.com/collection/208-wc4bp-integration)
 
 If you still get stuck somewhere, our support gets you back on the right track.
-You can find all help buttons in your WC4BP Settings Panel in your WP Dashboard!
+You can find all help buttons in your WooBuddy Settings Panel in your WP Dashboard!
 
 <h4>Got ideas or just missing something?</h4>
 If you still miss something, let us know!
@@ -72,10 +72,10 @@ If you still miss something, let us know!
 
 == Installation ==
 
-You can download and install WC4BP xProfile using the build in WordPress plugin installer. If you download WC4BP xProfile manually,
+You can download and install WooBuddy -> BuddyPress xProfile Checkout Manager using the build in WordPress plugin installer. If you download WooBuddy -> BuddyPress xProfile Checkout Manager manually,
 make sure it is uploaded to "/wp-content/plugins/wc4bp-xprofile/".
 
-Activate WC4BP xProfile in the "Plugins" admin panel using the "Activate" link.
+Activate WooBuddy -> BuddyPress xProfile Checkout Manager in the "Plugins" admin panel using the "Activate" link.
 
 == Frequently Asked Questions ==
 
@@ -97,6 +97,10 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 4. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+= 1.3.1 - 7 Jan 2021 =
+* Change name to WooBuddy -> BuddyPress xProfile Checkout Manager.
+* Maintenance review.
+
 = 1.3.0 May 21.2018 =
 * Changing the TMPGA library to avoid crash with other implementations of the same library.
 
