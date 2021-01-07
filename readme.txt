@@ -55,6 +55,12 @@ Make profile groups visible on the checkout page, depend on certain products (or
 <li>Display this group if the cart contains a product from any of the following categories:</li>
 </ul>
 
+### Addons
+
+> * [Shop solution for your BuddyPress community. Integrates a WooCommerce installation with a BuddyPress social network.](https://wordpress.org/plugins/wc4bp)
+> * [WooBuddy -> Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
+> * [WooBuddy -> Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
+
 == Documentation & Support ==
 
 <h4>Extensive Documentation and Support</h4>
