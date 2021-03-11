@@ -2,7 +2,7 @@
 Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft, gfirem
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
 Requires at least: WordPress 3.9
-Tested up to: 5.2
+Tested up to: 5.7
 Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -103,9 +103,11 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 4. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
-= 1.3.1 - 7 Jan 2021 =
+
+= 1.3.1 - 10 Mar 2021 =
 * Change name to WooBuddy -> BuddyPress xProfile Checkout Manager.
-* Maintenance review.
+* Tested up with WordPress 5.7
+* Tested up with WC 5.1.0
 
 = 1.3.0 May 21.2018 =
 * Changing the TMPGA library to avoid crash with other implementations of the same library.
