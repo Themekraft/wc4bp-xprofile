@@ -296,6 +296,10 @@ function wc4bp_custom_checkout_field_process() {
 			if ( isset( $field['checkout'] ) ) {
 
 				$field_slug = sanitize_title( 'field_' . $field_id );
+				
+				if ( ! apply_filters( 'wc4bp_custom_checkout_field_group_visible', true, $field['group_id'] ) ) {
+					continue;
+				}
 
 				if ( $field['field_is_required'] && ! $_POST[ $field_slug ] ) {
 					wc_add_notice( '<b>' . $field['field_name'] . ' </b>' . __( 'is a required field.' ), 'error' );
