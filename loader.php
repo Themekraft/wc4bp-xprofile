@@ -32,6 +32,10 @@
  *
  ****************************************************************************
  */
+
+require_once dirname( __FILE__ ) . '/includes/wc4bp-xprofile-fs-integration.php';
+new wc4bp_xprofile_freemius_integration();
+
 class WC4BP_xProfile {
 
 	/**
@@ -48,20 +52,28 @@ class WC4BP_xProfile {
 	public function __construct() {
 
 		define( 'WC4BP_XPROFILE_VERSION', $this->version );
-
 		require_once( plugin_dir_path( __FILE__ ) . '/includes/class-tgm-plugin-activation.php' );
 		require_once( plugin_dir_path( __FILE__ ) . '/includes/wc4bp-xprofile-required.php' );
-		new WC4BP_Xprofile_Required();
+		$wc4bp    = $GLOBALS[ 'wc4bp_loader' ];
+		$freemius = $wc4bp::getFreemius();
 
-		if ( WC4BP_Xprofile_Required::is_woocommerce_active() && WC4BP_Xprofile_Required::is_buddypress_active() && WC4BP_Xprofile_Required::is_wc4bp_active() ) {
-			add_action( 'init', array( $this, 'includes' ), 4, 1 );
-			add_action( 'init', array( $this, 'load_plugin_textdomain' ), 10, 1 );
-		}
+	 	if ( ! empty( $freemius ) ) { 
+
+			new WC4BP_Xprofile_Required();
+
+			if ( WC4BP_Xprofile_Required::is_woocommerce_active() && WC4BP_Xprofile_Required::is_buddypress_active() && WC4BP_Xprofile_Required::is_wc4bp_active() ) {
+				add_action( 'init', array( $this, 'includes' ), 4, 1 );
+				add_action( 'init', array( $this, 'load_plugin_textdomain' ), 10, 1 );
+
+			}
+		 } 
 
 	}
 
 	public static function plugin_base_url() {
+
 		return plugin_dir_url( __FILE__ );
+
 	}
 
 	/**
@@ -71,7 +83,9 @@ class WC4BP_xProfile {
 	 * @uses    load_plugin_textdomain()
 	 */
 	public function load_plugin_textdomain() {
+
 		load_plugin_textdomain( 'wc4bp_xprofile', false, dirname( plugin_basename( __FILE__ ) ) . "/languages" );
+		
 	}
 
 	/**
@@ -81,6 +95,7 @@ class WC4BP_xProfile {
 	 * @since 1.0
 	 */
 	public function includes() {
+
 		require_once( plugin_dir_path( __FILE__ ) . '/includes/wc4bp-xprofile-checkout.php' );
 		if ( is_admin() ) {
 			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile.php' );
