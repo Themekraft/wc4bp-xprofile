@@ -54,20 +54,19 @@ class WC4BP_xProfile {
 		define( 'WC4BP_XPROFILE_VERSION', $this->version );
 		require_once( plugin_dir_path( __FILE__ ) . '/includes/class-tgm-plugin-activation.php' );
 		require_once( plugin_dir_path( __FILE__ ) . '/includes/wc4bp-xprofile-required.php' );
-		$wc4bp    = $GLOBALS[ 'wc4bp_loader' ];
-		$freemius = $wc4bp::getFreemius();
-
-	 	if ( ! empty( $freemius ) ) { 
-
-			new WC4BP_Xprofile_Required();
-
-			if ( WC4BP_Xprofile_Required::is_woocommerce_active() && WC4BP_Xprofile_Required::is_buddypress_active() && WC4BP_Xprofile_Required::is_wc4bp_active() ) {
-				add_action( 'init', array( $this, 'includes' ), 4, 1 );
-				add_action( 'init', array( $this, 'load_plugin_textdomain' ), 10, 1 );
-
-			}
-		 } 
-
+		new WC4BP_Xprofile_Required();
+		if ( WC4BP_Xprofile_Required::is_wc4bp_active() ) {
+			if ( ! empty( $GLOBALS['wc4bp_loader'] ) ) {
+				$wc4bp    = $GLOBALS[ 'wc4bp_loader' ];
+				$freemius = $wc4bp::getFreemius();
+				if ( ! empty( $freemius ) ) { 
+					if ( WC4BP_Xprofile_Required::is_woocommerce_active() && WC4BP_Xprofile_Required::is_buddypress_active() ) {
+						add_action( 'init', array( $this, 'includes' ), 4, 1 );
+						add_action( 'init', array( $this, 'load_plugin_textdomain' ), 10, 1 );
+					}
+				}
+			}	
+		} 
 	}
 
 	public static function plugin_base_url() {
