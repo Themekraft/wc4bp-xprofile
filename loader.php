@@ -44,6 +44,11 @@ class WC4BP_xProfile {
 	public $version = '1.3.2';
 
 	/**
+	 * @var bool
+	 */
+	public $active;
+
+	/**
 	 * Initiate the class
 	 *
 	 * @package wc4bp_xprofile
@@ -63,6 +68,7 @@ class WC4BP_xProfile {
 					if ( WC4BP_Xprofile_Required::is_woocommerce_active() && WC4BP_Xprofile_Required::is_buddypress_active() ) {
 						add_action( 'init', array( $this, 'includes' ), 4, 1 );
 						add_action( 'init', array( $this, 'load_plugin_textdomain' ), 10, 1 );
+						$this->active = true;
 					}
 				}
 			}	
@@ -105,4 +111,16 @@ class WC4BP_xProfile {
 
 }
 
-$GLOBALS['wc4bp_xprofile_new'] = new WC4BP_xProfile();
+// If there's not Race Condition
+// run the old entry point.
+if ( ! isset( $GLOBALS['wc4bp_xprofile'] ) && isset( $GLOBALS[ 'wc4bp_loader' ] ) ) {
+	$GLOBALS['wc4bp_xprofile'] = new WC4BP_xProfile();
+}
+
+// To avoid Race Conditon let's run
+// WC4BP_xProfile entry point after the WC4BP init action.
+add_action( 'wc4bp_init', function() {
+	if ( ! isset( $GLOBALS['wc4bp_xprofile'] ) ) {
+		$GLOBALS['wc4bp_xprofile'] = new WC4BP_xProfile();
+	}
+} );
