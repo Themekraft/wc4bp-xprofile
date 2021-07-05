@@ -101,3 +101,40 @@ only screen and (min-resolution: 192dpi) {
         left: 6px;
     }
 }
+
+div#tabs ul#field-group-tabs{
+    display: flex !important;
+    border-bottom: 1px solid gray;
+    padding-left: 10px;
+}
+
+ul#field-group-tabs li{
+    margin-right: 10px !important;
+    padding: 10px !important;
+    border: 1px solid gray;
+    margin-bottom: -1px;
+}
+
+ul#field-group-tabs li#group_2, ul#field-group-tabs li#group_3{
+    background-color: #dcdcde;
+}
+
+ul#field-group-tabs li a{
+    color: #000;
+    text-decoration: none;
+}
+
+.ui-state-active{
+    background-color: #f0f0f1 !important;
+    border-bottom: 0px !important;
+}
+
+fieldset > legend{
+    text-transform: capitalize;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+div.cv-categories {
+    margin-top: 5px;
+}
