@@ -117,4 +117,8 @@ jQuery(document).ready(function ($) {
         //Category
 
     });
+
+    $('li#group_2,li#group_1,li#group_3').click(function() {
+        $(this).siblings().css('background-color', '#dcdcde');
+    });
 });
