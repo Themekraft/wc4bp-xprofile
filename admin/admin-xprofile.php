@@ -155,26 +155,25 @@ function wc4bp_screen_xprofile() { ?>
 				<div id="postbox-container-1" class="postbox-container">
 					<div id="submitdiv" class="postbox ">
 						<div class="handlediv" title="Click to toggle"><br></div>
+						<h3><span>    <?php _e( ' Email Address Synchronisation', 'wc4bp' ); ?></span></h3>
+						<div class="inside">
+							<div class="submitbox" id="submitpost">
+								<div style="padding: 10px;">
+									<p><input type="checkbox" id="wc4bp_sync_mail" name="wc4bp_sync_mail" <?php checked( 'on', $wc4bp_sync_mail ) ?>>
+										<?php _e( ' Sync BuddyPress signup email address with WooCommerce billing email address', 'wc4bp' ); ?>
+									</p>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>
+					</div>
+					<div id="submitdiv" class="postbox ">
+						<div class="handlediv" title="Click to toggle"><br></div>
 						<h3><span>   <?php _e( ' Save WC xProfile Setting', 'wc4bp' ); ?></span></h3>
 						<div class="inside">
 							<div class="submitbox" id="submitpost">
 
 								<div style="padding: 10px;"><input type="submit" value="   <?php _e( ' Save', 'wc4bp' ); ?>" class="button"></div>
-								<div class="clear"></div>
-							</div>
-
-						</div>
-					</div>
-
-					<div id="submitdiv" class="postbox ">
-						<div class="handlediv" title="Click to toggle"><br></div>
-						<h3><span>    <?php _e( ' Email Address Synchronisation', 'wc4bp' ); ?></span></h3>
-						<div class="inside">
-							<div class="submitbox" id="submitpost">
-								<div style="padding: 10px;">
-									<p> <?php _e( ' Sync BuddyPress signup email address with WooCommerce billing email address', 'wc4bp' ); ?></p>
-									<input type="checkbox" id="wc4bp_sync_mail"
-									       name="wc4bp_sync_mail" <?php checked( 'on', $wc4bp_sync_mail ) ?>></div>
 								<div class="clear"></div>
 							</div>
 
