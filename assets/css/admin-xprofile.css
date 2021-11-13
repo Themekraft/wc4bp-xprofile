@@ -115,17 +115,13 @@ ul#field-group-tabs li{
     margin-bottom: -1px;
 }
 
-ul#field-group-tabs li#group_2, ul#field-group-tabs li#group_3{
-    background-color: #dcdcde;
-}
-
 ul#field-group-tabs li a{
     color: #000;
     text-decoration: none;
 }
 
 .ui-state-active{
-    background-color: #f0f0f1 !important;
+    background-color: #ccc !important;
     border-bottom: 0px !important;
 }
 

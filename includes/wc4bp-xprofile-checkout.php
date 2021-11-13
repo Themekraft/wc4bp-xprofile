@@ -259,10 +259,16 @@ function wc4bp_woo_class_for_xprofile_checkout_fields( $elements ) {
 /**
  * Add Javascript to replace Buddypress (required) with Woocommerce required asterisk (*)
  */
-add_action( 'woocommerce_after_checkout_form', 'wc4bp_woo_replace_required_for_xprofile_checkout_fields' );
+add_action( 'wp_footer', 'wc4bp_woo_replace_required_for_xprofile_checkout_fields' );
 
 function wc4bp_woo_replace_required_for_xprofile_checkout_fields() {
-	echo '<script>jQuery(document).ready(function($){$(".wc4bp_custom_checkout_fields_group label").each(function(i){$(this).html($(this).html().replace("(required)","<abbr class=\"required\" title=\"required\">*</abbr>"));});});</script>';
+	echo '<script type="text/javascript">
+			jQuery(document).ready(function(){
+				jQuery(".wc4bp_custom_checkout_fields_group legend").each(function(i){
+					jQuery(this).html(jQuery(this).html().replace("(required)","<abbr class=\"required\" title=\"required\">*</abbr>"));
+				});
+			});
+		</script>';
 }
 
 /**
