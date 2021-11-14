@@ -6,14 +6,14 @@
  * Description: WooBuddy -> BuddyPress xProfile Checkout Manager - Add BuddyPress xProfile Fields to the WooCommerce Checkout and remove WooCommerce Fields from the Checkout
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version:     1.3.2
+ * Version: 1.3.3
  * Text Domain: wc4bp_xprofile
  * Domain Path: /languages
  * Svn: woocommerce-buddypress-integration-xprofile-checkout-manager
  *
  *****************************************************************************
  * WC requires at least: 3.0.0
- * WC tested up to: 5.1.0
+ * WC tested up to: 5.8.0
  *****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
@@ -41,7 +41,7 @@ class WC4BP_xProfile {
 	/**
 	 * @var string
 	 */
-	public $version = '1.3.2';
+	public $version = '1.3.3';
 
 	/**
 	 * @var bool
