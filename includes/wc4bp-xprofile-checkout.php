@@ -411,6 +411,10 @@ add_action( 'woocommerce_admin_order_data_after_billing_address', 'wc4bp_custom_
 
 function wc4bp_custom_checkout_field_display_admin_order_meta( $order ) {
 
+	if ( ! ( $order instanceof WC_Order ) ){
+		return;
+	}
+
 	$bf_xprofile_options = get_option( 'bf_xprofile_options' );
 
 	if ( ! isset( $bf_xprofile_options ) ) {
@@ -428,7 +432,7 @@ function wc4bp_custom_checkout_field_display_admin_order_meta( $order ) {
 			if ( isset( $field['checkout'] ) && isset( $field['order_edit'] ) ) {
 
 				$field_slug = sanitize_title( 'field_' . $field_id );
-				echo '<p><strong>' . $field['field_name'] . ':</strong> ' . get_post_meta( $order->id, $field_slug, true ) . '</p>';
+				echo '<p><strong>' . $field['field_name'] . ':</strong> ' . get_post_meta( $order->get_id(), $field_slug, true ) . '</p>';
 
 			}
 
