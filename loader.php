@@ -11,10 +11,10 @@
  * Domain Path: /languages
  * Svn: woocommerce-buddypress-integration-xprofile-checkout-manager
  *
- *****************************************************************************
+ * ****************************************************************************
  * WC requires at least: 3.0.0
  * WC tested up to: 5.8.0
- *****************************************************************************
+ * ****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- ****************************************************************************
+ * ***************************************************************************
  */
 
 require_once dirname( __FILE__ ) . '/includes/wc4bp-xprofile-fs-integration.php';
@@ -57,22 +57,22 @@ class WC4BP_xProfile {
 	public function __construct() {
 
 		define( 'WC4BP_XPROFILE_VERSION', $this->version );
-		require_once( plugin_dir_path( __FILE__ ) . '/includes/class-tgm-plugin-activation.php' );
-		require_once( plugin_dir_path( __FILE__ ) . '/includes/wc4bp-xprofile-required.php' );
+		require_once plugin_dir_path( __FILE__ ) . '/includes/class-tgm-plugin-activation.php';
+		require_once plugin_dir_path( __FILE__ ) . '/includes/wc4bp-xprofile-required.php';
 		new WC4BP_Xprofile_Required();
 		if ( WC4BP_Xprofile_Required::is_wc4bp_active() ) {
 			if ( ! empty( $GLOBALS['wc4bp_loader'] ) ) {
-				$wc4bp    = $GLOBALS[ 'wc4bp_loader' ];
+				$wc4bp    = $GLOBALS['wc4bp_loader'];
 				$freemius = $wc4bp::getFreemius();
-				if ( ! empty( $freemius ) ) { 
+				if ( ! empty( $freemius ) ) {
 					if ( WC4BP_Xprofile_Required::is_woocommerce_active() && WC4BP_Xprofile_Required::is_buddypress_active() ) {
 						add_action( 'init', array( $this, 'includes' ), 4, 1 );
 						add_action( 'init', array( $this, 'load_plugin_textdomain' ), 10, 1 );
 						$this->active = true;
 					}
 				}
-			}	
-		} 
+			}
+		}
 	}
 
 	public static function plugin_base_url() {
@@ -89,8 +89,8 @@ class WC4BP_xProfile {
 	 */
 	public function load_plugin_textdomain() {
 
-		load_plugin_textdomain( 'wc4bp_xprofile', false, dirname( plugin_basename( __FILE__ ) ) . "/languages" );
-		
+		load_plugin_textdomain( 'wc4bp_xprofile', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+
 	}
 
 	/**
@@ -101,10 +101,10 @@ class WC4BP_xProfile {
 	 */
 	public function includes() {
 
-		require_once( plugin_dir_path( __FILE__ ) . '/includes/wc4bp-xprofile-checkout.php' );
+		require_once plugin_dir_path( __FILE__ ) . '/includes/wc4bp-xprofile-checkout.php';
 		if ( is_admin() ) {
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile.php' );
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile-ajax.php' );
+			require_once plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile.php';
+			require_once plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile-ajax.php';
 		}
 
 	}
@@ -113,14 +113,17 @@ class WC4BP_xProfile {
 
 // If there's not Race Condition
 // run the old entry point.
-if ( ! isset( $GLOBALS['wc4bp_xprofile'] ) && isset( $GLOBALS[ 'wc4bp_loader' ] ) ) {
+if ( ! isset( $GLOBALS['wc4bp_xprofile'] ) && isset( $GLOBALS['wc4bp_loader'] ) ) {
 	$GLOBALS['wc4bp_xprofile'] = new WC4BP_xProfile();
 }
 
 // To avoid Race Conditon let's run
 // WC4BP_xProfile entry point after the WC4BP init action.
-add_action( 'wc4bp_init', function() {
-	if ( ! isset( $GLOBALS['wc4bp_xprofile'] ) ) {
-		$GLOBALS['wc4bp_xprofile'] = new WC4BP_xProfile();
+add_action(
+	'wc4bp_init',
+	function() {
+		if ( ! isset( $GLOBALS['wc4bp_xprofile'] ) ) {
+			$GLOBALS['wc4bp_xprofile'] = new WC4BP_xProfile();
+		}
 	}
-} );
+);

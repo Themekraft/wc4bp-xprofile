@@ -4,19 +4,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once( dirname( __FILE__ ) . '/../includes/wc4bp-xprofile-data.php' );
-require_once( 'admin-xprofile-util.php' );
+require_once dirname( __FILE__ ) . '/../includes/wc4bp-xprofile-data.php';
+require_once 'admin-xprofile-util.php';
 
 add_action( 'wc4bp_add_submenu_page', 'wc4bp_add_xprofile_menu' );
 add_action( 'admin_enqueue_scripts', 'wc4bp_admin_enqueue_scripts' );
 
 // Add the option page to the WC4BP Integration menu
 function wc4bp_add_xprofile_menu() {
-	if( ! has_action('wc4bp_add_submenu_page') ) {
+	if ( ! has_action( 'wc4bp_add_submenu_page' ) ) {
 		add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WooBuddy -> BuddyPress xProfile Checkout Manager needs WooBuddy -> WooCommerce BuddyPress Integration to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " wc4bp_xprofile" ) . \'</strong></p></div>\', "http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" );' ) );
 		return;
 	}
-	add_submenu_page( 'wc4bp-options-page', 'BuddyPress Profile' , 'BuddyPress xProfile' , 'manage_options', 'wc4bp-options-page-xprofile', 'wc4bp_screen_xprofile' );
+	add_submenu_page( 'wc4bp-options-page', 'BuddyPress Profile', 'BuddyPress xProfile', 'manage_options', 'wc4bp-options-page-xprofile', 'wc4bp_screen_xprofile' );
 }
 
 /**
@@ -34,8 +34,8 @@ function wc4bp_screen_xprofile() { ?>
 		<div id="post-body" class="metabox-holder columns-2">
 
 			<?php
-			if ( isset( $_POST['bf_xprofile_conditional_visibility'] ) && is_array( $_POST['bf_xprofile_conditional_visibility'] ) ) {
-				foreach ( $_POST['bf_xprofile_conditional_visibility'] as $group_id => $group_options ) {
+			if ( isset( $_POST['bf_xprofile_conditional_visibility'] ) && is_array( wc4bp_clean_input( wp_unslash( $_POST['bf_xprofile_conditional_visibility'] ) ) ) ) {
+				foreach ( wc4bp_clean_input( wp_unslash( $_POST['bf_xprofile_conditional_visibility'] ) ) as $group_id => $group_options ) {
 					// Check that group ID is valid
 					if ( ! is_array( $group_options ) || ! ctype_digit( (string) $group_id ) ) {
 						continue;
@@ -56,13 +56,13 @@ function wc4bp_screen_xprofile() { ?>
 
 					// Update list of products that allow group to be displayed
 					if ( array_key_exists( 'products', $group_options ) ) {
-                        $deleteProd = in_array('deleteProduct',$group_options['products']);
+						$deleteProd = in_array( 'deleteProduct', $group_options['products'] );
 						if ( $deleteProd ) {
 							bp_xprofile_delete_meta( $group_id, 'group', 'bf_xprofile_conditional_visibility_products' );
 
 						} else {
 							$safe_product_ids = array();
-							$product_ids      =  $group_options['products'] ;
+							$product_ids      = $group_options['products'];
 							foreach ( $product_ids as $product_id ) {
 								$trimmed_product_id = (string) trim( $product_id );
 								if ( ctype_digit( $trimmed_product_id ) ) {
@@ -74,31 +74,36 @@ function wc4bp_screen_xprofile() { ?>
 							}
 
 							$updated_product_ids  = implode( ',', $safe_product_ids );
-							$existing_product_ids = bp_xprofile_get_meta( $group_id, 'group',
-								'bf_xprofile_conditional_visibility_products' );
+							$existing_product_ids = bp_xprofile_get_meta(
+								$group_id,
+								'group',
+								'bf_xprofile_conditional_visibility_products'
+							);
 
 							if ( $existing_product_ids != $updated_product_ids ) {
-								if ( bp_xprofile_update_fieldgroup_meta( $group_id,
-										'bf_xprofile_conditional_visibility_products', $updated_product_ids ) === false
+								if ( bp_xprofile_update_fieldgroup_meta(
+									$group_id,
+									'bf_xprofile_conditional_visibility_products',
+									$updated_product_ids
+								) === false
 								) {
 									error_log( "Failed to update group $group_id with new product IDs for conditional visibility" );
 								}
 							}
 						}
+					} else {
+						// bp_xprofile_delete_meta( $group_id, 'group', 'bf_xprofile_conditional_visibility_products' );
 					}
-					else{
-                      //  bp_xprofile_delete_meta( $group_id, 'group', 'bf_xprofile_conditional_visibility_products' );
-                    }
 
 					// Update list of categories that allow group to be displayed
 					if ( array_key_exists( 'categories', $group_options ) ) {
-                        $deleteCategory = in_array('deleteCategory',$group_options['categories']);
+						$deleteCategory = in_array( 'deleteCategory', $group_options['categories'] );
 						if ( $deleteCategory ) {
 							bp_xprofile_delete_meta( $group_id, 'group', 'bf_xprofile_conditional_visibility_categories' );
 
 						} else {
 							$safe_category_ids = array();
-							$category_ids      =  $group_options['categories'] ;
+							$category_ids      = $group_options['categories'];
 							foreach ( $category_ids as $category_id ) {
 								$trimmed_category_id = (string) trim( $category_id );
 								if ( ctype_digit( $trimmed_category_id ) ) {
@@ -110,30 +115,35 @@ function wc4bp_screen_xprofile() { ?>
 							}
 
 							$updated_category_ids  = implode( ',', $safe_category_ids );
-							$existing_category_ids = bp_xprofile_get_meta( $group_id, 'group',
-								'bf_xprofile_conditional_visibility_categories' );
+							$existing_category_ids = bp_xprofile_get_meta(
+								$group_id,
+								'group',
+								'bf_xprofile_conditional_visibility_categories'
+							);
 
 							if ( $existing_category_ids != $updated_category_ids ) {
-								if ( bp_xprofile_update_fieldgroup_meta( $group_id,
-										'bf_xprofile_conditional_visibility_categories', $updated_category_ids ) === false
+								if ( bp_xprofile_update_fieldgroup_meta(
+									$group_id,
+									'bf_xprofile_conditional_visibility_categories',
+									$updated_category_ids
+								) === false
 								) {
 									error_log( "Failed to update group $group_id with new category IDs for conditional visibility" );
 								}
 							}
 						}
+					} else {
+						// bp_xprofile_delete_meta( $group_id, 'group', 'bf_xprofile_conditional_visibility_categories' );
 					}
-					else{
-                       // bp_xprofile_delete_meta( $group_id, 'group', 'bf_xprofile_conditional_visibility_categories' );
-                    }
 				}
 			}
 
 			if ( isset( $_POST['bf_xprofile_options'] ) ) {
-				update_option( 'bf_xprofile_options', $_POST['bf_xprofile_options'] );
+				update_option( 'bf_xprofile_options', wc4bp_clean_input( wp_unslash( $_POST['bf_xprofile_options'] ) ) );
 			}
 
 			if ( isset( $_POST['wc4bp_sync_mail'] ) ) {
-				update_option( 'wc4bp_sync_mail', $_POST['wc4bp_sync_mail'] );
+				update_option( 'wc4bp_sync_mail', wc4bp_clean_input( wp_unslash( $_POST['wc4bp_sync_mail'] ) ) );
 			} else {
 				delete_option( 'wc4bp_sync_mail' );
 			}
@@ -143,24 +153,24 @@ function wc4bp_screen_xprofile() { ?>
 
 			<form method="post" action="?page=wc4bp-options-page-xprofile" id="wc4bp-option-form">
 
-                <?php _e( '<h2>WooCommerce BuddyPress Integration Settings</h2>', 'wc4bp' ); ?>
+				<?php esc_html_e( '<h2>WooCommerce BuddyPress Integration Settings</h2>', 'wc4bp' ); ?>
 				<div id="post-body-content">
 
 					<div id="icon-options-general" class="icon32"><br></div>
 
 					<?php wp_nonce_field( 'update-options' ); ?>
-					<?php wc4bp_xprofile_tabs() ?>
+					<?php wc4bp_xprofile_tabs(); ?>
 
 				</div>
 				<div id="postbox-container-1" class="postbox-container">
 					<div id="submitdiv" class="postbox ">
 						<div class="handlediv" title="Click to toggle"><br></div>
-						<h3><span>    <?php _e( ' Email Address Synchronisation', 'wc4bp' ); ?></span></h3>
+						<h3><span>    <?php esc_html_e( ' Email Address Synchronisation', 'wc4bp' ); ?></span></h3>
 						<div class="inside">
 							<div class="submitbox" id="submitpost">
 								<div style="padding: 10px;">
-									<p><input type="checkbox" id="wc4bp_sync_mail" name="wc4bp_sync_mail" <?php checked( 'on', $wc4bp_sync_mail ) ?>>
-										<?php _e( ' Sync BuddyPress signup email address with WooCommerce billing email address', 'wc4bp' ); ?>
+									<p><input type="checkbox" id="wc4bp_sync_mail" name="wc4bp_sync_mail" <?php checked( 'on', $wc4bp_sync_mail ); ?>>
+										<?php esc_html_e( ' Sync BuddyPress signup email address with WooCommerce billing email address', 'wc4bp' ); ?>
 									</p>
 								</div>
 								<div class="clear"></div>
@@ -169,11 +179,11 @@ function wc4bp_screen_xprofile() { ?>
 					</div>
 					<div id="submitdiv" class="postbox ">
 						<div class="handlediv" title="Click to toggle"><br></div>
-						<h3><span>   <?php _e( ' Save WC xProfile Setting', 'wc4bp' ); ?></span></h3>
+						<h3><span>   <?php esc_html_e( ' Save WC xProfile Setting', 'wc4bp' ); ?></span></h3>
 						<div class="inside">
 							<div class="submitbox" id="submitpost">
 
-								<div style="padding: 10px;"><input type="submit" value="   <?php _e( ' Save', 'wc4bp' ); ?>" class="button"></div>
+								<div style="padding: 10px;"><input type="submit" value="   <?php esc_html_e( ' Save', 'wc4bp' ); ?>" class="button"></div>
 								<div class="clear"></div>
 							</div>
 
@@ -183,7 +193,8 @@ function wc4bp_screen_xprofile() { ?>
 			</form>
 		</div>
 	</div>
-	</div><?php
+	</div>
+	<?php
 
 }
 
@@ -194,149 +205,205 @@ function wc4bp_screen_xprofile() { ?>
  */
 function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 
-	$groups = BP_XProfile_Group::get( array(
-		'fetch_fields' => true
-	) );
-    ?>
+	$groups = BP_XProfile_Group::get(
+		array(
+			'fetch_fields' => true,
+		)
+	);
+	?>
 
 	<div id="tabs">
 		<ul id="field-group-tabs" class="nav tabs" style="display: block;">
 
-			<?php if ( ! empty( $groups ) ) : foreach ( $groups as $group ) : ?>
-				<li id="group_<?php echo $group->id; ?>"><a href="#tabs-<?php echo $group->id; ?>"
-				                                            class="ui-tab"><?php echo esc_attr( $group->name ); ?><?php if ( ! $group->can_delete ) : ?><?php _e( '(Primary)', 'wc4bp' ); endif; ?></a>
+			<?php
+			if ( ! empty( $groups ) ) :
+				foreach ( $groups as $group ) :
+					?>
+				<li id="group_<?php echo esc_attr( $group->id ); ?>"><a href="#tabs-<?php echo esc_attr( $group->id ); ?>"
+															class="ui-tab"><?php echo esc_attr( $group->name ); ?>
+																					  <?php
+																						if ( ! $group->can_delete ) :
+																							?>
+																
+																							<?php
+																							esc_html_e( '(Primary)', 'wc4bp' );
+endif;
+																						?>
+															</a>
 				</li>
 
-			<?php endforeach; endif; ?>
+					<?php
+			endforeach;
+endif;
+			?>
 
 		</ul>
 
-		<?php if ( ! empty( $groups ) ) : foreach ( $groups as $group ) : ?>
+		<?php
+		if ( ! empty( $groups ) ) :
+			foreach ( $groups as $group ) :
+				?>
 
-			<div id="tabs-<?php echo $group->id; ?>" class="tab-wrapper">
+			<div id="tabs-<?php echo esc_attr( $group->id ); ?>" class="tab-wrapper">
 
-				<?php if ( $group->name == 'Billing Address' || $group->name == 'Shipping Address' ) { ?>
-					<h3><?php echo $group->name ?>  <?php _e( ' WooCommerce fields are already in the checkout and get synced with BuddyPress.', 'wc4bp' ); ?> </h3>
+							<?php if ( $group->name == 'Billing Address' || $group->name == 'Shipping Address' ) { ?>
+					<h3><?php echo esc_attr( $group->name ); ?>  <?php esc_html_e( ' WooCommerce fields are already in the checkout and get synced with BuddyPress.', 'wc4bp' ); ?> </h3>
 				<?php } ?>
 
-				<fieldset id="<?php echo $group->id; ?>" class="field-group">
+				<fieldset id="<?php echo esc_attr( $group->id ); ?>" class="field-group">
 
-					<?php if ( $group->description ) : ?>
+								<?php if ( $group->description ) : ?>
 
-						<legend><?php echo esc_attr( $group->description ) ?></legend>
+						<legend><?php echo esc_attr( $group->description ); ?></legend>
 
-					<?php endif;
+									<?php
+								endif;
 
-					if ( ! empty( $group->fields ) ) :
-						foreach ( $group->fields as $field ) {
+								if ( ! empty( $group->fields ) ) :
+									foreach ( $group->fields as $field ) {
 
-							// Load the field
-							$field = new BP_XProfile_Field( $field->id );
+										// Load the field
+										$field = new BP_XProfile_Field( $field->id );
 
+										$class = '';
+										if ( ! $field->can_delete ) {
+											$class = ' core nodrag';
+										}
 
-							$class = '';
-							if ( ! $field->can_delete ) {
-								$class = ' core nodrag';
-							}
+										/*
+										 This function handles the WYSIWYG profile field
+										* display for the xprofile admin setup screen
+										*/
+										wc4bp_xprofile_admin_field( $field, $group, $class );
 
-							/* This function handles the WYSIWYG profile field
-							* display for the xprofile admin setup screen
-							*/
-							wc4bp_xprofile_admin_field( $field, $group, $class );
+									} // end for
 
-						} // end for
+								else : // !$group->fields
+									?>
 
-					else : // !$group->fields
-						?>
+						<p class="nodrag nofields"><?php esc_html_e( 'There are no fields in this group.', 'wc4bp' ); ?></p>
 
-						<p class="nodrag nofields"><?php _e( 'There are no fields in this group.', 'wc4bp' ); ?></p>
+								<?php endif; // end $group->fields ?>
 
-					<?php endif; // end $group->fields ?>
-
-                    <?php if ( $group->name != 'Billing Address' && $group->name != 'Shipping Address' ) { ?>
+								<?php if ( $group->name != 'Billing Address' && $group->name != 'Shipping Address' ) { ?>
 
 
 
 					<div class="wc4bp-conditional-visibility-container">
-						<h2><span><?php echo esc_html( _e( 'Conditional Visibility' ,'wc4bp') ); ?></span></h2>
-						<?php
-						$feature_enabled         = wc4bp_xprofile_conditional_visibility_enabled( $group->id, 'group' );
-						$group_visibility_prefix = "bf_xprofile_conditional_visibility[{$group->id}]";
-						$products                = wc4bp_xprofile_conditional_visibility_products( $group->id, 'group', array() );
-						$product_data            = wc4bp_xprofile_fetch_product_names( $products );
-						$categories              = wc4bp_xprofile_conditional_visibility_categories( $group->id, 'group', array() );
-						$category_data           = wc4bp_xprofile_fetch_category_names( $categories );
-						?>
+						<h2><span><?php echo esc_html( _e( 'Conditional Visibility', 'wc4bp' ) ); ?></span></h2>
+									<?php
+									$feature_enabled         = wc4bp_xprofile_conditional_visibility_enabled( $group->id, 'group' );
+									$group_visibility_prefix = "bf_xprofile_conditional_visibility[{$group->id}]";
+									$products                = wc4bp_xprofile_conditional_visibility_products( $group->id, 'group', array() );
+									$product_data            = wc4bp_xprofile_fetch_product_names( $products );
+									$categories              = wc4bp_xprofile_conditional_visibility_categories( $group->id, 'group', array() );
+									$category_data           = wc4bp_xprofile_fetch_category_names( $categories );
+									?>
 						<div class="fields">
 							<div class="field cv-enabled">
 								<label>
-									<input name="<?php echo esc_attr( $group_visibility_prefix . "[enabled]" ); ?>"
-									       type="checkbox" <?php checked( $feature_enabled ); ?>
-									       data-checked="<?php echo $feature_enabled ? 'true' : 'false'; ?>"/>
-                                    <span><?php echo
-	                                    esc_html( _e( 'Make this group hidden on the checkout page, unless at least ' .
-	                                                  'one of the following criteria are met:' ,'wc4bp') ); ?></span>
+									<input name="<?php echo esc_attr( $group_visibility_prefix . '[enabled]' ); ?>"
+										   type="checkbox" <?php checked( $feature_enabled ); ?>
+										   data-checked="<?php echo $feature_enabled ? 'true' : 'false'; ?>"/>
+									<span>
+									<?php
+									esc_html_e(
+										'Make this group hidden on the checkout page, unless at least ' .
+													  'one of the following criteria are met:',
+										'wc4bp'
+									);
+									?>
+													  </span>
 								</label>
 							</div>
-							<div class="field cv-products<?php if ( ! $feature_enabled ) {
-								echo ' disabled';
-							} ?>">
+							<div class="field cv-products
+									<?php
+									if ( ! $feature_enabled ) {
+										echo ' disabled';
+									}
+									?>
+							">
 								<label>
-                                    <span><?php echo
-	                                    esc_html( _e( 'Display this group if the cart contains any of the following ' .
-	                                                  'products:','wc4bp' ) ); ?></span>
+									<span>
+									<?php
+									esc_html_e(
+										'Display this group if the cart contains any of the following ' .
+													  'products:',
+										'wc4bp'
+									);
+									?>
+													  </span>
 									<select multiple class="select2-hidden-accessible wc-search"
-									       name="<?php echo esc_attr( $group_visibility_prefix . "[products][]" ); ?>"
-									       data-action="woocommerce_json_search_products_and_variations"
-									       data-value="<?php echo esc_attr( implode( ',', array_keys( $product_data ) ) ); ?>"
-									       data-nonce="<?php echo esc_attr( wc4bp_xprofile_get_nonce( 'search-products' ) ); ?>"
-									       data-placeholder="<?php echo esc_attr( _e( 'Choose a product...' ,'wc4bp') ); ?>"
-                                            data-multiple="true"
-                                            data-exclude="default"
-									       data-selected="<?php echo esc_attr( json_encode( $product_data ) ); ?>"
-										<?php if ( ! $feature_enabled ) {
+										   name="<?php echo esc_attr( $group_visibility_prefix . '[products][]' ); ?>"
+										   data-action="woocommerce_json_search_products_and_variations"
+										   data-value="<?php echo esc_attr( implode( ',', array_keys( $product_data ) ) ); ?>"
+										   data-nonce="<?php echo esc_attr( wc4bp_xprofile_get_nonce( 'search-products' ) ); ?>"
+										   data-placeholder="<?php echo esc_attr( _e( 'Choose a product...', 'wc4bp' ) ); ?>"
+											data-multiple="true"
+											data-exclude="default"
+										   data-selected="<?php echo esc_attr( json_encode( $product_data ) ); ?>"
+										<?php
+										if ( ! $feature_enabled ) {
 											echo 'readonly';
-										} ?>></select>
+										}
+										?>
+										></select>
 								</label>
 							</div>
-							<div class="field cv-categories<?php if ( ! $feature_enabled ) {
-								echo ' disabled';
-							} ?>">
+							<div class="field cv-categories
+									<?php
+									if ( ! $feature_enabled ) {
+										echo ' disabled';
+									}
+									?>
+							">
 								<label>
-                                    <span><?php echo
-	                                    esc_html( _e( 'Display this group if the cart contains a product from any of ' .
-	                                                  'the following categories:', 'wc4bp' ) ); ?></span>
+									<span>
+									<?php
+									esc_html_e(
+										'Display this group if the cart contains a product from any of ' .
+													  'the following categories:',
+										'wc4bp'
+									);
+									?>
+													  </span>
 									<select multiple class="select2-hidden-accessible wc-search"
-									       name="<?php echo esc_attr( $group_visibility_prefix . "[categories][]" ); ?>"
-									       data-action="wc4bp_xprofile_search_categories"
-									       data-value="<?php echo esc_attr( implode( ',', array_keys( $category_data ) ) ); ?>"
-									       data-nonce="<?php echo esc_attr( wc4bp_xprofile_get_nonce( 'search-categories' ) ); ?>"
-									       data-placeholder="<?php echo esc_attr( _e( 'Choose a category...','wc4bp' ) ); ?>"
-                                            data-multiple="true"
-									       data-selected="<?php echo esc_attr( json_encode( $category_data ) ); ?>"
-										<?php if ( ! $feature_enabled ) {
+										   name="<?php echo esc_attr( $group_visibility_prefix . '[categories][]' ); ?>"
+										   data-action="wc4bp_xprofile_search_categories"
+										   data-value="<?php echo esc_attr( implode( ',', array_keys( $category_data ) ) ); ?>"
+										   data-nonce="<?php echo esc_attr( wc4bp_xprofile_get_nonce( 'search-categories' ) ); ?>"
+										   data-placeholder="<?php echo esc_attr( _e( 'Choose a category...', 'wc4bp' ) ); ?>"
+											data-multiple="true"
+										   data-selected="<?php echo esc_attr( json_encode( $category_data ) ); ?>"
+										<?php
+										if ( ! $feature_enabled ) {
 											echo 'readonly';
-										} ?>></select>
+										}
+										?>
+										></select>
 								</label>
 							</div>
 						</div>
 					</div>
-                    <?php } ?>
+					<?php } ?>
 
 				</fieldset>
 			</div>
 
-		<?php endforeach;
-		else : ?>
+					<?php
+		endforeach;
+		else :
+			?>
 
-			<div id="message" class="error"><p><?php _e( 'You have no groups.', 'wc4bp' ); ?></p></div>
-			<p><a href="users.php?page=bp-profile-setup&amp;mode=add_group"><?php _e( 'Add New Group', 'wc4bp' ); ?></a>
+			<div id="message" class="error"><p><?php esc_html_e( 'You have no groups.', 'wc4bp' ); ?></p></div>
+			<p><a href="users.php?page=bp-profile-setup&amp;mode=add_group"><?php esc_html_e( 'Add New Group', 'wc4bp' ); ?></a>
 			</p>
 
 		<?php endif; ?>
 
 	</div>
-<?php }
+	<?php
+}
 
 
 /**
@@ -349,31 +416,48 @@ function wc4bp_xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
 	$shipping            = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing             = bp_get_option( 'wc4bp_billing_address_ids' );
 
-	$field = $admin_field; ?>
+	$field = $admin_field;
+	?>
 
-	<fieldset id="field_<?php echo esc_attr( $field->id ); ?>" class="sortable<?php echo ' ' . $field->type;
-	if ( ! empty( $class ) ) {
-		echo ' ' . $class;
-	} ?>">
+	<fieldset id="field_<?php echo esc_attr( $field->id ); ?>" class="sortable
+								   <?php
+									echo ' ' . esc_attr( $field->type );
+									if ( ! empty( $class ) ) {
+										echo ' ' . esc_attr( $class );
+									}
+									?>
+	">
 		<legend>
-			<span><b><?php bp_the_profile_field_name(); ?> </b><?php if ( ! $field->can_delete ) : ?><?php _e( '(Primary)', 'wc4bp' ); endif; ?> <?php if ( bp_get_the_profile_field_is_required() ) : ?><?php _e( '(Required)', 'wc4bp' ) ?><?php endif; ?></span>
+			<span><b><?php bp_the_profile_field_name(); ?> </b>
+														<?php
+														if ( ! $field->can_delete ) :
+															?>
+				
+															<?php
+															esc_html_e( '(Primary)', 'wc4bp' );
+endif;
+														?>
+			 <?php
+				if ( bp_get_the_profile_field_is_required() ) :
+					?>
+					<?php esc_html_e( '(Required)', 'wc4bp' ); ?><?php endif; ?></span>
 		</legend>
 		<div class="field-wrapper"><p>
 
-				<input type="hidden" value="<?php echo $admin_group->id; ?>"
-				       name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][group_id]">
-				<input type="hidden" value="<?php echo $admin_group->name; ?>"
-				       name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][group_name]">
-				<input type="hidden" value="<?php echo $field->id; ?>"
-				       name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][field_id]">
-				<input type="hidden" value="<?php echo $field->name; ?>"
-				       name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][field_name]">
-				<input type="hidden" value="<?php echo $field->type; ?>"
-				       name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][field_type]">
-				<input type="hidden" value="<?php echo $field->is_required; ?>"
-				       name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][field_is_required]">
-				<input type="hidden" value="<?php echo $field->description; ?>"
-				       name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][description]">
+				<input type="hidden" value="<?php echo esc_attr( $admin_group->id ); ?>"
+					   name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][group_id]">
+				<input type="hidden" value="<?php echo esc_attr( $admin_group->name ); ?>"
+					   name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][group_name]">
+				<input type="hidden" value="<?php echo esc_attr( $field->id ); ?>"
+					   name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][field_id]">
+				<input type="hidden" value="<?php echo esc_attr( $field->name ); ?>"
+					   name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][field_name]">
+				<input type="hidden" value="<?php echo esc_attr( $field->type ); ?>"
+					   name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][field_type]">
+				<input type="hidden" value="<?php echo esc_attr( $field->is_required ); ?>"
+					   name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][field_is_required]">
+				<input type="hidden" value="<?php echo esc_attr( $field->description ); ?>"
+					   name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][description]">
 
 				<?php if ( ( is_array( $billing ) && array_search( $field->id, $billing ) ) || ( is_array( $shipping ) && array_search( $field->id, $shipping ) ) ) { ?>
 			<p>WooCommerce default field - Automatically Synced with BuddyPress</p>
@@ -402,7 +486,7 @@ function wc4bp_xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
 
 
 			<a target="_blank"
-			   href="?page=bp-profile-setup&group_id=<?php echo $admin_group->id; ?>&field_id=<?php echo $field->id; ?>&mode=edit_field">Edit
+			   href="?page=bp-profile-setup&group_id=<?php echo esc_attr( $admin_group->id ); ?>&field_id=<?php echo esc_attr( $field->id ); ?>&mode=edit_field">Edit
 				this field</a>
 			</p>
 		</div>
@@ -419,19 +503,38 @@ function wc4bp_admin_enqueue_scripts() {
 	$wc_assets_path = str_replace( array( 'http:', 'https:' ), '', WC()->plugin_url() ) . '/assets/';
 
 	wp_enqueue_style( 'select2', $wc_assets_path . 'css/select2.css' );
-	wp_enqueue_style( 'admin-xprofile.css', WC4BP_xProfile::plugin_base_url() . 'assets/css/admin-xprofile.css', array(
-		'select2',
-		'woocommerce_admin_styles'
-	) );
+	wp_enqueue_style(
+		'admin-xprofile.css',
+		WC4BP_xProfile::plugin_base_url() . 'assets/css/admin-xprofile.css',
+		array(
+			'select2',
+			'woocommerce_admin_styles',
+		)
+	);
 
-	wp_register_script( 'admin-xprofile.js', WC4BP_xProfile::plugin_base_url() . 'assets/js/admin-xprofile.js',
+	wp_register_script(
+		'admin-xprofile.js',
+		WC4BP_xProfile::plugin_base_url() . 'assets/js/admin-xprofile.js',
 		array( 'select2' ),  // Dependencies
 		false,               // Version (default)
-		true );              // Include in footer (default is header)
+		true
+	);              // Include in footer (default is header)
 
-	wp_localize_script( 'admin-xprofile.js', 'wc4bp_admin_xprofile_params', array(
-		'ajax_url' => admin_url( 'admin-ajax.php' )
-	) );
+	wp_localize_script(
+		'admin-xprofile.js',
+		'wc4bp_admin_xprofile_params',
+		array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+		)
+	);
 
 	wp_enqueue_script( 'admin-xprofile.js' );
+}
+
+function wc4bp_clean_input( $input ) {
+	if ( is_array( $input ) ) {
+		return array_map( 'wc4bp_clean_input', $input );
+	} else {
+		return is_scalar( $input ) ? sanitize_text_field( $input ) : $input;
+	}
 }

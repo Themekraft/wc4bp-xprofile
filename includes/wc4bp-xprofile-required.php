@@ -39,7 +39,7 @@ class WC4BP_Xprofile_Required {
 	private function remove_anonymous_callback_hook( $tag, $class, $method ) {
 		$filters = $GLOBALS['wp_filter'][ $tag ];
 
-		if ( empty ( $filters ) || empty( $filters->callbacks ) ) {
+		if ( empty( $filters ) || empty( $filters->callbacks ) ) {
 			return;
 		}
 
@@ -53,7 +53,7 @@ class WC4BP_Xprofile_Required {
 	}
 
 	public static function load_plugins_dependency() {
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		include_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}
 
 	public static function is_woocommerce_active() {

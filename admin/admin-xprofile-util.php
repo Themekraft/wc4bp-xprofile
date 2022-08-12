@@ -13,8 +13,13 @@ function wc4bp_xprofile_fetch_product_names( $product_ids ) {
 	foreach ( $product_ids as $product_id ) {
 		$product = wc_get_product( $product_id );
 		if ( is_object( $product ) ) {
-			$product_data[ $product_id ] = wp_kses_post( html_entity_decode(
-				$product->get_formatted_name(), ENT_QUOTES, get_bloginfo( 'charset' ) ) );
+			$product_data[ $product_id ] = wp_kses_post(
+				html_entity_decode(
+					$product->get_formatted_name(),
+					ENT_QUOTES,
+					get_bloginfo( 'charset' )
+				)
+			);
 		}
 	}
 
@@ -30,8 +35,13 @@ function wc4bp_xprofile_fetch_category_names( $category_ids ) {
 	foreach ( $category_ids as $category_id ) {
 		$term = get_term( $category_id );
 		if ( is_object( $term ) && $term->taxonomy == 'product_cat' ) {
-			$category_data[ $category_id ] = wp_kses_post( html_entity_decode(
-				$term->name, ENT_QUOTES, get_bloginfo( 'charset' ) ) );
+			$category_data[ $category_id ] = wp_kses_post(
+				html_entity_decode(
+					$term->name,
+					ENT_QUOTES,
+					get_bloginfo( 'charset' )
+				)
+			);
 		}
 	}
 

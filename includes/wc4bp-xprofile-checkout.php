@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once( 'wc4bp-xprofile-data.php' );
+require_once 'wc4bp-xprofile-data.php';
 
 /**
  * Add the field to the checkout
@@ -47,11 +47,11 @@ function wc4bp_custom_checkout_field( $checkout ) {
 
 				if ( ! empty( $field->id ) ) {
 					if ( $group_fields_included == 0 ) {
-						echo '<div class="wc4bp_custom_checkout_fields_group" id="wc4bp_checkout_field_group_' . $group_id . '">';
+						echo '<div class="wc4bp_custom_checkout_fields_group" id="wc4bp_checkout_field_group_' . esc_attr( $group_id ) . '">';
 					}
 					if ( $display_group_name ) {
 						$group_name = $field_attr['group_name'];
-						echo '<h4>' . apply_filters( 'wc4bp_custom_checkout_field_group_heading', $group_name, $group_name ) . '</h4>';
+						echo '<h4>' . apply_filters( 'wc4bp_custom_checkout_field_group_heading', esc_html( $group_name ) ) . '</h4>';
 						$display_group_name = false;
 					}
 					$row_class = 'form-row';
@@ -64,14 +64,12 @@ function wc4bp_custom_checkout_field( $checkout ) {
 					if ( $field->type_obj instanceof Bxcft_Field_Type_Web ) {
 						$row_class .= ' validate-url';
 					}
-					echo '<p class="' . $row_class . '">';
+					echo '<p class="' . esc_attr( $row_class ) . '">';
 					$field->type_obj->edit_field_html();
 					echo '</p>';
 					$group_fields_included ++;
 				}
-
 			}
-
 		}
 		if ( $group_fields_included > 0 ) {
 			echo '</div>';
@@ -121,8 +119,8 @@ function wc4bp_xprofile_group_conditional_visibility( $visible, $group_id ) {
 	}
 
 	// Re-used across multiple groups
-	static $cart = null;
-	static $products_in_cart = null;
+	static $cart                       = null;
+	static $products_in_cart           = null;
 	static $product_categories_in_cart = null;
 
 	$feature_enabled = wc4bp_xprofile_conditional_visibility_enabled( $group_id, 'group' );
@@ -131,8 +129,12 @@ function wc4bp_xprofile_group_conditional_visibility( $visible, $group_id ) {
 	}
 
 	// Check whether the group requires at least one of a particular set of products is in the cart
-	$products_for_visibility = apply_filters( 'wc4bp_xprofile_conditional_visibility_products',
-		wc4bp_xprofile_conditional_visibility_products( $group_id, 'group' ), $group_id, 'group' );
+	$products_for_visibility = apply_filters(
+		'wc4bp_xprofile_conditional_visibility_products',
+		wc4bp_xprofile_conditional_visibility_products( $group_id, 'group' ),
+		$group_id,
+		'group'
+	);
 	if ( is_array( $products_for_visibility ) && count( $products_for_visibility ) > 0 ) {
 		if ( ! isset( $products_in_cart ) ) {
 			if ( ! isset( $cart ) ) {
@@ -147,8 +149,12 @@ function wc4bp_xprofile_group_conditional_visibility( $visible, $group_id ) {
 	}
 
 	// Check whether the group requires that at least one product of a particular set of categories is in the cart
-	$categories_for_visibility = apply_filters( 'wc4bp_xprofile_conditional_visibility_categories',
-		wc4bp_xprofile_conditional_visibility_categories( $group_id, 'group' ), $group_id, 'group' );
+	$categories_for_visibility = apply_filters(
+		'wc4bp_xprofile_conditional_visibility_categories',
+		wc4bp_xprofile_conditional_visibility_categories( $group_id, 'group' ),
+		$group_id,
+		'group'
+	);
 	if ( is_array( $categories_for_visibility ) && count( $categories_for_visibility ) > 0 ) {
 		if ( ! isset( $product_categories_in_cart ) ) {
 			if ( ! isset( $products_in_cart ) ) {
@@ -302,26 +308,23 @@ function wc4bp_custom_checkout_field_process() {
 			if ( isset( $field['checkout'] ) ) {
 
 				$field_slug = sanitize_title( 'field_' . $field_id );
-				
+
 				if ( ! apply_filters( 'wc4bp_custom_checkout_field_group_visible', true, $field['group_id'] ) ) {
 					continue;
 				}
 
-				if ( $field['field_is_required'] && ! $_POST[ $field_slug ] ) {
+				if ( $field['field_is_required'] && ! sanitize_text_field( wp_unslash( $_POST[ $field_slug ] ) ) ) {
 					wc_add_notice( '<b>' . $field['field_name'] . ' </b>' . __( 'is a required field.' ), 'error' );
 				}
-
 			}
-
 		}
-
 	}
 
 }
 
 /**
  * Update the user meta with field value
- **/
+ */
 add_action( 'woocommerce_checkout_update_user_meta', 'wc4bp_custom_checkout_field_update_user_meta' );
 
 function wc4bp_custom_checkout_field_update_user_meta( $user_id ) {
@@ -343,12 +346,8 @@ function wc4bp_custom_checkout_field_update_user_meta( $user_id ) {
 			if ( isset( $field['checkout'] ) ) {
 
 				$field_slug = sanitize_title( 'field_' . $field_id );
-				//Fix when is array();
-				if ( ! is_array( $_POST[ $field_slug ] ) ) {
-					$value = esc_attr( $_POST[ $field_slug ] );
-				} else {
-					$value = $_POST[ $field_slug ];
-				}
+
+				$value = isset( $_POST[ $field_slug ] ) ? wc4bp_clean_input( wp_unslash( $_POST[ $field_slug ] ) ) : '';
 
 				if ( $user_id && ! empty( $value ) ) {
 					update_user_meta( $user_id, $field_slug, $value );
@@ -356,9 +355,7 @@ function wc4bp_custom_checkout_field_update_user_meta( $user_id ) {
 
 				xprofile_set_field_data( $field_id, $user_id, $value );
 			}
-
 		}
-
 	}
 
 }
@@ -390,17 +387,14 @@ function wc4bp_custom_checkout_field_update_order_meta( $order_id ) {
 
 				if ( ! empty( $_POST[ $field_slug ] ) ) {
 					if ( ! is_array( $_POST[ $field_slug ] ) ) {
-						$value = sanitize_text_field( $_POST[ $field_slug ] );
+						$value = sanitize_text_field( wp_unslash( $_POST[ $field_slug ] ) );
 					} else {
-						$value = maybe_serialize( $_POST[ $field_slug ] );
+						$value = sanitize_text_field( wp_unslash( $_POST[ $field_slug ] ) );
 					}
 					update_post_meta( $order_id, $field_slug, $value );
 				}
-
 			}
-
 		}
-
 	}
 }
 
@@ -411,7 +405,7 @@ add_action( 'woocommerce_admin_order_data_after_billing_address', 'wc4bp_custom_
 
 function wc4bp_custom_checkout_field_display_admin_order_meta( $order ) {
 
-	if ( ! ( $order instanceof WC_Order ) ){
+	if ( ! ( $order instanceof WC_Order ) ) {
 		return;
 	}
 
@@ -432,19 +426,17 @@ function wc4bp_custom_checkout_field_display_admin_order_meta( $order ) {
 			if ( isset( $field['checkout'] ) && isset( $field['order_edit'] ) ) {
 
 				$field_slug = sanitize_title( 'field_' . $field_id );
-				echo '<p><strong>' . $field['field_name'] . ':</strong> ' . get_post_meta( $order->get_id(), $field_slug, true ) . '</p>';
+				echo '<p><strong>' . esc_html( $field['field_name'] ) . ':</strong> ' . esc_html( get_post_meta( $order->get_id(), $field_slug, true ) ) . '</p>';
 
 			}
-
 		}
-
 	}
 
 }
 
 /**
  * Add the field to order emails
- **/
+ */
 add_filter( 'woocommerce_email_order_meta_keys', 'wc4bp_checkout_field_order_meta_keys' );
 
 function wc4bp_checkout_field_order_meta_keys( $keys ) {
@@ -468,9 +460,7 @@ function wc4bp_checkout_field_order_meta_keys( $keys ) {
 				$keys[ $field['field_name'] ] = $field_slug;
 
 			}
-
 		}
-
 	}
 
 	return $keys;
@@ -478,7 +468,7 @@ function wc4bp_checkout_field_order_meta_keys( $keys ) {
 
 /**
  * WooCommerce: Remove fields on checkout page.
- **/
+ */
 add_filter( 'woocommerce_checkout_fields', 'wc4bp_custom_override_checkout_fields' );
 
 function wc4bp_custom_override_checkout_fields( $fields ) {
@@ -510,21 +500,19 @@ function wc4bp_custom_override_checkout_fields( $fields ) {
 					$group_name = 'shipping';
 				}
 
-				$field_name = str_replace( " ", "_", $bf_field['field_name'] );
+				$field_name = str_replace( ' ', '_', $bf_field['field_name'] );
 				$field_name = sanitize_title( $group_name . '_' . $field_name );
 
 				unset( $fields[ $group_name ][ $field_name ] );
 			}
-
 		}
-
 	}
 
 	return $fields;
 }
 
 // update the WooCommerce fields before xprofile_sync_wp_profile is called
-//add_action( 'xprofile_updated_profile', 'wc4bp_signup_wp_profile_sync', 30, 1 );
+// add_action( 'xprofile_updated_profile', 'wc4bp_signup_wp_profile_sync', 30, 1 );
 add_action( 'bp_core_signup_user', 'wc4bp_signup_wp_profile_sync', 30, 1 );
 add_action( 'bp_core_activated_user', 'wc4bp_signup_wp_profile_sync', 30, 1 );
 
@@ -543,24 +531,23 @@ function wc4bp_signup_wp_profile_sync( $user_id ) {
 	if ( method_exists( 'wc4bp_Sync', 'wc4bp_sync_addresses_from_profile' ) ) {
 		if ( ! empty( $shipping ) ) {
 			foreach ( $shipping as $key => $field_id ) {
-				$postField = isset($_POST[ 'field_' . $field_id ]) ? $_POST[ 'field_' . $field_id ] :'';
+				$postField = isset( $_POST[ 'field_' . $field_id ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'field_' . $field_id ] ) ) : '';
 				wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $field_id, $postField );
 			}
 		}
 
 		if ( ! empty( $billing ) ) {
 			foreach ( $billing as $key => $field_id ) {
-                $postField = isset($_POST[ 'field_' . $field_id ]) ? $_POST[ 'field_' . $field_id ] :'';
+				$postField = isset( $_POST[ 'field_' . $field_id ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'field_' . $field_id ] ) ) : '';
 				wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $field_id, $postField );
 			}
 		}
 
-
 		if ( ! empty( $wc4bp_sync_mail ) && ! empty( $billing ) ) {
-            $postField = isset($_POST[ 'signup_email' ]) ? $_POST[ 'signup_email' ] :'';
-			wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $billing['email'], $postField  );
+			$postField = isset( $_POST['signup_email'] ) ? sanitize_text_field( wp_unslash( $_POST['signup_email'] ) ) : '';
+			wc4bp_Sync::wc4bp_sync_addresses_from_profile( $user_id, $billing['email'], $postField );
 		}
 	}
 }
 
-?>
+

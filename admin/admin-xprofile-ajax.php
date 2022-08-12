@@ -14,7 +14,7 @@ function wc4bp_xprofile_search_categories() {
 
 	check_ajax_referer( 'search-categories', 'security' );
 
-	$term = (string) wc_clean( stripslashes( $_GET['term'] ) );
+	$term = (string) sanitize_text_field( wp_unslash( $_GET['term'] ) );
 	if ( empty( $term ) ) {
 		die();
 	}
@@ -25,10 +25,11 @@ function wc4bp_xprofile_search_categories() {
 		"SELECT terms.term_id, terms.name FROM {$wpdb->terms} terms " .
 		"JOIN {$wpdb->term_taxonomy} taxonomy ON terms.term_id = taxonomy.term_id " .
 		"WHERE terms.name LIKE %s AND taxonomy.taxonomy = 'product_cat'",
-		$like_term );
+		$like_term
+	);
 
 	if ( ! empty( $_GET['limit'] ) ) {
-		$query .= " LIMIT " . intval( $_GET['limit'] );
+		$query .= ' LIMIT ' . intval( $_GET['limit'] );
 	}
 
 	$terms = $wpdb->get_results( $query );
