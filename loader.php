@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: WooBuddy -> BuddyPress xProfile Checkout Manager
+ * Plugin Name: BuddyPress xProfile Checkout Manager for WooCommerce
  * Plugin URI:  https://themekraft.com/products/wc4bp-checkout-manager/
- * Description: WooBuddy -> BuddyPress xProfile Checkout Manager - Add BuddyPress xProfile Fields to the WooCommerce Checkout and remove WooCommerce Fields from the Checkout
+ * Description: BuddyPress xProfile Checkout Manager for WooCommerce - Add BuddyPress xProfile Fields to the WooCommerce Checkout and remove WooCommerce Fields from the Checkout
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
  * Version: 1.3.7

@@ -1,4 +1,4 @@
-=== WooBuddy -> BuddyPress xProfile Checkout Manager ===
+=== BuddyPress xProfile Checkout Manager for WooCommerce ===
 Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft, gfirem
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
 Requires at least: WordPress 3.9
@@ -7,11 +7,11 @@ Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WooBuddy -> BuddyPress xProfile Checkout Manager extension where you can integrate BuddyPress xProfile into WooCommerce Checkout.
+BuddyPress xProfile Checkout Manager for WooCommerce extension where you can integrate BuddyPress xProfile into WooCommerce Checkout.
 
 == Description ==
 
-This is the WooBuddy -> BuddyPress xProfile Checkout Manager extension where you can integrate BuddyPress xProfile into WooCommerce Checkout. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WooBuddy -> WooCommerce BuddyPress Integration plugin installed for the extension to work. <a href="https://wordpress.org/plugins/wc4bp/" target="_blank">Get WooBuddy -> WooCommerce BuddyPress Integration now!</a>
+This is theBuddyPress xProfile Checkout Manager for WooCoommerce extension where you can integrate BuddyPress xProfile into WooCommerce Checkout. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WooBuddy -> WooCommerce BuddyPress Integration plugin installed for the extension to work. <a href="https://wordpress.org/plugins/wc4bp/" target="_blank">Get WooBuddy -> WooCommerce BuddyPress Integration now!</a>
 
 What the plugin does:
 Add your BuddyPress Member Profile Fields into the WooCommerce Checkout.
