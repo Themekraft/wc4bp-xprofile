@@ -81,10 +81,10 @@ function wc4bp_custom_checkout_field( $checkout ) {
 /**
  * Filter heading text produced for each field group on the checkout page
  */
-add_filter( 'wc4bp_custom_checkout_field_group_heading', 'wc4bp_custom_checkout_group_heading', 10, 2 );
+add_filter( 'wc4bp_custom_checkout_field_group_heading', 'wc4bp_custom_checkout_group_heading' );
 
-function wc4bp_custom_checkout_group_heading( $value, $group_name ) {
-	return sprintf( __( '%s INFORMATION' ), $group_name );
+function wc4bp_custom_checkout_group_heading( $group_name ) {
+	return sprintf( __( '<strong> %s information </strong>' ), $group_name );
 }
 
 /**
