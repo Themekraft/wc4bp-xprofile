@@ -347,7 +347,7 @@ function wc4bp_custom_checkout_field_update_user_meta( $user_id ) {
 
 				$field_slug = sanitize_title( 'field_' . $field_id );
 
-				$value = isset( $_POST[ $field_slug ] ) ? wc4bp_clean_input( wp_unslash( $_POST[ $field_slug ] ) ) : '';
+				$value = isset( $_POST[ $field_slug ] ) ?  wc4bp_clean_value( wp_unslash( $_POST[ $field_slug ] ) ) : '';
 
 				if ( $user_id && ! empty( $value ) ) {
 					update_user_meta( $user_id, $field_slug, $value );
@@ -550,4 +550,11 @@ function wc4bp_signup_wp_profile_sync( $user_id ) {
 	}
 }
 
+function wc4bp_clean_value( $input ) {
+	if ( is_array( $input ) ) {
+		return array_map( 'wc4bp_clean_input', $input );
+	} else {
+		return is_scalar( $input ) ? sanitize_text_field( $input ) : $input;
+	}
+}
 
