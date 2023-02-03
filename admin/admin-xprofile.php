@@ -153,7 +153,6 @@ function wc4bp_screen_xprofile() { ?>
 
 			<form method="post" action="?page=wc4bp-options-page-xprofile" id="wc4bp-option-form">
 
-				<?php esc_html_e( '<h2>WooCommerce BuddyPress Integration Settings</h2>', 'wc4bp' ); ?>
 				<div id="post-body-content">
 
 					<div id="icon-options-general" class="icon32"><br></div>

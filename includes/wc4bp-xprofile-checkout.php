@@ -313,7 +313,8 @@ function wc4bp_custom_checkout_field_process() {
 					continue;
 				}
 
-				if ( $field['field_is_required'] && ! sanitize_text_field( wp_unslash( $_POST[ $field_slug ] ) ) ) {
+				$field_value = isset( $_POST[ $field_slug ] ) ? wc4bp_clean_value( wp_unslash( $_POST[ $field_slug ] ) ) : '';
+				if ( isset( $field['field_is_required'] ) && $field['field_is_required'] == '1' && empty( $field_value ) ) {
 					wc_add_notice( '<b>' . $field['field_name'] . ' </b>' . __( 'is a required field.' ), 'error' );
 				}
 			}
@@ -552,7 +553,7 @@ function wc4bp_signup_wp_profile_sync( $user_id ) {
 
 function wc4bp_clean_value( $input ) {
 	if ( is_array( $input ) ) {
-		return array_map( 'wc4bp_clean_input', $input );
+		return array_map( 'wc4bp_clean_value', $input );
 	} else {
 		return is_scalar( $input ) ? sanitize_text_field( $input ) : $input;
 	}
