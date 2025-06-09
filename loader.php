@@ -7,6 +7,8 @@
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
  * Version: 1.3.12
+ * License: GPLv3
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: wc4bp_xprofile
  * Domain Path: /languages
  * Svn: woocommerce-buddypress-integration-xprofile-checkout-manager
