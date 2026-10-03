@@ -9,7 +9,7 @@
  * Version: 1.3.12
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain: wc4bp_xprofile
+ * Text Domain: woocommerce-buddypress-integration-xprofile-checkout-manager
  * Domain Path: /languages
  * Svn: woocommerce-buddypress-integration-xprofile-checkout-manager
  *
@@ -98,7 +98,7 @@ class WC4BP_xProfile
 	 */
 	public function load_plugin_textdomain()
 	{
-		load_plugin_textdomain('wc4bp_xprofile', false, dirname(plugin_basename(__FILE__)) . '/languages');
+		load_plugin_textdomain('woocommerce-buddypress-integration-xprofile-checkout-manager', false, dirname(plugin_basename(__FILE__)) . '/languages');
 	}
 
 	/**
