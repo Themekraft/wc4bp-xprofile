@@ -16,3 +16,4 @@
 /phpcs.ruleset.xml
 /composer.json
 /composer.lock
+/tk.json
