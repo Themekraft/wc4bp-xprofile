@@ -14,7 +14,21 @@ add_action('admin_enqueue_scripts', 'wc4bp_admin_enqueue_scripts');
 function wc4bp_add_xprofile_menu()
 {
 	if (!has_action('wc4bp_add_submenu_page')) {
-		add_action('admin_notices', create_function('', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WooBuddy -> BuddyPress xProfile Checkout Manager needs WooBuddy -> WooCommerce BuddyPress Integration to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " wc4bp_xprofile" ) . \'</strong></p></div>\', "http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" );'));
+		add_action(
+			'admin_notices',
+			function () {
+				echo wp_kses_post(
+					sprintf(
+						'<div id="message" class="error"><p><strong>%s</strong></p></div>',
+						sprintf(
+							/* translators: %s: URL of the WooBuddy plugin page. */
+							__('WooBuddy -> BuddyPress xProfile Checkout Manager needs WooBuddy -> WooCommerce BuddyPress Integration to be installed. <a target="_blank" href="%s">--> Get it now</a>!', 'woocommerce-buddypress-integration-xprofile-checkout-manager'),
+							'http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/'
+						)
+					)
+				);
+			}
+		);
 		return;
 	}
 	add_submenu_page('wc4bp-options-page', 'BuddyPress Profile', 'BuddyPress xProfile', 'manage_options', 'wc4bp-options-page-xprofile', 'wc4bp_screen_xprofile');
@@ -319,8 +333,7 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
                             <span>
                                 <?php
 								esc_html_e(
-									'Display this group if the cart contains any of the following '
-										. 'products:',
+									'Display this group if the cart contains any of the following products:',
 									'woocommerce-buddypress-integration-xprofile-checkout-manager'
 								);
 								?>
@@ -504,7 +517,7 @@ function wc4bp_admin_enqueue_scripts()
 		'admin-xprofile.js',
 		WC4BP_xProfile::plugin_base_url() . 'assets/js/admin-xprofile.js',
 		array('select2'),  // Dependencies
-		false,  // Version (default)
+		WC4BP_XPROFILE_VERSION,  // Version
 		true
 	);  // Include in footer (default is header)
 

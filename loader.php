@@ -7,8 +7,10 @@
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
  * Version: 1.3.12
- * License: GPLv3
- * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ * Requires at least: 5.9
+ * Requires PHP: 7.4
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: woocommerce-buddypress-integration-xprofile-checkout-manager
  * Domain Path: /languages
  * Svn: woocommerce-buddypress-integration-xprofile-checkout-manager
@@ -35,6 +37,11 @@
  *
  * ***************************************************************************
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once dirname(__FILE__) . '/includes/wc4bp-xprofile-fs-integration.php';
 new wc4bp_xprofile_freemius_integration();
 

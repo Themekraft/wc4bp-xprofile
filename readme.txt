@@ -1,8 +1,9 @@
 === BuddyPress xProfile Checkout Manager for WooCommerce ===
 Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft, gfirem
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
-Requires at least: WordPress 3.9
-Tested up to: 6.8
+Requires at least: 5.9
+Tested up to: 7.1
+Requires PHP: 7.4
 Stable tag: 1.3.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
