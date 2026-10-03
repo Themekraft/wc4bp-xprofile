@@ -21,18 +21,24 @@ function wc4bp_xprofile_search_categories() {
 
 	$like_term = '%' . $wpdb->esc_like( $term ) . '%';
 
-	$sql = "SELECT terms.term_id, terms.name FROM {$wpdb->terms} terms " .
-		"JOIN {$wpdb->term_taxonomy} taxonomy ON terms.term_id = taxonomy.term_id " .
-		"WHERE terms.name LIKE %s AND taxonomy.taxonomy = 'product_cat'";
-	$args = array( $like_term );
-
 	$limit = empty( $_GET['limit'] ) ? 0 : absint( $_GET['limit'] );
-	if ( $limit > 0 ) {
-		$sql   .= ' LIMIT %d';
-		$args[] = $limit;
-	}
 
-	$terms = $wpdb->get_results( $wpdb->prepare( $sql, $args ) );
+	if ( $limit > 0 ) {
+		$terms = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT terms.term_id, terms.name FROM {$wpdb->terms} terms JOIN {$wpdb->term_taxonomy} taxonomy ON terms.term_id = taxonomy.term_id WHERE terms.name LIKE %s AND taxonomy.taxonomy = 'product_cat' LIMIT %d",
+				$like_term,
+				$limit
+			)
+		);
+	} else {
+		$terms = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT terms.term_id, terms.name FROM {$wpdb->terms} terms JOIN {$wpdb->term_taxonomy} taxonomy ON terms.term_id = taxonomy.term_id WHERE terms.name LIKE %s AND taxonomy.taxonomy = 'product_cat'",
+				$like_term
+			)
+		);
+	}
 
 	$found_categories = array();
 
