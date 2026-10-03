@@ -300,7 +300,7 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
 
 
             <div class="wc4bp-conditional-visibility-container">
-                <h2><span><?php echo esc_html(_e('Conditional Visibility', 'woocommerce-buddypress-integration-xprofile-checkout-manager')); ?></span></h2>
+                <h2><span><?php esc_html_e('Conditional Visibility', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?></span></h2>
                 <?php
 				$feature_enabled = wc4bp_xprofile_conditional_visibility_enabled($group->id, 'group');
 				$group_visibility_prefix = "bf_xprofile_conditional_visibility[{$group->id}]";
@@ -343,7 +343,7 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
                                 data-action="woocommerce_json_search_products_and_variations"
                                 data-value="<?php echo esc_attr(implode(',', array_keys($product_data))); ?>"
                                 data-nonce="<?php echo esc_attr(wc4bp_xprofile_get_nonce('search-products')); ?>"
-                                data-placeholder="<?php echo esc_attr(_e('Choose a product...', 'woocommerce-buddypress-integration-xprofile-checkout-manager')); ?>"
+                                data-placeholder="<?php esc_attr_e('Choose a product...', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?>"
                                 data-multiple="true" data-exclude="default"
                                 data-selected="<?php echo esc_attr(json_encode($product_data)); ?>" <?php
 				if (!$feature_enabled) {
@@ -368,7 +368,7 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
                                 data-action="wc4bp_xprofile_search_categories"
                                 data-value="<?php echo esc_attr(implode(',', array_keys($category_data))); ?>"
                                 data-nonce="<?php echo esc_attr(wc4bp_xprofile_get_nonce('search-categories')); ?>"
-                                data-placeholder="<?php echo esc_attr(_e('Choose a category...', 'woocommerce-buddypress-integration-xprofile-checkout-manager')); ?>"
+                                data-placeholder="<?php esc_attr_e('Choose a category...', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?>"
                                 data-multiple="true"
                                 data-selected="<?php echo esc_attr(json_encode($category_data)); ?>" <?php
 				if (!$feature_enabled) {
