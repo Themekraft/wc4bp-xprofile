@@ -7,9 +7,12 @@
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
  * Version: 1.3.12
- * License: GPLv3
- * License URI: https://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain: wc4bp_xprofile
+ * Requires at least: 5.9
+ * Requires PHP: 7.4
+ * Requires Plugins: buddypress, woocommerce, wc4bp
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: woocommerce-buddypress-integration-xprofile-checkout-manager
  * Domain Path: /languages
  * Svn: woocommerce-buddypress-integration-xprofile-checkout-manager
  *
@@ -35,6 +38,30 @@
  *
  * ***************************************************************************
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+if ( ! function_exists( 'wc4bp_addon_plugin_dependencies_slug' ) ) {
+	/**
+	 * Let the running WooBuddy copy (free or premium) satisfy "Requires Plugins: wc4bp".
+	 *
+	 * @param string $slug Dependency slug.
+	 *
+	 * @return string
+	 */
+	function wc4bp_addon_plugin_dependencies_slug( $slug ) {
+		if ( 'wc4bp' === $slug && defined( 'WC4BP_FOLDER' ) ) {
+			return WC4BP_FOLDER;
+		}
+
+		return $slug;
+	}
+
+	add_filter( 'wp_plugin_dependencies_slug', 'wc4bp_addon_plugin_dependencies_slug' );
+}
+
 require_once dirname(__FILE__) . '/includes/wc4bp-xprofile-fs-integration.php';
 new wc4bp_xprofile_freemius_integration();
 
@@ -59,9 +86,7 @@ class WC4BP_xProfile
 	public function __construct()
 	{
 		define('WC4BP_XPROFILE_VERSION', $this->version);
-		require_once plugin_dir_path(__FILE__) . '/includes/class-tgm-plugin-activation.php';
 		require_once plugin_dir_path(__FILE__) . '/includes/wc4bp-xprofile-required.php';
-		new WC4BP_Xprofile_Required();
 		if (WC4BP_Xprofile_Required::is_wc4bp_active()) {
 			if (!empty($GLOBALS['wc4bp_loader'])) {
 				$wc4bp = $GLOBALS['wc4bp_loader'];
@@ -98,7 +123,7 @@ class WC4BP_xProfile
 	 */
 	public function load_plugin_textdomain()
 	{
-		load_plugin_textdomain('wc4bp_xprofile', false, dirname(plugin_basename(__FILE__)) . '/languages');
+		load_plugin_textdomain('woocommerce-buddypress-integration-xprofile-checkout-manager', false, dirname(plugin_basename(__FILE__)) . '/languages');
 	}
 
 	/**

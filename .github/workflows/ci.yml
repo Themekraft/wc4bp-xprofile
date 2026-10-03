@@ -1,0 +1,14 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [develop]
+
+jobs:
+  ci:
+    uses: Themekraft/release-tooling/.github/workflows/ci.yml@main
+    with:
+      slug: woocommerce-buddypress-integration-xprofile-checkout-manager
+      plugin-check: true
+    secrets: inherit

@@ -48,7 +48,7 @@ function wc4bp_custom_checkout_field($checkout)
 					}
 					if ($display_group_name) {
 						$group_name = $field_attr['group_name'];
-						echo '<h4>' . apply_filters('wc4bp_custom_checkout_field_group_heading', esc_html($group_name)) . '</h4>';
+						echo '<h4>' . wp_kses_post(apply_filters('wc4bp_custom_checkout_field_group_heading', esc_html($group_name))) . '</h4>';
 						$display_group_name = false;
 					}
 					$row_class = 'form-row';
@@ -79,8 +79,8 @@ add_filter('wc4bp_custom_checkout_field_group_heading', 'wc4bp_custom_checkout_g
 
 function wc4bp_custom_checkout_group_heading($group_name)
 {
-	// translators: %s is the name of the BuddyPress profile group shown on the checkout page
-	return sprintf(__('<strong> %s information </strong>', 'wc4bp_xprofile'), $group_name);
+	/* translators: %s: BuddyPress profile group name. */
+	return sprintf(__('<strong> %s information </strong>', 'woocommerce-buddypress-integration-xprofile-checkout-manager'), $group_name);
 }
 
 /** Filter the potential visibility of each field group on the checkout page */
@@ -305,7 +305,7 @@ function wc4bp_custom_checkout_field_process()
 
 				$field_value = isset($_POST[$field_slug]) ? wc4bp_clean_value(wp_unslash($_POST[$field_slug])) : '';
 				if (isset($field['field_is_required']) && $field['field_is_required'] == '1' && empty($field_value)) {
-					wc_add_notice('<b>' . $field['field_name'] . ' </b>' . __('is a required field.', 'wc4bp_xprofile'), 'error');
+					wc_add_notice('<b>' . $field['field_name'] . ' </b>' . __('is a required field.', 'woocommerce-buddypress-integration-xprofile-checkout-manager'), 'error');
 				}
 			}
 		}

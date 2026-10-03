@@ -14,7 +14,21 @@ add_action('admin_enqueue_scripts', 'wc4bp_admin_enqueue_scripts');
 function wc4bp_add_xprofile_menu()
 {
 	if (!has_action('wc4bp_add_submenu_page')) {
-		add_action('admin_notices', create_function('', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WooBuddy -> BuddyPress xProfile Checkout Manager needs WooBuddy -> WooCommerce BuddyPress Integration to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " wc4bp_xprofile" ) . \'</strong></p></div>\', "http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" );'));
+		add_action(
+			'admin_notices',
+			function () {
+				echo wp_kses_post(
+					sprintf(
+						'<div id="message" class="error"><p><strong>%s</strong></p></div>',
+						sprintf(
+							/* translators: %s: URL of the WooBuddy plugin page. */
+							__('WooBuddy -> BuddyPress xProfile Checkout Manager needs WooBuddy -> WooCommerce BuddyPress Integration to be installed. <a target="_blank" href="%s">--> Get it now</a>!', 'woocommerce-buddypress-integration-xprofile-checkout-manager'),
+							'http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/'
+						)
+					)
+				);
+			}
+		);
 		return;
 	}
 	add_submenu_page('wc4bp-options-page', 'BuddyPress Profile', 'BuddyPress xProfile', 'manage_options', 'wc4bp-options-page-xprofile', 'wc4bp_screen_xprofile');
@@ -162,13 +176,13 @@ function wc4bp_screen_xprofile()
                 <div id="postbox-container-1" class="postbox-container">
                     <div id="submitdiv" class="postbox ">
                         <div class="handlediv" title="Click to toggle"><br></div>
-                        <h3><span> <?php esc_html_e(' Email Address Synchronisation', 'wc4bp'); ?></span></h3>
+                        <h3><span> <?php esc_html_e(' Email Address Synchronisation', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?></span></h3>
                         <div class="inside">
                             <div class="submitbox" id="submitpost">
                                 <div style="padding: 10px;">
                                     <p><input type="checkbox" id="wc4bp_sync_mail" name="wc4bp_sync_mail"
                                             <?php checked('on', $wc4bp_sync_mail); ?>>
-                                        <?php esc_html_e(' Sync BuddyPress signup email address with WooCommerce billing email address', 'wc4bp'); ?>
+                                        <?php esc_html_e(' Sync BuddyPress signup email address with WooCommerce billing email address', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?>
                                     </p>
                                 </div>
                                 <div class="clear"></div>
@@ -177,12 +191,12 @@ function wc4bp_screen_xprofile()
                     </div>
                     <div id="submitdiv" class="postbox ">
                         <div class="handlediv" title="Click to toggle"><br></div>
-                        <h3><span> <?php esc_html_e(' Save WC xProfile Setting', 'wc4bp'); ?></span></h3>
+                        <h3><span> <?php esc_html_e(' Save WC xProfile Setting', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?></span></h3>
                         <div class="inside">
                             <div class="submitbox" id="submitpost">
 
                                 <div style="padding: 10px;"><input type="submit"
-                                        value="   <?php esc_html_e(' Save', 'wc4bp'); ?>" class="button"></div>
+                                        value="   <?php esc_html_e(' Save', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?>" class="button"></div>
                                 <div class="clear"></div>
                             </div>
 
@@ -223,7 +237,7 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
 					?>
 
                 <?php
-					esc_html_e('(Primary)', 'wc4bp');
+					esc_html_e('(Primary)', 'woocommerce-buddypress-integration-xprofile-checkout-manager');
 				endif;
 				?>
             </a>
@@ -245,7 +259,7 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
 
         <?php if ($group->name == 'Billing Address' || $group->name == 'Shipping Address') { ?>
         <h3><?php echo esc_attr($group->name); ?>
-            <?php esc_html_e(' WooCommerce fields are already in the checkout and get synced with BuddyPress.', 'wc4bp'); ?>
+            <?php esc_html_e(' WooCommerce fields are already in the checkout and get synced with BuddyPress.', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?>
         </h3>
         <?php } ?>
 
@@ -277,7 +291,7 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
 			else:  // !$group->fields
 			?>
 
-            <p class="nodrag nofields"><?php esc_html_e('There are no fields in this group.', 'wc4bp'); ?></p>
+            <p class="nodrag nofields"><?php esc_html_e('There are no fields in this group.', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?></p>
 
             <?php endif; // end $group->fields ?>
 
@@ -286,7 +300,7 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
 
 
             <div class="wc4bp-conditional-visibility-container">
-                <h2><span><?php echo esc_html(_e('Conditional Visibility', 'wc4bp')); ?></span></h2>
+                <h2><span><?php esc_html_e('Conditional Visibility', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?></span></h2>
                 <?php
 				$feature_enabled = wc4bp_xprofile_conditional_visibility_enabled($group->id, 'group');
 				$group_visibility_prefix = "bf_xprofile_conditional_visibility[{$group->id}]";
@@ -303,7 +317,7 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
                                 data-checked="<?php echo $feature_enabled ? 'true' : 'false'; ?>" />
                             <span>
                                 <?php
-								esc_html_e('Make this group hidden on the checkout page, unless at least one of the following criteria are met:', 'wc4bp');
+								esc_html_e('Make this group hidden on the checkout page, unless at least one of the following criteria are met:', 'woocommerce-buddypress-integration-xprofile-checkout-manager');
 								?>
                             </span>
                         </label>
@@ -319,9 +333,8 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
                             <span>
                                 <?php
 								esc_html_e(
-									'Display this group if the cart contains any of the following '
-										. 'products:',
-									'wc4bp'
+									'Display this group if the cart contains any of the following products:',
+									'woocommerce-buddypress-integration-xprofile-checkout-manager'
 								);
 								?>
                             </span>
@@ -330,7 +343,7 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
                                 data-action="woocommerce_json_search_products_and_variations"
                                 data-value="<?php echo esc_attr(implode(',', array_keys($product_data))); ?>"
                                 data-nonce="<?php echo esc_attr(wc4bp_xprofile_get_nonce('search-products')); ?>"
-                                data-placeholder="<?php echo esc_attr(_e('Choose a product...', 'wc4bp')); ?>"
+                                data-placeholder="<?php esc_attr_e('Choose a product...', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?>"
                                 data-multiple="true" data-exclude="default"
                                 data-selected="<?php echo esc_attr(json_encode($product_data)); ?>" <?php
 				if (!$feature_enabled) {
@@ -348,14 +361,14 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
 							">
                         <label>
                             <span>
-                                <?php esc_html_e('Display this group if the cart contains a product from any of the following categories:', 'wc4bp'); ?>
+                                <?php esc_html_e('Display this group if the cart contains a product from any of the following categories:', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?>
                             </span>
                             <select multiple class="select2-hidden-accessible wc-search"
                                 name="<?php echo esc_attr($group_visibility_prefix . '[categories][]'); ?>"
                                 data-action="wc4bp_xprofile_search_categories"
                                 data-value="<?php echo esc_attr(implode(',', array_keys($category_data))); ?>"
                                 data-nonce="<?php echo esc_attr(wc4bp_xprofile_get_nonce('search-categories')); ?>"
-                                data-placeholder="<?php echo esc_attr(_e('Choose a category...', 'wc4bp')); ?>"
+                                data-placeholder="<?php esc_attr_e('Choose a category...', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?>"
                                 data-multiple="true"
                                 data-selected="<?php echo esc_attr(json_encode($category_data)); ?>" <?php
 				if (!$feature_enabled) {
@@ -377,9 +390,9 @@ function wc4bp_xprofile_tabs($message = '', $type = 'error')
 		?>
 
     <div id="message" class="error">
-        <p><?php esc_html_e('You have no groups.', 'wc4bp'); ?></p>
+        <p><?php esc_html_e('You have no groups.', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?></p>
     </div>
-    <p><a href="users.php?page=bp-profile-setup&amp;mode=add_group"><?php esc_html_e('Add New Group', 'wc4bp'); ?></a>
+    <p><a href="users.php?page=bp-profile-setup&amp;mode=add_group"><?php esc_html_e('Add New Group', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?></a>
     </p>
 
     <?php endif; ?>
@@ -417,13 +430,13 @@ function wc4bp_xprofile_admin_field($admin_field, $admin_group, $class = '')
 				?>
 
             <?php
-				esc_html_e('(Primary)', 'wc4bp');
+				esc_html_e('(Primary)', 'woocommerce-buddypress-integration-xprofile-checkout-manager');
 			endif;
 			?>
             <?php
 			if (bp_get_the_profile_field_is_required()):
 				?>
-            <?php esc_html_e('(Required)', 'wc4bp'); ?><?php endif; ?></span>
+            <?php esc_html_e('(Required)', 'woocommerce-buddypress-integration-xprofile-checkout-manager'); ?><?php endif; ?></span>
     </legend>
     <div class="field-wrapper">
         <p>
@@ -504,7 +517,7 @@ function wc4bp_admin_enqueue_scripts()
 		'admin-xprofile.js',
 		WC4BP_xProfile::plugin_base_url() . 'assets/js/admin-xprofile.js',
 		array('select2'),  // Dependencies
-		false,  // Version (default)
+		WC4BP_XPROFILE_VERSION,  // Version
 		true
 	);  // Include in footer (default is header)
 

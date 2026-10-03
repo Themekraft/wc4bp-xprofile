@@ -156,3 +156,6 @@ fabric.properties
 .idea/httpRequests
 
 /.php_cs.cache
+
+# Release build output
+.release-build/
