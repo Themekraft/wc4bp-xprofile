@@ -55,7 +55,10 @@ class wc4bp_xprofile_freemius_integration {
 
 		if ( ! isset( $wc4bp_xprofile_fs ) ) {
 			// Include Freemius SDK.
-			require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/freemius/start.php';
+			// WooBuddy loads the SDK first; its location changed in 3.6.0 (vendor/).
+			if ( ! function_exists( 'fs_dynamic_init' ) ) {
+				require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/freemius/start.php';
+			}
 
 			$wc4bp_xprofile_fs = fs_dynamic_init(
 				array(
