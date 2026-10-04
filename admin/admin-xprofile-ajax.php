@@ -14,24 +14,31 @@ function wc4bp_xprofile_search_categories() {
 
 	check_ajax_referer( 'search-categories', 'security' );
 
-	$term = (string) wc_clean( stripslashes( $_GET['term'] ) );
+	$term = (string) sanitize_text_field( wp_unslash( $_GET['term'] ) );
 	if ( empty( $term ) ) {
 		die();
 	}
 
 	$like_term = '%' . $wpdb->esc_like( $term ) . '%';
 
-	$query = $wpdb->prepare(
-		"SELECT terms.term_id, terms.name FROM {$wpdb->terms} terms " .
-		"JOIN {$wpdb->term_taxonomy} taxonomy ON terms.term_id = taxonomy.term_id " .
-		"WHERE terms.name LIKE %s AND taxonomy.taxonomy = 'product_cat'",
-		$like_term );
+	$limit = empty( $_GET['limit'] ) ? 0 : absint( $_GET['limit'] );
 
-	if ( ! empty( $_GET['limit'] ) ) {
-		$query .= " LIMIT " . intval( $_GET['limit'] );
+	if ( $limit > 0 ) {
+		$terms = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT terms.term_id, terms.name FROM {$wpdb->terms} terms JOIN {$wpdb->term_taxonomy} taxonomy ON terms.term_id = taxonomy.term_id WHERE terms.name LIKE %s AND taxonomy.taxonomy = 'product_cat' LIMIT %d",
+				$like_term,
+				$limit
+			)
+		);
+	} else {
+		$terms = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT terms.term_id, terms.name FROM {$wpdb->terms} terms JOIN {$wpdb->term_taxonomy} taxonomy ON terms.term_id = taxonomy.term_id WHERE terms.name LIKE %s AND taxonomy.taxonomy = 'product_cat'",
+				$like_term
+			)
+		);
 	}
-
-	$terms = $wpdb->get_results( $query );
 
 	$found_categories = array();
 

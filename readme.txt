@@ -1,17 +1,21 @@
-=== WooBuddy -> BuddyPress xProfile Checkout Manager ===
+=== BuddyPress xProfile Checkout Manager for WooCommerce ===
 Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft, gfirem
 Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
-Requires at least: WordPress 3.9
-Tested up to: 5.7
-Stable tag: 1.3.2
+Requires at least: 5.9
+Tested up to: 7.1
+Requires PHP: 7.4
+Stable tag: 1.3.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WooBuddy -> BuddyPress xProfile Checkout Manager extension where you can integrate BuddyPress xProfile into WooCommerce Checkout.
+BuddyPress xProfile Checkout Manager for WooCommerce extension where you can integrate BuddyPress xProfile into WooCommerce Checkout.
+
+== Compatibility ==
+WooCommerce HPOS: true
 
 == Description ==
 
-This is the WooBuddy -> BuddyPress xProfile Checkout Manager extension where you can integrate BuddyPress xProfile into WooCommerce Checkout. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WooBuddy -> WooCommerce BuddyPress Integration plugin installed for the extension to work. <a href="https://wordpress.org/plugins/wc4bp/" target="_blank">Get WooBuddy -> WooCommerce BuddyPress Integration now!</a>
+This is theBuddyPress xProfile Checkout Manager for WooCoommerce extension where you can integrate BuddyPress xProfile into WooCommerce Checkout. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WooBuddy -> WooCommerce BuddyPress Integration plugin installed for the extension to work. <a href="https://wordpress.org/plugins/wc4bp/" target="_blank">Get WooBuddy -> WooCommerce BuddyPress Integration now!</a>
 
 What the plugin does:
 Add your BuddyPress Member Profile Fields into the WooCommerce Checkout.
@@ -103,6 +107,53 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 4. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+
+= 1.3.12 - 03 Oct 2026 =
+* Required plugins are now declared with the WordPress "Requires Plugins" header instead of the bundled TGM Plugin Activation library.
+* Fixed a fatal error with WooBuddy 3.6.0 and later.
+* WooCommerce High-Performance Order Storage (HPOS) compatible.
+* Security and performance improvements in the admin and the checkout field search.
+* Fixed translations: every string now uses the plugin's own text domain.
+* Requires WordPress 5.9 and PHP 7.4. Tested up to WordPress 7.1.
+
+= 1.3.11 - 19 May 2023 =
+* Tested up to WordPress 6.8.1
+* Woocommerce High-Performance Order Storage (HPOS) compatible
+
+= 1.3.11 - 19 May 2023 =
+* Tested up to WordPress 6.2.1
+
+= 1.3.10 - 02 Feb 2023 =
+* Fixed issue with required fields validation.
+* Fixed issue with sanitizing function.
+* Removed heading title from plugin settings screen.
+
+= 1.3.9 - 09 Dec 2022 =
+* Fixed issue with functions scope.
+
+= 1.3.8 - 09 Dec 2022 =
+* Updated plugin name.
+
+= 1.3.7 - 09 Dec 2022 =
+* Fixed issue with field group names.
+* Tested up to WordPress 6.1.1
+
+= 1.3.6 - 15 Aug 2022 =
+* Fixed vulnerability issue.
+* Tested up to WordPress 6.0.1
+
+= 1.3.5 - 17 May 2022 =
+* Updated readme.txt
+
+= 1.3.4 - 07 Mar 2022 =
+* Fixed issue with fields not displaying on order edit page.
+* Tested up to WordPress 5.9
+
+= 1.3.3 - 14 Nov 2021 =
+* Fixed issue related with missing CSS.
+* Fixed JS conflict when loading custom fields on checkout.
+* Tested up with WordPress 5.8
+
 = 1.3.2 - 10 May 2021 =
 * Fixed issue xProfiles on Checkout that was requiring validation on hidden fields.
 * Adding proper integration with freemius.
