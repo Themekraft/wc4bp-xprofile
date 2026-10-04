@@ -4,7 +4,7 @@ Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-co
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.12-beta.1
+Stable tag: 1.3.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,14 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 4. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+
+= 1.3.12 - 03 Oct 2026 =
+* Required plugins are now declared with the WordPress "Requires Plugins" header instead of the bundled TGM Plugin Activation library.
+* Fixed a fatal error with WooBuddy 3.6.0 and later.
+* WooCommerce High-Performance Order Storage (HPOS) compatible.
+* Security and performance improvements in the admin and the checkout field search.
+* Fixed translations: every string now uses the plugin's own text domain.
+* Requires WordPress 5.9 and PHP 7.4. Tested up to WordPress 7.1.
 
 = 1.3.11 - 19 May 2023 =
 * Tested up to WordPress 6.8.1
