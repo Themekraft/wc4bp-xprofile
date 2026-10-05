@@ -6,7 +6,7 @@
  * Description: BuddyPress xProfile Checkout Manager for WooCommerce - Add BuddyPress xProfile Fields to the WooCommerce Checkout and remove WooCommerce Fields from the Checkout
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 1.3.12
+ * Version: 1.3.13
  * Requires at least: 5.9
  * Requires PHP: 7.4
  * Requires Plugins: buddypress, woocommerce, wc4bp
@@ -18,7 +18,7 @@
  *
  * ****************************************************************************
  * WC requires at least: 3.0.0
- * WC tested up to: 5.8.0
+ * WC tested up to: 11.1
  * WC HPOS support: yes
  * ****************************************************************************
  *
@@ -42,6 +42,15 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+add_action(
+	'before_woocommerce_init',
+	function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
 
 if ( ! function_exists( 'wc4bp_addon_plugin_dependencies_slug' ) ) {
 	/**
@@ -70,7 +79,7 @@ class WC4BP_xProfile
 	/**
 	 * @var string
 	 */
-	public $version = '1.3.12';
+	public $version = '1.3.13';
 
 	/**
 	 * @var bool
@@ -99,14 +108,6 @@ class WC4BP_xProfile
 					}
 				}
 			}
-		}
-
-		if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
-				'custom_order_tables',
-				__FILE__,
-				true
-			);
 		}
 	}
 
