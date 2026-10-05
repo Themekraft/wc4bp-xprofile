@@ -18,7 +18,7 @@
  *
  * ****************************************************************************
  * WC requires at least: 3.0.0
- * WC tested up to: 5.8.0
+ * WC tested up to: 11.1
  * WC HPOS support: yes
  * ****************************************************************************
  *
@@ -42,6 +42,15 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+add_action(
+	'before_woocommerce_init',
+	function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
 
 if ( ! function_exists( 'wc4bp_addon_plugin_dependencies_slug' ) ) {
 	/**
@@ -99,14 +108,6 @@ class WC4BP_xProfile
 					}
 				}
 			}
-		}
-
-		if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
-				'custom_order_tables',
-				__FILE__,
-				true
-			);
 		}
 	}
 
