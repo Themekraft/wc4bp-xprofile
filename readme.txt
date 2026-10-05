@@ -4,7 +4,7 @@ Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-co
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.12
+Stable tag: 1.3.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,11 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 4. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+
+= 1.3.13 - 05 Oct 2026 =
+* Fixed a fatal error with WooCommerce 11 when a plugin that uses the Jetpack autoloader (Jetpack, MailPoet, WooPayments) is active.
+* WooCommerce HPOS compatibility is now declared at the right time.
+* Tested up to WooCommerce 11.1.
 
 = 1.3.12 - 03 Oct 2026 =
 * Required plugins are now declared with the WordPress "Requires Plugins" header instead of the bundled TGM Plugin Activation library.
