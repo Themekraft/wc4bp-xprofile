@@ -9,7 +9,7 @@
  * Version: 1.3.13
  * Requires at least: 5.9
  * Requires PHP: 7.4
- * Requires Plugins: buddypress, woocommerce, wc4bp
+ * Requires Plugins: woocommerce, wc4bp
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: woocommerce-buddypress-integration-xprofile-checkout-manager
