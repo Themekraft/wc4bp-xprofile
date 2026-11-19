@@ -31,7 +31,39 @@ function wc4bp_add_xprofile_menu()
 		);
 		return;
 	}
-	add_submenu_page('wc4bp-options-page', 'BuddyPress Profile', 'BuddyPress xProfile', 'manage_options', 'wc4bp-options-page-xprofile', 'wc4bp_screen_xprofile');
+	$hook = add_submenu_page('wc4bp-options-page', 'BuddyPress Profile', 'BuddyPress xProfile', 'manage_options', 'wc4bp-options-page-xprofile', 'wc4bp_screen_xprofile');
+	if ($hook) {
+		add_action('load-' . $hook, 'wc4bp_xprofile_check_settings_request');
+	}
+}
+
+/**
+ * Stop a settings form submission that does not come from an administrator with a valid nonce,
+ * before the page is rendered.
+ */
+function wc4bp_xprofile_check_settings_request()
+{
+	if (empty($_POST)) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Only checks whether the form was submitted.
+		return;
+	}
+	if (!current_user_can('manage_options')) {
+		wp_die(esc_html__('Sorry, you are not allowed to change these settings.', 'woocommerce-buddypress-integration-xprofile-checkout-manager'), 403);
+	}
+	check_admin_referer('wc4bp_xprofile_save_settings', 'wc4bp_xprofile_nonce');
+}
+
+/**
+ * Whether the current request is a settings form submission from an administrator with a valid nonce.
+ *
+ * @return bool
+ */
+function wc4bp_xprofile_is_settings_save()
+{
+	if (empty($_POST['wc4bp_xprofile_nonce']) || !current_user_can('manage_options')) {
+		return false;
+	}
+
+	return false !== wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wc4bp_xprofile_nonce'])), 'wc4bp_xprofile_save_settings');
 }
 
 /**
@@ -43,6 +75,8 @@ function wc4bp_add_xprofile_menu()
  */
 function wc4bp_screen_xprofile()
 {
+	// Only save from a submitted settings form, sent by an administrator with a valid nonce.
+	$wc4bp_xprofile_saving = wc4bp_xprofile_is_settings_save();
 	?>
 
 <div class="wrap">
@@ -50,7 +84,7 @@ function wc4bp_screen_xprofile()
         <div id="post-body" class="metabox-holder columns-2">
 
             <?php
-			if (isset($_POST['bf_xprofile_conditional_visibility']) && is_array(wc4bp_clean_input(wp_unslash($_POST['bf_xprofile_conditional_visibility'])))) {
+			if ($wc4bp_xprofile_saving && isset($_POST['bf_xprofile_conditional_visibility']) && is_array(wc4bp_clean_input(wp_unslash($_POST['bf_xprofile_conditional_visibility'])))) {
 				foreach (wc4bp_clean_input(wp_unslash($_POST['bf_xprofile_conditional_visibility'])) as $group_id => $group_options) {
 					// Check that group ID is valid
 					if (!is_array($group_options) || !ctype_digit((string) $group_id)) {
@@ -150,13 +184,13 @@ function wc4bp_screen_xprofile()
 				}
 			}
 
-			if (isset($_POST['bf_xprofile_options'])) {
+			if ($wc4bp_xprofile_saving && isset($_POST['bf_xprofile_options'])) {
 				update_option('bf_xprofile_options', wc4bp_clean_input(wp_unslash($_POST['bf_xprofile_options'])));
 			}
 
-			if (isset($_POST['wc4bp_sync_mail'])) {
+			if ($wc4bp_xprofile_saving && isset($_POST['wc4bp_sync_mail'])) {
 				update_option('wc4bp_sync_mail', wc4bp_clean_input(wp_unslash($_POST['wc4bp_sync_mail'])));
-			} else {
+			} elseif ($wc4bp_xprofile_saving) {
 				delete_option('wc4bp_sync_mail');
 			}
 
@@ -169,7 +203,7 @@ function wc4bp_screen_xprofile()
 
                     <div id="icon-options-general" class="icon32"><br></div>
 
-                    <?php wp_nonce_field('update-options'); ?>
+                    <?php wp_nonce_field('wc4bp_xprofile_save_settings', 'wc4bp_xprofile_nonce'); ?>
                     <?php wc4bp_xprofile_tabs(); ?>
 
                 </div>
