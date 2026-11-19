@@ -4,7 +4,7 @@ Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-co
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.14
+Stable tag: 1.3.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,12 @@ If you run BuddyPress and WooCommerce together and want to adjust the WooCommerc
 4. **Checkout Example** - This is how it looks when you add BuddyPress User Fields to the checkout.
 
 == Changelog ==
+
+= 1.3.15 - 19 Nov 2026 =
+* Security: the settings page now checks a security token and the user's permission before saving.
+* Opening the settings page no longer turns off the email address synchronisation.
+* Fixed a critical error at checkout when the WooBuddy profile sync is turned off.
+* Fixed checkbox and multi select profile fields being saved empty in the order and the order emails.
 
 = 1.3.14 - 18 Nov 2026 =
 * Fixed activation on BuddyBoss Platform sites: the plugin no longer lists BuddyPress as a required plugin, which blocked activation there since 1.3.12.
