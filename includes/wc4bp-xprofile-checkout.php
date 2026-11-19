@@ -289,6 +289,9 @@ function wc4bp_custom_checkout_field_process()
 
 	$shipping = bp_get_option('wc4bp_shipping_address_ids');
 	$billing = bp_get_option('wc4bp_billing_address_ids');
+	// The ids are missing when the WooBuddy profile sync is turned off.
+	$shipping = is_array($shipping) ? $shipping : array();
+	$billing = is_array($billing) ? $billing : array();
 
 	foreach ($bf_xprofile_options as $group_id => $fields) {
 		foreach ($fields as $field_id => $field) {
@@ -368,7 +371,8 @@ function wc4bp_custom_checkout_field_update_order_meta($order_id)
 					if (!is_array($_POST[$field_slug])) {
 						$value = sanitize_text_field(wp_unslash($_POST[$field_slug]));
 					} else {
-						$value = sanitize_text_field(wp_unslash($_POST[$field_slug]));
+						// Checkbox and multi select fields send an array, which sanitize_text_field() turns into an empty string.
+						$value = implode(', ', array_map('sanitize_text_field', wp_unslash($_POST[$field_slug])));
 					}
 					$order = wc_get_order($order_id);
 					$order->update_meta_data($field_slug, $value);
