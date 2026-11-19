@@ -368,7 +368,8 @@ function wc4bp_custom_checkout_field_update_order_meta($order_id)
 					if (!is_array($_POST[$field_slug])) {
 						$value = sanitize_text_field(wp_unslash($_POST[$field_slug]));
 					} else {
-						$value = sanitize_text_field(wp_unslash($_POST[$field_slug]));
+						// Checkbox and multi select fields send an array, which sanitize_text_field() turns into an empty string.
+						$value = implode(', ', array_map('sanitize_text_field', wp_unslash($_POST[$field_slug])));
 					}
 					$order = wc_get_order($order_id);
 					$order->update_meta_data($field_slug, $value);
