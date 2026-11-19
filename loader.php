@@ -13,7 +13,6 @@
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: woocommerce-buddypress-integration-xprofile-checkout-manager
- * Domain Path: /languages
  * Svn: woocommerce-buddypress-integration-xprofile-checkout-manager
  *
  * ****************************************************************************
