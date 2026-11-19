@@ -40,7 +40,7 @@ function wc4bp_custom_checkout_field($checkout)
 			}
 
 			if (isset($field_attr['checkout'])) {
-				$field = new BP_XProfile_Field($field_id);
+				$field = new BP_XProfile_Field($field_id); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- BuddyPress xProfile template global.
 
 				if (!empty($field->id)) {
 					if ($group_fields_included == 0) {
@@ -303,7 +303,7 @@ function wc4bp_custom_checkout_field_process()
 					continue;
 				}
 
-				$field_value = isset($_POST[$field_slug]) ? wc4bp_clean_value(wp_unslash($_POST[$field_slug])) : '';
+				$field_value = isset($_POST[$field_slug]) ? wc4bp_clean_value(wp_unslash($_POST[$field_slug])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- WooCommerce verifies the checkout nonce in WC_Checkout::process_checkout(); sanitized by wc4bp_clean_value().
 				if (isset($field['field_is_required']) && $field['field_is_required'] == '1' && empty($field_value)) {
 					wc_add_notice('<b>' . $field['field_name'] . ' </b>' . __('is a required field.', 'woocommerce-buddypress-integration-xprofile-checkout-manager'), 'error');
 				}
@@ -332,7 +332,7 @@ function wc4bp_custom_checkout_field_update_user_meta($user_id)
 			if (isset($field['checkout'])) {
 				$field_slug = sanitize_title('field_' . $field_id);
 
-				$value = isset($_POST[$field_slug]) ? wc4bp_clean_value(wp_unslash($_POST[$field_slug])) : '';
+				$value = isset($_POST[$field_slug]) ? wc4bp_clean_value(wp_unslash($_POST[$field_slug])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- WooCommerce verifies the checkout nonce in WC_Checkout::process_checkout(); sanitized by wc4bp_clean_value().
 
 				if ($user_id && !empty($value)) {
 					update_user_meta($user_id, $field_slug, $value);
@@ -364,12 +364,14 @@ function wc4bp_custom_checkout_field_update_order_meta($order_id)
 			if (isset($field['checkout'])) {
 				$field_slug = sanitize_title('field_' . $field_id);
 
+				// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verifies the checkout nonce in WC_Checkout::process_checkout().
 				if (!empty($_POST[$field_slug])) {
 					if (!is_array($_POST[$field_slug])) {
 						$value = sanitize_text_field(wp_unslash($_POST[$field_slug]));
 					} else {
 						$value = sanitize_text_field(wp_unslash($_POST[$field_slug]));
 					}
+					// phpcs:enable WordPress.Security.NonceVerification.Missing
 					$order = wc_get_order($order_id);
 					$order->update_meta_data($field_slug, $value);
 					$order->save();
@@ -492,6 +494,7 @@ function wc4bp_signup_wp_profile_sync($user_id)
 	$shipping = bp_get_option('wc4bp_shipping_address_ids');
 	$billing = bp_get_option('wc4bp_billing_address_ids');
 
+	// phpcs:disable WordPress.Security.NonceVerification.Missing -- BuddyPress verifies the signup nonce (bp_new_signup) in bp_core_screen_signup() before bp_core_signup_user; activation posts no profile fields.
 	if (method_exists('wc4bp_Sync', 'wc4bp_sync_addresses_from_profile')) {
 		if (!empty($shipping)) {
 			foreach ($shipping as $key => $field_id) {
@@ -512,6 +515,7 @@ function wc4bp_signup_wp_profile_sync($user_id)
 			wc4bp_Sync::wc4bp_sync_addresses_from_profile($user_id, $billing['email'], $postField);
 		}
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Missing
 }
 
 function wc4bp_clean_value($input)
