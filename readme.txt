@@ -1,6 +1,6 @@
 === BuddyPress xProfile Checkout Manager for WooCommerce ===
 Contributors: svenl77, tristanpenman, garrett-eclipse, themekraft, gfirem
-Tags: BuddyPress, WooCommerce, user, members, profiles, checkout, xProfile, e-commerce
+Tags: BuddyPress, WooCommerce, checkout, xProfile, profiles
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4

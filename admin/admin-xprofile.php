@@ -135,7 +135,9 @@ function wc4bp_screen_xprofile()
 									'bf_xprofile_conditional_visibility_products',
 									$updated_product_ids
 								) === false) {
-									error_log("Failed to update group $group_id with new product IDs for conditional visibility");
+									if (defined('WP_DEBUG') && WP_DEBUG) {
+										error_log("Failed to update group $group_id with new product IDs for conditional visibility"); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Only logged with WP_DEBUG on.
+									}
 								}
 							}
 						}
@@ -174,7 +176,9 @@ function wc4bp_screen_xprofile()
 									'bf_xprofile_conditional_visibility_categories',
 									$updated_category_ids
 								) === false) {
-									error_log("Failed to update group $group_id with new category IDs for conditional visibility");
+									if (defined('WP_DEBUG') && WP_DEBUG) {
+										error_log("Failed to update group $group_id with new category IDs for conditional visibility"); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Only logged with WP_DEBUG on.
+									}
 								}
 							}
 						}
@@ -446,7 +450,7 @@ function wc4bp_xprofile_admin_field($admin_field, $admin_group, $class = '')
 	$shipping = bp_get_option('wc4bp_shipping_address_ids');
 	$billing = bp_get_option('wc4bp_billing_address_ids');
 
-	$field = $admin_field;
+	$field = $admin_field; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- BuddyPress xProfile template global.
 ?>
 
 <fieldset id="field_<?php echo esc_attr($field->id); ?>" class="sortable
@@ -537,14 +541,15 @@ function wc4bp_admin_enqueue_scripts()
 {
 	$wc_assets_path = str_replace(array('http:', 'https:'), '', WC()->plugin_url()) . '/assets/';
 
-	wp_enqueue_style('select2', $wc_assets_path . 'css/select2.css');
+	wp_enqueue_style('select2', $wc_assets_path . 'css/select2.css', array(), WC()->version);
 	wp_enqueue_style(
 		'admin-xprofile.css',
 		WC4BP_xProfile::plugin_base_url() . 'assets/css/admin-xprofile.css',
 		array(
 			'select2',
 			'woocommerce_admin_styles',
-		)
+		),
+		WC4BP_XPROFILE_VERSION
 	);
 
 	wp_register_script(
