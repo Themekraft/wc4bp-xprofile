@@ -289,6 +289,9 @@ function wc4bp_custom_checkout_field_process()
 
 	$shipping = bp_get_option('wc4bp_shipping_address_ids');
 	$billing = bp_get_option('wc4bp_billing_address_ids');
+	// The ids are missing when the WooBuddy profile sync is turned off.
+	$shipping = is_array($shipping) ? $shipping : array();
+	$billing = is_array($billing) ? $billing : array();
 
 	foreach ($bf_xprofile_options as $group_id => $fields) {
 		foreach ($fields as $field_id => $field) {
