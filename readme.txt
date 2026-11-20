@@ -8,62 +8,31 @@ Stable tag: 1.3.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-BuddyPress xProfile Checkout Manager for WooCommerce extension where you can integrate BuddyPress xProfile into WooCommerce Checkout.
+Add BuddyPress profile fields to the WooCommerce checkout and remove the checkout fields you do not need. A free add-on for WooBuddy.
 
 == Compatibility ==
 WooCommerce HPOS: true
 
 == Description ==
 
-This is theBuddyPress xProfile Checkout Manager for WooCoommerce extension where you can integrate BuddyPress xProfile into WooCommerce Checkout. Integrate your BuddyPress xProfiles fields into your WooCommerce Checkout. You need the WooBuddy -> WooCommerce BuddyPress Integration plugin installed for the extension to work. <a href="https://wordpress.org/plugins/wc4bp/" target="_blank">Get WooBuddy -> WooCommerce BuddyPress Integration now!</a>
+BuddyPress xProfile Checkout Manager is a free add-on for WooBuddy (BuddyPress Integration for WooCommerce). It adds your BuddyPress profile fields to the WooCommerce checkout and lets you remove the default checkout fields you do not need, such as the phone number. Requires BuddyPress (not BuddyBoss), WooCommerce and WooBuddy.
 
-What the plugin does:
-Add your BuddyPress Member Profile Fields into the WooCommerce Checkout.
-Manage your WooCommerce Checkout field and remove unwanted fields like "phone number" from the checkout form.
+= What it does =
 
-BuddyPress xProfile Fields Checkout Integration Options:
+* Add BuddyPress xProfile fields to the WooCommerce checkout
+* Remove the default WooCommerce checkout fields you do not need
+* Values are saved to the member profile and to the order, appear in order emails, and show on the order edit page
+* Show a field group only when the cart contains chosen products or product categories
+* Use the BuddyPress field types: checkboxes, drop down select box, multi select box, radio buttons, date selector, multi-line text area, number, text box and URL
+* Compatible with WooCommerce High-Performance Order Storage (HPOS)
 
- - Add to Checkout
- - Add to order emails
- - Display field value on the order edit page
+= More from WooBuddy =
 
-With this plugin you need no other WooCommerce Checkout manager. Use the BuddyPress User Field with many different field types to create individual checkout forms.
+* [BuddyPress Integration for WooCommerce](https://wordpress.org/plugins/wc4bp/) (WooBuddy): the base plugin that moves the WooCommerce customer area into BuddyPress member profiles. Required for this add-on. The free version is enough.
+* [WooBuddy Groups](https://themekraft.com/plugins/woocommerce-buddypress-groups/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=free-vs-pro&utm_content=woocommerce-buddypress-integration-xprofile-checkout-manager) (needs WooBuddy Pro): sell membership of BuddyPress groups with a WooCommerce purchase. Works with BuddyPress (not BuddyBoss).
+* WooBuddy Subscriptions (needs WooBuddy Pro): members manage their WooCommerce Subscriptions from their profile. Needs WooCommerce Subscriptions.
 
-BuddyPress Default Field Types:
-
-<h3><b>Multi Fields</h3>
-<ul>
-    <li>Checkboxes</li>
-    <li>Drop Down Select Box</li>
-    <li>Multi Select Box</li>
-    <li>Radio Buttons</li>
-</ul>
-
-<h3>Single Fields</h3>
-<ul>
-    <li>Date Selector</li>
-    <li>Multi-line Text Area</li>
-    <li>Number</li>
-    <li>Text Box</li>
-    <li>URL</li>
-</ul>
-
-There are already great plugins to add more field types to BuddyPress
-
-See BuddyPress xProfile Custom Fields Type:[BuddyPress xProfile Custom Fields Type](https://wordpress.org/plugins/buddypress-xprofile-custom-fields-type/)
-
-<h3>Conditional Visibility</h3>
-Make profile groups visible on the checkout page, depend on certain products (or categories) being present in a user's cart.
-<ul>
-<li>Display this group if the cart contains any of the following products</li>
-<li>Display this group if the cart contains a product from any of the following categories:</li>
-</ul>
-
-### Addons
-
-> * [Shop solution for your BuddyPress community. Integrates a WooCommerce installation with a BuddyPress social network.](https://wordpress.org/plugins/wc4bp)
-> * [WooBuddy -> Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
-> * [WooBuddy -> Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
+[Browse the WooBuddy add-ons](https://themekraft.com/plugins/woobuddy-woocommerce-buddypress-integration/addons/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=free-vs-pro&utm_content=woocommerce-buddypress-integration-xprofile-checkout-manager)
 
 == Documentation & Support ==
 
@@ -82,19 +51,31 @@ If you still miss something, let us know!
 
 == Installation ==
 
-You can download and install WooBuddy -> BuddyPress xProfile Checkout Manager using the build in WordPress plugin installer. If you download WooBuddy -> BuddyPress xProfile Checkout Manager manually,
-make sure it is uploaded to "/wp-content/plugins/wc4bp-xprofile/".
-
-Activate WooBuddy -> BuddyPress xProfile Checkout Manager in the "Plugins" admin panel using the "Activate" link.
+1. Install and activate BuddyPress, WooCommerce and BuddyPress Integration for WooCommerce (WooBuddy).
+2. Install this add-on from Plugins > Add New, or upload its folder to /wp-content/plugins/.
+3. Activate it in the Plugins screen.
 
 == Frequently Asked Questions ==
 
-You need the <a href="https://themekraft.com/products/woocommerce-buddypress-integration/" target="_blank">WooCommerce BuddyPress Integration</a> plugin installed for the plugin to work.
+= Is this add-on free? =
 
+Yes. The xProfile Checkout Manager is free for everyone.
 
-When is it the right choice for you?
+= What do I need for it to work? =
 
-If you run BuddyPress and WooCommerce together and want to adjust the WooCommerce Checkout
+BuddyPress, WooCommerce and WooBuddy ([BuddyPress Integration for WooCommerce](https://wordpress.org/plugins/wc4bp/)) must be installed and active. The free version of WooBuddy is enough.
+
+= Does it work with BuddyBoss? =
+
+No. This add-on works with BuddyPress only.
+
+= Can I remove checkout fields I do not need? =
+
+Yes. You can remove default WooCommerce checkout fields, such as the phone number, from the checkout form.
+
+= When is it the right choice for you? =
+
+If you run BuddyPress and WooCommerce together and want to adjust the WooCommerce checkout.
 
 == Screenshots ==
 
