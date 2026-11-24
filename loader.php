@@ -13,7 +13,6 @@
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: woocommerce-buddypress-integration-xprofile-checkout-manager
- * Domain Path: /languages
  * Svn: woocommerce-buddypress-integration-xprofile-checkout-manager
  *
  * ****************************************************************************
@@ -124,6 +123,7 @@ class WC4BP_xProfile
 	 */
 	public function load_plugin_textdomain()
 	{
+		// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Kept on purpose: premium copies and builds not hosted on wordpress.org load their own translations from /languages.
 		load_plugin_textdomain('woocommerce-buddypress-integration-xprofile-checkout-manager', false, dirname(plugin_basename(__FILE__)) . '/languages');
 	}
 

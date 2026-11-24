@@ -14,7 +14,7 @@ function wc4bp_xprofile_search_categories() {
 
 	check_ajax_referer( 'search-categories', 'security' );
 
-	$term = (string) sanitize_text_field( wp_unslash( $_GET['term'] ) );
+	$term = isset( $_GET['term'] ) ? (string) sanitize_text_field( wp_unslash( $_GET['term'] ) ) : '';
 	if ( empty( $term ) ) {
 		die();
 	}
